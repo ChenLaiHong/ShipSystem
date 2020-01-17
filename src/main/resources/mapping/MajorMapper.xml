@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lh.dao.MajorMapper">
+  <resultMap id="BaseResultMap" type="com.lh.pojo.Major">
+    <id column="major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="major_code" jdbcType="VARCHAR" property="majorCode" />
+    <result column="major_year" jdbcType="INTEGER" property="majorYear" />
+    <result column="major_money" jdbcType="INTEGER" property="majorMoney" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="major_state" jdbcType="INTEGER" property="majorState" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lh.pojo.Major">
+    <result column="major_details" jdbcType="LONGVARCHAR" property="majorDetails" />
+    <association property="department" column="department_id" select="com.lh.dao.DepartmentMapper.selectByPrimaryKey" javaType="com.lh.pojo.Department">
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    major_id, major_name, major_code, major_year, major_money, department_id, update_time,
+    person_name
+  </sql>
+  <sql id="Blob_Column_List">
+    major_details
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.lh.pojo.MajorExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from major
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.lh.pojo.MajorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from major
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from major
+    where major_id = #{majorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from major
+    where major_id = #{majorId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lh.pojo.MajorExample">
+    delete from major
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lh.pojo.Major">
+    insert into major (major_id, major_name, major_code, 
+      major_year, major_money, department_id,
+      update_time, person_name, major_details
+      )
+    values (#{majorId,jdbcType=INTEGER}, #{majorName,jdbcType=VARCHAR}, #{majorCode,jdbcType=VARCHAR}, 
+      #{majorYear,jdbcType=INTEGER}, #{majorMoney,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER},
+      #{updateTime,jdbcType=TIMESTAMP}, #{personName,jdbcType=VARCHAR}, #{majorDetails,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lh.pojo.Major">
+    insert into major
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="majorId != null">
+        major_id,
+      </if>
+      <if test="majorName != null">
+        major_name,
+      </if>
+      <if test="majorCode != null">
+        major_code,
+      </if>
+      <if test="majorYear != null">
+        major_year,
+      </if>
+      <if test="majorMoney != null">
+        major_money,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="personName != null">
+        person_name,
+      </if>
+      <if test="majorDetails != null">
+        major_details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="majorId != null">
+        #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="majorName != null">
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorCode != null">
+        #{majorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="majorYear != null">
+        #{majorYear,jdbcType=INTEGER},
+      </if>
+      <if test="majorMoney != null">
+        #{majorMoney,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorDetails != null">
+        #{majorDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lh.pojo.MajorExample" resultType="java.lang.Long">
+    select count(*) from major
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update major
+    <set>
+      <if test="record.majorId != null">
+        major_id = #{record.majorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.majorName != null">
+        major_name = #{record.majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorCode != null">
+        major_code = #{record.majorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorYear != null">
+        major_year = #{record.majorYear,jdbcType=INTEGER},
+      </if>
+      <if test="record.majorMoney != null">
+        major_money = #{record.majorMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.departmentId != null">
+        department_id = #{record.departmentName,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.personName != null">
+        person_name = #{record.personName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorDetails != null">
+        major_details = #{record.majorDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update major
+    set major_id = #{record.majorId,jdbcType=INTEGER},
+      major_name = #{record.majorName,jdbcType=VARCHAR},
+      major_code = #{record.majorCode,jdbcType=VARCHAR},
+      major_year = #{record.majorYear,jdbcType=INTEGER},
+      major_money = #{record.majorMoney,jdbcType=INTEGER},
+      department_id = #{record.departmentId,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      person_name = #{record.personName,jdbcType=VARCHAR},
+      major_details = #{record.majorDetails,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update major
+    set major_id = #{record.majorId,jdbcType=INTEGER},
+      major_name = #{record.majorName,jdbcType=VARCHAR},
+      major_code = #{record.majorCode,jdbcType=VARCHAR},
+      major_year = #{record.majorYear,jdbcType=INTEGER},
+      major_money = #{record.majorMoney,jdbcType=INTEGER},
+      department_id = #{record.departmentId,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      person_name = #{record.personName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lh.pojo.Major">
+    update major
+    <set>
+      <if test="majorName != null">
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorCode != null">
+        major_code = #{majorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="majorYear != null">
+        major_year = #{majorYear,jdbcType=INTEGER},
+      </if>
+      <if test="majorMoney != null">
+        major_money = #{majorMoney,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="personName != null">
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorDetails != null">
+        major_details = #{majorDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where major_id = #{majorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lh.pojo.Major">
+    update major
+    set major_name = #{majorName,jdbcType=VARCHAR},
+      major_code = #{majorCode,jdbcType=VARCHAR},
+      major_year = #{majorYear,jdbcType=INTEGER},
+      major_money = #{majorMoney,jdbcType=INTEGER},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      person_name = #{personName,jdbcType=VARCHAR},
+      major_details = #{majorDetails,jdbcType=LONGVARCHAR},
+      major_state = #{majorState,jdbcType=INTEGER}
+    where major_id = #{majorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lh.pojo.Major">
+    update major
+    set major_name = #{majorName,jdbcType=VARCHAR},
+      major_code = #{majorCode,jdbcType=VARCHAR},
+      major_year = #{majorYear,jdbcType=INTEGER},
+      major_money = #{majorMoney,jdbcType=INTEGER},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      person_name = #{personName,jdbcType=VARCHAR},
+      major_state = #{majorState,jdbcType=INTEGER}
+    where major_id = #{majorId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 批量插入 -->
+  <insert id ="inputAll" parameterType="java.util.List" >
+    <selectKey resultType ="java.lang.Integer" keyProperty= "id"
+               order= "AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey >
+    insert into major
+    (major_name, major_code,major_year, major_money, department_id,major_details,update_time,person_name)
+    values
+    <foreach collection ="majorList" item="reddemCode" index= "index" separator =",">
+      (
+      #{reddemCode.majorName}, #{reddemCode.majorCode},
+      #{reddemCode.majorYear},
+      #{reddemCode.majorMoney},
+      #{departmentId}, #{reddemCode.majorDetails},
+      now(),#{personName}
+      )
+    </foreach >
+  </insert >
+
+  <!-- list集合 -->
+  <select id="list" parameterType="Map" resultMap="ResultMapWithBLOBs">
+    select * from major
+    order by update_time DESC
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <!-- getTotal -->
+  <select id="getTotal" parameterType="Map" resultType="Long">
+    select count(*) from major
+  </select>
+
+
+  <select id="listF" parameterType="Map" resultMap="ResultMapWithBLOBs">
+    select * from major
+    <where>
+      <if test="q!=null and q!=''">
+        and (major_name like #{q}   or major_details like #{q} or person_name like #{q})
+      </if>
+        and major_state != 0
+    </where>
+    order by update_time DESC
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="getTotalF" parameterType="Map" resultType="Integer">
+    select
+    count(*) from major
+    <where>
+      <if test="q!=null and q!=''">
+        and (major_name like #{q}  or major_details like #{q} or person_name like #{q})
+      </if>
+        and major_state != 0
+    </where>
+  </select>
+
+  <select id="getAll" resultMap="ResultMapWithBLOBs">
+    select * from major
+    where major_state != 0
+    order by update_time DESC
+  </select>
+</mapper>
