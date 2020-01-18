@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lh.dao.ShipInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lh.pojo.ShipInfo">
+    <id column="ship_id" jdbcType="INTEGER" property="shipId" />
+    <result column="total_length" jdbcType="DECIMAL" property="totalLength" />
+    <result column="type_width" jdbcType="DECIMAL" property="typeWidth" />
+    <result column="type_depth" jdbcType="DECIMAL" property="typeDepth" />
+    <result column="displacement" jdbcType="DECIMAL" property="displacement" />
+    <result column="design_draft" jdbcType="DECIMAL" property="designDraft" />
+    <result column="structural_draft" jdbcType="DECIMAL" property="structuralDraft" />
+    <result column="hold_number" jdbcType="INTEGER" property="holdNumber" />
+    <result column="temperature" jdbcType="VARCHAR" property="temperature" />
+    <result column="cargo_proportion" jdbcType="VARCHAR" property="cargoProportion" />
+    <result column="steam_pressure" jdbcType="VARCHAR" property="steamPressure" />
+    <result column="ship_image" jdbcType="VARCHAR" property="shipImage" />
+    <result column="other_file" jdbcType="VARCHAR" property="otherFile" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ship_id, total_length, type_width, type_depth, displacement, design_draft, structural_draft, 
+    hold_number, temperature, cargo_proportion, steam_pressure, ship_image, other_file, 
+    state, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lh.pojo.ShipInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shipinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shipinfo
+    where ship_id = #{shipId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shipinfo
+    where ship_id = #{shipId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lh.pojo.ShipInfoExample">
+    delete from shipinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lh.pojo.ShipInfo">
+    insert into shipinfo (ship_id, total_length, type_width, 
+      type_depth, displacement, design_draft, 
+      structural_draft, hold_number, temperature, 
+      cargo_proportion, steam_pressure, ship_image, 
+      other_file, state, update_time
+      )
+    values (#{shipId,jdbcType=INTEGER}, #{totalLength,jdbcType=DECIMAL}, #{typeWidth,jdbcType=DECIMAL}, 
+      #{typeDepth,jdbcType=DECIMAL}, #{displacement,jdbcType=DECIMAL}, #{designDraft,jdbcType=DECIMAL}, 
+      #{structuralDraft,jdbcType=DECIMAL}, #{holdNumber,jdbcType=INTEGER}, #{temperature,jdbcType=VARCHAR}, 
+      #{cargoProportion,jdbcType=VARCHAR}, #{steamPressure,jdbcType=VARCHAR}, #{shipImage,jdbcType=VARCHAR}, 
+      #{otherFile,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lh.pojo.ShipInfo">
+    insert into shipinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shipId != null">
+        ship_id,
+      </if>
+      <if test="totalLength != null">
+        total_length,
+      </if>
+      <if test="typeWidth != null">
+        type_width,
+      </if>
+      <if test="typeDepth != null">
+        type_depth,
+      </if>
+      <if test="displacement != null">
+        displacement,
+      </if>
+      <if test="designDraft != null">
+        design_draft,
+      </if>
+      <if test="structuralDraft != null">
+        structural_draft,
+      </if>
+      <if test="holdNumber != null">
+        hold_number,
+      </if>
+      <if test="temperature != null">
+        temperature,
+      </if>
+      <if test="cargoProportion != null">
+        cargo_proportion,
+      </if>
+      <if test="steamPressure != null">
+        steam_pressure,
+      </if>
+      <if test="shipImage != null">
+        ship_image,
+      </if>
+      <if test="otherFile != null">
+        other_file,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shipId != null">
+        #{shipId,jdbcType=INTEGER},
+      </if>
+      <if test="totalLength != null">
+        #{totalLength,jdbcType=DECIMAL},
+      </if>
+      <if test="typeWidth != null">
+        #{typeWidth,jdbcType=DECIMAL},
+      </if>
+      <if test="typeDepth != null">
+        #{typeDepth,jdbcType=DECIMAL},
+      </if>
+      <if test="displacement != null">
+        #{displacement,jdbcType=DECIMAL},
+      </if>
+      <if test="designDraft != null">
+        #{designDraft,jdbcType=DECIMAL},
+      </if>
+      <if test="structuralDraft != null">
+        #{structuralDraft,jdbcType=DECIMAL},
+      </if>
+      <if test="holdNumber != null">
+        #{holdNumber,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null">
+        #{temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoProportion != null">
+        #{cargoProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="steamPressure != null">
+        #{steamPressure,jdbcType=VARCHAR},
+      </if>
+      <if test="shipImage != null">
+        #{shipImage,jdbcType=VARCHAR},
+      </if>
+      <if test="otherFile != null">
+        #{otherFile,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lh.pojo.ShipInfoExample" resultType="java.lang.Long">
+    select count(*) from shipinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shipinfo
+    <set>
+      <if test="record.shipId != null">
+        ship_id = #{record.shipId,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalLength != null">
+        total_length = #{record.totalLength,jdbcType=DECIMAL},
+      </if>
+      <if test="record.typeWidth != null">
+        type_width = #{record.typeWidth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.typeDepth != null">
+        type_depth = #{record.typeDepth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.displacement != null">
+        displacement = #{record.displacement,jdbcType=DECIMAL},
+      </if>
+      <if test="record.designDraft != null">
+        design_draft = #{record.designDraft,jdbcType=DECIMAL},
+      </if>
+      <if test="record.structuralDraft != null">
+        structural_draft = #{record.structuralDraft,jdbcType=DECIMAL},
+      </if>
+      <if test="record.holdNumber != null">
+        hold_number = #{record.holdNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.temperature != null">
+        temperature = #{record.temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cargoProportion != null">
+        cargo_proportion = #{record.cargoProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.steamPressure != null">
+        steam_pressure = #{record.steamPressure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipImage != null">
+        ship_image = #{record.shipImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherFile != null">
+        other_file = #{record.otherFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shipinfo
+    set ship_id = #{record.shipId,jdbcType=INTEGER},
+      total_length = #{record.totalLength,jdbcType=DECIMAL},
+      type_width = #{record.typeWidth,jdbcType=DECIMAL},
+      type_depth = #{record.typeDepth,jdbcType=DECIMAL},
+      displacement = #{record.displacement,jdbcType=DECIMAL},
+      design_draft = #{record.designDraft,jdbcType=DECIMAL},
+      structural_draft = #{record.structuralDraft,jdbcType=DECIMAL},
+      hold_number = #{record.holdNumber,jdbcType=INTEGER},
+      temperature = #{record.temperature,jdbcType=VARCHAR},
+      cargo_proportion = #{record.cargoProportion,jdbcType=VARCHAR},
+      steam_pressure = #{record.steamPressure,jdbcType=VARCHAR},
+      ship_image = #{record.shipImage,jdbcType=VARCHAR},
+      other_file = #{record.otherFile,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lh.pojo.ShipInfo">
+    update shipinfo
+    <set>
+      <if test="totalLength != null">
+        total_length = #{totalLength,jdbcType=DECIMAL},
+      </if>
+      <if test="typeWidth != null">
+        type_width = #{typeWidth,jdbcType=DECIMAL},
+      </if>
+      <if test="typeDepth != null">
+        type_depth = #{typeDepth,jdbcType=DECIMAL},
+      </if>
+      <if test="displacement != null">
+        displacement = #{displacement,jdbcType=DECIMAL},
+      </if>
+      <if test="designDraft != null">
+        design_draft = #{designDraft,jdbcType=DECIMAL},
+      </if>
+      <if test="structuralDraft != null">
+        structural_draft = #{structuralDraft,jdbcType=DECIMAL},
+      </if>
+      <if test="holdNumber != null">
+        hold_number = #{holdNumber,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null">
+        temperature = #{temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoProportion != null">
+        cargo_proportion = #{cargoProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="steamPressure != null">
+        steam_pressure = #{steamPressure,jdbcType=VARCHAR},
+      </if>
+      <if test="shipImage != null">
+        ship_image = #{shipImage,jdbcType=VARCHAR},
+      </if>
+      <if test="otherFile != null">
+        other_file = #{otherFile,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ship_id = #{shipId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lh.pojo.ShipInfo">
+    update shipinfo
+    set total_length = #{totalLength,jdbcType=DECIMAL},
+      type_width = #{typeWidth,jdbcType=DECIMAL},
+      type_depth = #{typeDepth,jdbcType=DECIMAL},
+      displacement = #{displacement,jdbcType=DECIMAL},
+      design_draft = #{designDraft,jdbcType=DECIMAL},
+      structural_draft = #{structuralDraft,jdbcType=DECIMAL},
+      hold_number = #{holdNumber,jdbcType=INTEGER},
+      temperature = #{temperature,jdbcType=VARCHAR},
+      cargo_proportion = #{cargoProportion,jdbcType=VARCHAR},
+      steam_pressure = #{steamPressure,jdbcType=VARCHAR},
+      ship_image = #{shipImage,jdbcType=VARCHAR},
+      other_file = #{otherFile,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where ship_id = #{shipId,jdbcType=INTEGER}
+  </update>
+</mapper>

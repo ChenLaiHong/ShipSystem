@@ -4,20 +4,15 @@
   <resultMap id="BaseResultMap" type="com.lh.pojo.Role">
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
-    <collection property="personList" ofType="com.lh.pojo.Person">
+    <collection property="crewList" ofType="com.lh.pojo.Crew">
       <id column="login_id" jdbcType="VARCHAR" property="loginId" />
       <result column="name" jdbcType="VARCHAR" property="name" />
       <result column="password" jdbcType="VARCHAR" property="password" />
-      <result column="grades" jdbcType="VARCHAR" property="grades" />
       <result column="gender" jdbcType="INTEGER" property="gender" />
       <result column="phone" jdbcType="VARCHAR" property="phone" />
-      <result column="major_id" jdbcType="INTEGER" property="majorId" />
-      <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
-      <result column="person_static" jdbcType="INTEGER" property="personStatic" />
-      <result column="qq_number" jdbcType="VARCHAR" property="qqNumber" />
-      <result column="enrollment_year" jdbcType="INTEGER" property="enrollmentYear" />
+      <result column="birth" jdbcType="VARCHAR" property="birth" />
       <result column="email" jdbcType="VARCHAR" property="email" />
-      <result column="student_status" jdbcType="INTEGER" property="studentStatus" />
+      <result column="household_register" jdbcType="VARCHAR" property="householdRegister" />
       <result column="static_live" jdbcType="INTEGER" property="staticLive" />
       <result column="role_id" jdbcType="INTEGER" property="roleId" />
     </collection>
@@ -210,6 +205,13 @@
     <where>
         and role_id != 1
         and role_id != 4
+    </where>
+  </select>
+
+  <select id="getOther" parameterType="Map" resultMap="BaseResultMap">
+    select * from role
+    <where>
+      role_id != #{roleId}
     </where>
   </select>
 </mapper>

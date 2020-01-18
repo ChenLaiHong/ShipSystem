@@ -18,7 +18,7 @@
         function importSubmit(){
 console.log("进来吗")
             $("#fi").form("submit", {
-                url: "/student/importExcel",
+                url: "/crew/importExcel",
                 success: function(jsonResult) {
                     var data = eval('('+jsonResult+')');
 
@@ -49,19 +49,12 @@ console.log("进来吗")
 
 <div  style="padding: 10px;">
     <form id="fi" enctype="multipart/form-data" method="post" class="layui-form layui-form-pane">
+
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">年级</label>
+            <label class="layui-form-label" style="color: #00bbee">角色</label>
             <div class="layui-input-block">
-                <select  id="gradeId" name="gradeId" v-model="gradeId">
-                    <option th:each="gradeList : ${gradeList}" th:text="${gradeList.gradeName}" th:value="${gradeList.gradeId}"></option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业</label>
-            <div class="layui-input-block">
-                <select  id="majorId" name="majorId" v-model="majorId">
-                    <option th:each="majorList : ${majorList}" th:text="${majorList.majorName}" th:value="${majorList.majorId}"></option>
+                <select  id="roleId" name="roleId" v-model="roleId">
+                    <option th:each="roleList : ${roleList}" th:text="${roleList.roleName}" th:value="${roleList.roleId}"></option>
                 </select>
             </div>
         </div>

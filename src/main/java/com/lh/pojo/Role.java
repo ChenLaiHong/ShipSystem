@@ -7,14 +7,14 @@ public class Role {
 
     private String roleName;
 
-    private List<Person> personList;
+    private List<Crew> crewList;
 
-    public List<Person> getPersonList() {
-        return personList;
+    public List<Crew> getCrewList() {
+        return crewList;
     }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+    public void setCrewList(List<Crew> crewList) {
+        this.crewList = crewList;
     }
 
     public Integer getRoleId() {
@@ -36,9 +36,9 @@ public class Role {
     public Role() {
     }
 
-    public Role(Integer roleId, String roleName, List<Person> personList) {
+    public Role(Integer roleId, String roleName, List<Crew> crewList) {
         this.roleId = roleId;
         this.roleName = roleName;
-        this.personList = personList;
+        this.crewList = crewList;
     }
 }

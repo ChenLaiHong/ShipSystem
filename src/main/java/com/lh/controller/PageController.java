@@ -49,9 +49,9 @@ public class PageController {
         return "/admin/noticeManage";
     }
 
-    @RequestMapping("/toStudent")
-    public String toStudent(){
-        return "/admin/studentManage";
+    @RequestMapping("/toCrew")
+    public String toCrew(){
+        return "/admin/crewManage";
     }
 
     @RequestMapping("/toMajor")
@@ -103,9 +103,7 @@ public class PageController {
             subject.login(token);
             //登陆成功
 
-            request.getSession().removeAttribute("state");
-            List<Notice> list = noticeService.getAll();
-            model.addAttribute("noticeInfo", list);
+//            request.getSession().removeAttribute("state");
             return "/admin/AdminMain";
 
         }catch (UnknownAccountException e){

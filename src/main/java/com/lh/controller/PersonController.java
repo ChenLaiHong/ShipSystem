@@ -3,10 +3,7 @@ package com.lh.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lh.pojo.*;
-import com.lh.service.GradeService;
-import com.lh.service.ImageService;
-import com.lh.service.MajorService;
-import com.lh.service.StudentService;
+import com.lh.service.*;
 
 import com.lh.utils.*;
 import net.sf.json.JSONObject;
@@ -29,13 +26,13 @@ import java.util.Map;
 import static com.lh.utils.FileUploadUtil.*;
 
 /**
- * Created by laiHom on 2019/8/31.
+ * Created by laiHom on 2020/1/18.
  */
 @Controller
 @RequestMapping("/person")
 public class PersonController {
     @Autowired
-    private StudentService studentService;
+    private CrewService crewService;
     @Autowired
     private ImageService imageService;
     @Autowired
@@ -45,28 +42,25 @@ public class PersonController {
 
     @RequestMapping("/toInfo")
     public ModelAndView toInfo(HttpServletRequest request){
-        Person person = studentService.findById((String) request.getSession().getAttribute("id"));
+        Crew crew = crewService.findById((String) request.getSession().getAttribute("id"));
         Image image = imageService.findById((String) request.getSession().getAttribute("id"));
-//        String personPhoto = "F:/project/IdeaProjects/javaProjects/ProfessionalChoice/src/main/resources/static/upload/imgs/";
-//        if(image != null){
-//            personPhoto += image.getPersonPhoto();
-//        }
-        String personPhoto = image.getPersonPhoto();
+
+        String personPhoto = null;
+        if(image != null){
+            personPhoto = image.getPersonPhoto();
+        }
         ModelAndView mav = new ModelAndView();
-        List<Major> majorList = majorService.getAll();
-        List<Grade> gradeList = gradeService.getAll();
-        mav.addObject("majorList", majorList);
-        mav.addObject("gradeList", gradeList);
-        mav.addObject("person", person);
+
+        mav.addObject("person", crew);
         mav.addObject("personPhoto",personPhoto );
-        mav.setViewName("/person/studentInfo");
+        mav.setViewName("/person/crewInfo");
         return mav;
     }
 
 //
 
     @RequestMapping("/saveInfo")
-    public String list(HttpServletRequest req,Person person,@RequestParam("personPhoto") MultipartFile file) throws Exception {
+    public String list(HttpServletRequest req,Crew crew,@RequestParam("personPhoto") MultipartFile file) throws Exception {
         if (!file.isEmpty()) {
 
             String imageName = DateUtil.getCurrentDateStr() + "."
@@ -79,16 +73,16 @@ public class PersonController {
             System.out.println(newFile.getAbsolutePath()+"**********************");
             file.transferTo(newFile);
             Image image = new Image();
-            image.setPersonId(person.getLoginId());
+            image.setPersonId(crew.getLoginId());
             image.setPersonPhoto(imageName);
-            Image result = imageService.findById(person.getLoginId());
+            Image result = imageService.findById(crew.getLoginId());
             if(result == null){
                 imageService.inster(image);
             }else {
                 imageService.update(image);
             }
         }
-        studentService.update(person);
+        crewService.update(crew);
 
         return "redirect:/person/toInfo";
     }
@@ -97,12 +91,12 @@ public class PersonController {
     @RequestMapping("/modifyPassword")
     public String modifyPassword( @RequestParam(value = "password") String password,@RequestParam(value = "newPassword") String newPassword, HttpServletResponse response, HttpServletRequest request) throws Exception {
         JSONObject result1=new JSONObject();
-        Person person = studentService.findById((String) request.getSession().getAttribute("id"));
-        if(!person.getPassword().equals(MdUtil.md5(password))){
+        Crew crew = crewService.findById((String) request.getSession().getAttribute("id"));
+        if(!crew.getPassword().equals(MdUtil.md5(password))){
             result1.put("false", false);
         }else {
-            person.setPassword(MdUtil.md5(newPassword));
-            int result = studentService.update(person);
+            crew.setPassword(MdUtil.md5(newPassword));
+            int result = crewService.update(crew);
 
             if (result > 0) {
                 result1.put("success", true);

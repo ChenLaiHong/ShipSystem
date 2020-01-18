@@ -22,4 +22,6 @@ public interface RoleService {
     void delete(String[] idsStr);
 
     List<Role> getAll();
+
+    List<Role> getOther(Map<String, Object> map);
 }

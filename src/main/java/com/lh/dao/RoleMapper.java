@@ -37,4 +37,6 @@ public interface RoleMapper {
     Integer getTotal(Map<String, Object> map);
 
     List<Role> getAllT();
+
+    List<Role> getOther(Map<String, Object> map);
 }

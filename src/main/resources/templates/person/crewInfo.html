@@ -4,7 +4,6 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-
     <!-- 加入移动布局 -->
     <meta name="viewport"	content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
     <!-- 加入移动布局 -->
@@ -14,6 +13,7 @@
     <script	src="/layui/layui/layui.js"></script>
     <link href="/layui/layui/css/layui.css" rel="stylesheet"/>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+
     <!--添加  vue.js 支持加载-->
 
     <style>
@@ -31,7 +31,6 @@
             var files = event.target.files, file;
             if (files && files.length > 0) {
                 file = files[0];
-
                 var URL = window.URL || window.webkitURL;
                 var imgURL = URL.createObjectURL(file);
                 $('#pro_topPicShow').attr('src', imgURL);
@@ -61,7 +60,7 @@
 
 
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">学号</label>
+            <label class="layui-form-label" style="color: #00bbee">工号</label>
             <div class="layui-input-block">
                 <input type="text" id="loginId" name="loginId" autocomplete="off" th:value="${person.loginId}" class="layui-input" readonly="readonly">
             </div>
@@ -95,59 +94,45 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">QQ号</label>
+            <label class="layui-form-label" style="color: #00bbee">角色</label>
             <div class="layui-input-block">
-                <input type="text" id="qqNumber" name="qqNumber" autocomplete="off" th:value="${person.qqNumber}" v-model="qqNumber"  class="layui-input" placeholder="请输入QQ号" lay-verify="number">
+                <input type="text"  autocomplete="off" th:value="${person.role.roleName}" class="layui-input" readonly="readonly">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">年级</label>
-            <div class="layui-input-block">
-                <select  id="gradeId" name="gradeId" disabled="disabled">
-                    <option th:selected="${person.gradeId eq supplier.gradeId}"
-                            th:each="supplier:${gradeList}"
-                            th:value="${supplier.gradeId}"
-                            th:text="${supplier.gradeName}" >
-                    </option>
 
-                </select>
-            </div>
-        </div>
+
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业</label>
-            <div class="layui-input-block">
-                <select  id="majorId" name="majorId" disabled="disabled">
-                    <option th:selected="${person.majorId eq supplier.majorId}"
-                            th:each="supplier:${majorList}"
-                            th:value="${supplier.majorId}"
-                            th:text="${supplier.majorName}" >
-                    </option>
-                </select>
+
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">出生年月</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="birth" name="birth" placeholder="yyyy-MM-dd">
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">班级</label>
-            <div class="layui-input-block">
-                <input type="text" id="grades" name="grades" autocomplete="off" th:value="${person.grades}" v-model="grades" disabled="disabled" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">学生状态</label>
-            <div class="layui-input-block">
-                <select name="personStatic" id="personStatic" lay-filter="personStatic" disabled="disabled" >
-                    <option value="1" th:field="*{person.personStatic}" >在读</option>
-                    <option value="2" th:field="*{person.personStatic}">毕业</option>
-                    <option value="3" th:field="*{person.personStatic}" >休学</option>
-                    <option value="4" th:field="*{person.personStatic}">退学</option>
-                </select>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #00bbee">学籍状态</label>
-                <div class="layui-input-block">
-                    <select name="studentStatus" id="studentStatus" lay-filter="studentStatus" disabled="disabled" >
-                        <option value="0" th:field="*{person.studentStatus}" >无学籍</option>
-                        <option value="1" th:field="*{person.studentStatus}">有学籍</option>
-                    </select>
+
+            <div class="layui-inline">
+                <div class="layui-form-item" id="area-picker" name="householdRegister">
+                    <div class="layui-form-label">户籍</div>
+                    <div class="layui-input-inline" style="width: 200px;">
+                        <select name="province" class="province-selector" data-value="广东省" lay-filter="province-1">
+                            <option value="">请选择省</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width: 200px;">
+                        <select name="city" class="city-selector" data-value="深圳市" lay-filter="city-1">
+                            <option value="">请选择市</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width: 200px;">
+                        <select name="county" class="county-selector" data-value="龙岗区" lay-filter="county-1">
+                            <option value="">请选择区</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -177,17 +162,21 @@
 
 <script>
     layui.use([ 'laydate', 'laypage', 'layer', 'table', 'carousel',
-        'upload', 'element' ], function() {
+        'upload', 'element','layarea' ], function() {
         var laydate = layui.laydate //日期
             , laypage = layui.laypage //分页
-        layer = layui.layer //弹层
+            ,layer = layui.layer //弹层
             , table = layui.table //表格
             , carousel = layui.carousel //轮播
-            , element = layui.element; //元素操作
-        var $ = layui.jquery
+            , element = layui.element //元素操作
+            , $ = layui.jquery
             ,upload = layui.upload;
         var id = $('#personId').val();
         //普通图片上传
+        var birth = laydate.render({
+            elem: '#birth'
+        });
+
         var uploadInst = upload.render({
             elem: '#test1',
             url: '/person/updatePhoto?personId='+id
@@ -206,24 +195,7 @@
                 console.log('上传完毕');
             }
         });
-//        var uploadInst = upload.render({
-//            elem: '#test1'
-//            ,url: '/person/updatePhoto?personId='+id
-//            ,before: function(obj){
-//                //预读本地文件示例，不支持ie8
-//                obj.preview(function(index, file, result){
-//                    $('#demo1').attr('src', result); //图片链接（base64）
-//                });
-//            }
-//            ,done: function(res){
-//                //如果上传失败
-//                if(res.success = true){
-//                    return layer.msg('上传成功');
-//                }
-//                //上传成功
-//            }
-//
-//        });
+
     });
 </script>
 

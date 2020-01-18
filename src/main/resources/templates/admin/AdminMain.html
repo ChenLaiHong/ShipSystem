@@ -84,6 +84,7 @@
     <table style="padding: 5px" width="100%">
         <tr>
             <td valign="bottom" align="right" width="50%">
+
                 <a th:text="${'欢迎 :'+session.userName}"></a>
                 <br>
                 <a href="/logout" style="color: #CC2222">退出登录</a>
@@ -95,20 +96,7 @@
     <div class="easyui-tabs" fit="true" border="false" id="tabs">
         <div title="首页" data-options="iconCls:'icon-home'">
             <td class="cs-middle cs-bg"><!--中间div-->
-                <div class="cs-div cs-mid1" avalonctrl="gg"><!--全部公告-->
-                    <div class="cs-mid-title">通知公告</div>
-                    <div class="cs-gg-list">
-                        <div class="ggzt-item" th:each="notices:${noticeInfo}">
-                        <div class="gg-title" >
-                            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
-                            <a href="javascript:;"><dd th:text="${notices.noticeTitle}"></dd></a></div>
-                                <div class="gg-content">
-                                    <dd th:text="${notices.noticeDetails}"></dd>
-                                </div>
-                            <div class="gg-time"><dd th:text="'【'+${#dates.format(notices.noticeTime, 'yyyy-MM-dd')}+'】'"></dd></div>
-                        </div>
-                    </div>
-                </div>
+               <h2>欢迎</h2>
             </td>
         </div>
     </div>
@@ -117,22 +105,19 @@
     <div class="easyui-accordion" data-options="fit:true,border:false">
         <!--<shiro:hasAnyRoles name= "管理员, 辅导员, 老师">-->
         <div  title="系统管理" data-options="selected:true,iconCls:'icon-item'" style="padding: 10px">
-            <a shiro:hasPermission="/toStudent" href="javascript:openTab('学生管理','toStudent','icon-stu')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-stu'" style="width: 150px">学生管理</a>
-            <a shiro:hasPermission="/toTeacher" href="javascript:openTab('教职工管理','toTeacher','icon-tea')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-tea'" style="width: 150px">教职工管理</a>
-            <a shiro:hasPermission="/toMajor" href="javascript:openTab('专业管理','toMajor','icon-big')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-big'" style="width: 150px;">专业管理</a>
-            <a shiro:hasPermission="/choiceTask/page" href="javascript:openTab('方向选报任务管理','choiceTask/page','icon-small')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-small'" style="width: 150px;">方向选报任务管理</a>
-            <a shiro:hasPermission="/toGrade" href="javascript:openTab('年级管理','toGrade','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-grade'" style="width: 150px;">年级管理</a>
-            <a shiro:hasPermission="/toDepartment" href="javascript:openTab('院系管理','toDepartment','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dept'" style="width: 150px;">院系管理</a>
+            <a shiro:hasPermission="/toCrew" href="javascript:openTab('船员管理','toCrew','icon-stu')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-stu'" style="width: 150px">船员管理</a>
+            <a shiro:hasPermission="/toTeacher" href="javascript:openTab('船舶信息管理','toTeacher','icon-tea')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-tea'" style="width: 150px">船舶信息管理</a>
+            <a shiro:hasPermission="/toMajor" href="javascript:openTab('材料设备管理','toMajor','icon-big')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-big'" style="width: 150px;">材料设备管理</a>
+            <a shiro:hasPermission="/toGrade" href="javascript:openTab('维修保养管理','toGrade','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-grade'" style="width: 150px;">维修保养管理</a>
+            <a shiro:hasPermission="/toDepartment" href="javascript:openTab('货物运营管理','toDepartment','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dept'" style="width: 150px;">货物运营管理</a>
             <a shiro:hasRole ="管理员" href="javascript:openTab('角色管理','toRole','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bklb'" style="width: 150px;">角色管理</a>
-            <a shiro:hasPermission="/toNotice" href="javascript:openTab('公告信息管理','toNotice','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-plgl'" style="width: 150px;">公告信息管理</a>
+
         </div>
         <!--</shiro:hasAnyRoles>-->
 
         <div title="信息查询"  data-options="iconCls:'icon-system'" style="padding:10px">
             <a href="javascript:openPasswordModifyDialog()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 150px;">修改密码</a>
             <a href="javascript:openTab('个人信息','person/toInfo','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-info'" style="width: 150px;">个人信息</a>
-
-            <a shiro:hasPermission="/chooceDirection" href="javascript:openTab('选报方向','task/page','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-info'" style="width: 150px;">选报方向</a>
         </div>
     </div>
 </div>

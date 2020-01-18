@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lh.dao.RepairMapper">
+  <resultMap id="BaseResultMap" type="com.lh.pojo.Repair">
+    <id column="repair_id" jdbcType="INTEGER" property="repairId" />
+    <result column="use_year" jdbcType="VARCHAR" property="useYear" />
+    <result column="manage" jdbcType="VARCHAR" property="manage" />
+    <result column="ship_maintenance" jdbcType="VARCHAR" property="shipMaintenance" />
+    <result column="ship_report" jdbcType="VARCHAR" property="shipReport" />
+    <result column="consumption" jdbcType="VARCHAR" property="consumption" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ship_id" jdbcType="INTEGER" property="shipId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lh.pojo.Repair">
+    <result column="equipment_usage" jdbcType="LONGVARCHAR" property="equipmentUsage" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    repair_id, use_year, manage, ship_maintenance, ship_report, consumption, state, update_time, 
+    ship_id
+  </sql>
+  <sql id="Blob_Column_List">
+    equipment_usage
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.lh.pojo.RepairExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.lh.pojo.RepairExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from repair
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from repair
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lh.pojo.RepairExample">
+    delete from repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lh.pojo.Repair">
+    insert into repair (repair_id, use_year, manage, 
+      ship_maintenance, ship_report, consumption, 
+      state, update_time, ship_id, 
+      equipment_usage)
+    values (#{repairId,jdbcType=INTEGER}, #{useYear,jdbcType=VARCHAR}, #{manage,jdbcType=VARCHAR}, 
+      #{shipMaintenance,jdbcType=VARCHAR}, #{shipReport,jdbcType=VARCHAR}, #{consumption,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{shipId,jdbcType=INTEGER}, 
+      #{equipmentUsage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lh.pojo.Repair">
+    insert into repair
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="repairId != null">
+        repair_id,
+      </if>
+      <if test="useYear != null">
+        use_year,
+      </if>
+      <if test="manage != null">
+        manage,
+      </if>
+      <if test="shipMaintenance != null">
+        ship_maintenance,
+      </if>
+      <if test="shipReport != null">
+        ship_report,
+      </if>
+      <if test="consumption != null">
+        consumption,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="shipId != null">
+        ship_id,
+      </if>
+      <if test="equipmentUsage != null">
+        equipment_usage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="repairId != null">
+        #{repairId,jdbcType=INTEGER},
+      </if>
+      <if test="useYear != null">
+        #{useYear,jdbcType=VARCHAR},
+      </if>
+      <if test="manage != null">
+        #{manage,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMaintenance != null">
+        #{shipMaintenance,jdbcType=VARCHAR},
+      </if>
+      <if test="shipReport != null">
+        #{shipReport,jdbcType=VARCHAR},
+      </if>
+      <if test="consumption != null">
+        #{consumption,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shipId != null">
+        #{shipId,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentUsage != null">
+        #{equipmentUsage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lh.pojo.RepairExample" resultType="java.lang.Long">
+    select count(*) from repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update repair
+    <set>
+      <if test="record.repairId != null">
+        repair_id = #{record.repairId,jdbcType=INTEGER},
+      </if>
+      <if test="record.useYear != null">
+        use_year = #{record.useYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manage != null">
+        manage = #{record.manage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipMaintenance != null">
+        ship_maintenance = #{record.shipMaintenance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipReport != null">
+        ship_report = #{record.shipReport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consumption != null">
+        consumption = #{record.consumption,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shipId != null">
+        ship_id = #{record.shipId,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentUsage != null">
+        equipment_usage = #{record.equipmentUsage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update repair
+    set repair_id = #{record.repairId,jdbcType=INTEGER},
+      use_year = #{record.useYear,jdbcType=VARCHAR},
+      manage = #{record.manage,jdbcType=VARCHAR},
+      ship_maintenance = #{record.shipMaintenance,jdbcType=VARCHAR},
+      ship_report = #{record.shipReport,jdbcType=VARCHAR},
+      consumption = #{record.consumption,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      ship_id = #{record.shipId,jdbcType=INTEGER},
+      equipment_usage = #{record.equipmentUsage,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update repair
+    set repair_id = #{record.repairId,jdbcType=INTEGER},
+      use_year = #{record.useYear,jdbcType=VARCHAR},
+      manage = #{record.manage,jdbcType=VARCHAR},
+      ship_maintenance = #{record.shipMaintenance,jdbcType=VARCHAR},
+      ship_report = #{record.shipReport,jdbcType=VARCHAR},
+      consumption = #{record.consumption,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      ship_id = #{record.shipId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lh.pojo.Repair">
+    update repair
+    <set>
+      <if test="useYear != null">
+        use_year = #{useYear,jdbcType=VARCHAR},
+      </if>
+      <if test="manage != null">
+        manage = #{manage,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMaintenance != null">
+        ship_maintenance = #{shipMaintenance,jdbcType=VARCHAR},
+      </if>
+      <if test="shipReport != null">
+        ship_report = #{shipReport,jdbcType=VARCHAR},
+      </if>
+      <if test="consumption != null">
+        consumption = #{consumption,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shipId != null">
+        ship_id = #{shipId,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentUsage != null">
+        equipment_usage = #{equipmentUsage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lh.pojo.Repair">
+    update repair
+    set use_year = #{useYear,jdbcType=VARCHAR},
+      manage = #{manage,jdbcType=VARCHAR},
+      ship_maintenance = #{shipMaintenance,jdbcType=VARCHAR},
+      ship_report = #{shipReport,jdbcType=VARCHAR},
+      consumption = #{consumption,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ship_id = #{shipId,jdbcType=INTEGER},
+      equipment_usage = #{equipmentUsage,jdbcType=LONGVARCHAR}
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lh.pojo.Repair">
+    update repair
+    set use_year = #{useYear,jdbcType=VARCHAR},
+      manage = #{manage,jdbcType=VARCHAR},
+      ship_maintenance = #{shipMaintenance,jdbcType=VARCHAR},
+      ship_report = #{shipReport,jdbcType=VARCHAR},
+      consumption = #{consumption,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ship_id = #{shipId,jdbcType=INTEGER}
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </update>
+</mapper>

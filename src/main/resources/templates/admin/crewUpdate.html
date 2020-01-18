@@ -29,22 +29,12 @@
                 return ;
             }
 
-            if(app.grades.length<1){
-                layer.closeAll();//关闭loading
-                layer.msg('请输入班级!!!!!!');
-                return ;
-            }
-
             var save_url = document.getElementById("save_url").value;
             $.post(save_url,{
                 loginId:app.loginId
                 ,name:app.name
-                ,majorId:$("#majorId").val()
-                ,grades:app.grades
-                ,personStatic:$("#personStatic").val()
+                ,roleId:$("#roleId").val()
                 ,gender:$("#gender").val()
-                ,gradeId:$("#gradeId").val()
-                ,studentStatus:$("#studentStatus").val()
                 ,staticLive:$("#staticLive").val()
 
             },function(result){
@@ -72,74 +62,36 @@
     <form class="layui-form layui-form-pane">
         <input type="hidden" id="save_url" th:value="${save_url}" >
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">学号</label>
+            <label class="layui-form-label" style="color: #00bbee">工号</label>
             <div class="layui-input-block">
-                <input type="text" id="loginId" name="loginId" autocomplete="off" th:value="${person.loginId}" class="layui-input" readonly="readonly">
+                <input type="text" id="loginId" name="loginId" autocomplete="off" th:value="${crew.loginId}" class="layui-input" readonly="readonly">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">姓名</label>
             <div class="layui-input-block">
-                <input type="text" id="name" name="name" autocomplete="off" th:value="${person.name}" v-model="name" placeholder="请输入姓名" class="layui-input">
+                <input type="text" id="name" name="name" autocomplete="off" th:value="${crew.name}" v-model="name" placeholder="请输入姓名" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">性别</label>
             <div class="layui-input-block">
                     <select name="gender" id="gender" lay-filter="gender"  >
-                        <option value="0" th:field="*{person.gender}" >男</option>
-                        <option value="1" th:field="*{person.gender}">女</option>
+                        <option value="0" th:field="*{crew.gender}" >男</option>
+                        <option value="1" th:field="*{crew.gender}">女</option>
                     </select>
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">年级</label>
+            <label class="layui-form-label" style="color: #00bbee">角色</label>
             <div class="layui-input-block">
-                <select  id="gradeId" name="gradeId" v-model="gradeId">
-                    <option th:selected="${person.gradeId eq supplier.gradeId}"
-                            th:each="supplier:${gradeList}"
-                            th:value="${supplier.gradeId}"
-                            th:text="${supplier.gradeName}" >
+                <select  id="roleId" name="roleId" v-model="roleId">
+                   <option th:selected="${crew.roleId eq supplier.roleId}"
+                            th:each="supplier:${roleList}"
+                            th:value="${supplier.roleId}"
+                            th:text="${supplier.roleName}" >
                     </option>
-
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业</label>
-            <div class="layui-input-block">
-                <select  id="majorId" name="majorId" v-model="majorId">
-                   <option th:selected="${person.majorId eq supplier.majorId}"
-                            th:each="supplier:${majorList}"
-                            th:value="${supplier.majorId}"
-                            th:text="${supplier.majorName}" >
-                    </option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">班级</label>
-            <div class="layui-input-block">
-                <input type="text" id="grades" name="grades" autocomplete="off" th:value="${person.grades}" v-model="grades" placeholder="请输入班级" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-        <label class="layui-form-label" style="color: #00bbee">学生状态</label>
-        <div class="layui-input-block">
-            <select name="personStatic" id="personStatic" lay-filter="personStatic"  >
-                <option value="1" th:field="*{person.personStatic}" >在读</option>
-                <option value="2" th:field="*{person.personStatic}">毕业</option>
-                <option value="3" th:field="*{person.personStatic}" >休学</option>
-                <option value="4" th:field="*{person.personStatic}">退学</option>
-            </select>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">学籍状态</label>
-            <div class="layui-input-block">
-                <select name="studentStatus" id="studentStatus" lay-filter="studentStatus"  >
-                    <option value="0" th:field="*{person.studentStatus}" >无学籍</option>
-                    <option value="1" th:field="*{person.studentStatus}">有学籍</option>
                 </select>
             </div>
         </div>
@@ -148,12 +100,12 @@
             <label class="layui-form-label" style="color: #00bbee">是否删除</label>
             <div class="layui-input-block">
                 <select name="staticLive" id="staticLive" lay-filter="staticLive"  >
-                    <option value="0" th:field="*{person.staticLive}" >是</option>
-                    <option value="1" th:field="*{person.staticLive}">否</option>
+                    <option value="0" th:field="*{crew.staticLive}" >是</option>
+                    <option value="1" th:field="*{crew.staticLive}">否</option>
                 </select>
             </div>
         </div>
-    </div>
+
     </form>
     <div class="site-demo-button" style="margin-top: 20px;">
         <button id="save" onclick="save()" class="layui-btn site-demo-layedit" data-type="content" th:text="${btn_text}"></button>

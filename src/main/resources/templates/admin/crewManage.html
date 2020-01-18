@@ -64,7 +64,7 @@
             shadeClose: true,
             shade: 0.8,
             area: [w+'px', h+'px'],
-            content: '/student/toAdd' //iframe的url
+            content: '/crew/toAdd' //iframe的url
         });
     }
 
@@ -80,7 +80,7 @@
             shadeClose: true,
             shade: 0.8,
             area: [w+'px', h+'px'],
-            content: '/student/toEdit?loginId='+id //iframe的url
+            content: '/crew/toEdit?loginId='+id //iframe的url
         });
     }
 
@@ -104,7 +104,7 @@
         var index = layer.load(1, {
             shade: [0.1,'#fff'] //0.1透明度的白色背景
         });
-        $.post('/student/delete',{ids:ids},function(result){
+        $.post('/crew/delete',{ids:ids},function(result){
             if(result.success){
                 layer.closeAll();
                 layer.msg('删除成功');
@@ -154,7 +154,7 @@
     //修改*******
     function table_edit_update(id,field,value){
         console.log("field是什么？"+field+"value是什么？"+value)
-        $.post('/student/update?'+field+'='+value,{loginId:id},function(result){
+        $.post('/crew/update?'+field+'='+value,{loginId:id},function(result){
             if(result.success){
                 layer.msg('修改成功');
             }else{
@@ -179,7 +179,7 @@
         });
     }
 
-    function format_major(o) {
+    function format_role(o) {
         return o;
     }
     function format_grade(o) {
@@ -199,11 +199,11 @@
 
     <div class="layui-table-toolbar" style="margin-bottom: 3px;">
         <div class="layui-btn-group">
-            <button shiro:hasPermission="/addStudent" onclick="add()" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加</button>
-            <button shiro:hasPermission="/delStudent" type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delSelected()"><i class="layui-icon"></i>删除</button>
-            <button shiro:hasPermission="/addStudent" type="button" class="layui-btn layui-btn-normal layui-btn-sm" onclick="importFile()"><i class="layui-icon"></i>导入</button>
-            <button shiro:hasPermission="/exportStudent" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/student/exportExcel">导出</a></button>
-            <button shiro:hasPermission="/addStudent" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/student/exportExcelTel">导出模板</a></button>
+            <button shiro:hasPermission="/addCrew" onclick="add()" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加</button>
+            <button shiro:hasPermission="/delCrew" type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delSelected()"><i class="layui-icon"></i>删除</button>
+            <button shiro:hasPermission="/addCrew" type="button" class="layui-btn layui-btn-normal layui-btn-sm" onclick="importFile()"><i class="layui-icon"></i>导入</button>
+            <button shiro:hasPermission="/exportCrew" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/crew/exportExcel">导出</a></button>
+            <button shiro:hasPermission="/addCrew" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/crew/exportExcelTel">导出模板</a></button>
         </div>
 
         <div class="layui-input-inline" style="  width: 150px; margin-right: -1px;">
@@ -220,7 +220,7 @@
     <table class="layui-hide"  id="table" lay-filter="table"></table>
     <script type="text/html" id="table_bar">
         <div class="layui-btn-group">
-            <a shiro:hasPermission="/editStudent" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+            <a shiro:hasPermission="/editCrew" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="showAll">查看全部</a>
         </div>
     </script>
@@ -239,20 +239,19 @@
                 , element = layui.element; //元素操作
             table.render({
                 elem: '#table'
-                ,url: '/student/list',
+                ,url: '/crew/list',
                 height: 'full-60',
                 cols: [
                     [
                     {checkbox: true, fixed: true}
-                    ,{field:'loginId', title: '学号',width:130,align:"center"}
+                    ,{field:'loginId', title: '工号',width:130,align:"center"}
                     ,{field:'name', title: '姓名', width:100,align:"center"}
                     ,{field:'gender', title: '性别', width:80,align:"center", templet: '#format_state'}
+                    ,{field:'householdRegister', title: '户籍', width:100,align:"center"}
+                    ,{field:'birth', title: '出生年月', width:100,align:"center"}
                     ,{field:'phone', title: '联系电话', width:120,align:"center"}
-                    ,{field:'qqNumber', title: 'QQ号码', width:120,align:"center"}
                     ,{field:'email', title: '邮箱', width:200,align:"center"}
-                    ,{title: '专业', width:150,align:"center",templet: '<div>{{format_major(d.major.majorName)}}</div>'}
-                    ,{title: '年级', width:100,edit: 'text',align:"center",templet: '<div>{{format_grade(d.grade.gradeName)}}</div>'}
-                    ,{field:'grades', title: '班级', width:100,align:"center", edit: 'text'}
+                    ,{title: '角色', width:150,align:"center",templet: '<div>{{format_role(d.role.roleName)}}</div>'}
                     ,{fixed:'right', width:180,title: '操作',align:"center",  toolbar: '#table_bar'}
                 ]
                 ]

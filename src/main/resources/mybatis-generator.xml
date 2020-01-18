@@ -14,7 +14,7 @@
 
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://localhost:3366/shipsystem"
+                connectionURL="jdbc:mysql://localhost:3306/shipsystem"
                 userId="root"
                 password="123456">
         </jdbcConnection>
@@ -43,6 +43,11 @@
         </javaClientGenerator>
         <!-- table指定每个表的生成策略 -->
         <table tableName="shipinfo" domainObjectName="ShipInfo"> </table>
+        <table tableName="crew" domainObjectName="Crew"> </table>
+        <table tableName="equipment" domainObjectName="Equipment"> </table>
+        <table tableName="goodsoperate" domainObjectName="GoodsOperate"> </table>
+        <table tableName="prole" domainObjectName="PRole"> </table>
+        <table tableName="repair" domainObjectName="Repair"> </table>
 
 
 

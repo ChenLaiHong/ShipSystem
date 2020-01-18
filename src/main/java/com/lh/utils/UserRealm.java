@@ -1,9 +1,9 @@
 package com.lh.utils;
 
-import com.lh.pojo.Person;
+import com.lh.pojo.Crew;
 import com.lh.pojo.Resource;
 import com.lh.pojo.Role;
-import com.lh.service.PersonService;
+import com.lh.service.CrewService;
 import com.lh.service.ResourceService;
 import com.lh.service.RoleService;
 import org.apache.shiro.SecurityUtils;
@@ -25,11 +25,11 @@ import java.util.Map;
 
 /**
  * 自定义Realm
- * Created by laiHom on 2019/8/21.
+ * Created by laiHom on 2020/1/18.
  */
 public class UserRealm extends AuthorizingRealm {
     @Autowired
-    private PersonService personService;
+    private CrewService crewService;
 
     @Autowired
     private ResourceService resourceService;
@@ -41,10 +41,10 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("授权逻辑");
-        Person person= (Person) SecurityUtils.getSubject().getPrincipal();
+        Crew crew= (Crew) SecurityUtils.getSubject().getPrincipal();
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("roleId",person.getRoleId());
-        Role role = roleService.getById(person.getRoleId());
+        map.put("roleId",crew.getRoleId());
+        Role role = roleService.getById(crew.getRoleId());
         List<Resource> resourcesList = resourceService.loadPersonResources(map);
         System.out.println("会不会每次进来拿资源？==========================");
         // 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
@@ -69,9 +69,9 @@ public class UserRealm extends AuthorizingRealm {
         //shiro判断逻辑，判断用户名和密码
         //1、判断用户名
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
-        Person person = personService.getUserName(token.getUsername(),state);
+        Crew crew = crewService.getUserName(token.getUsername(),state);
 
-        if(person == null){
+        if(crew == null){
             //用户不存在
             return null;//shiro底层会抛出UnKnowAccountException
         }
@@ -79,8 +79,8 @@ public class UserRealm extends AuthorizingRealm {
 //        request.getSession().setAttribute("id", person.getLoginId());
         // 当验证都通过后，把用户信息放在session里
         Session session2 = SecurityUtils.getSubject().getSession();
-        session2.setAttribute("userName", person.getName());
-        session2.setAttribute("id", person.getLoginId());
-        return new SimpleAuthenticationInfo(person,person.getPassword(), "");
+        session2.setAttribute("userName", crew.getName());
+        session2.setAttribute("id", crew.getLoginId());
+        return new SimpleAuthenticationInfo(crew,crew.getPassword(), "");
     }
 }

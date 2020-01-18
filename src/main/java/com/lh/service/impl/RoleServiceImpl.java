@@ -57,4 +57,9 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> getAll() {
         return roleMapper.getAllT();
     }
+
+    @Override
+    public List<Role> getOther(Map<String, Object> map) {
+        return roleMapper.getOther(map);
+    }
 }
