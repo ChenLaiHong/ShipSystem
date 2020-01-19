@@ -77,6 +77,7 @@
             $("#newPassword2").val("");
         }
 
+
     </script>
 </head>
 <body class="easyui-layout">
@@ -96,7 +97,7 @@
     <div class="easyui-tabs" fit="true" border="false" id="tabs">
         <div title="首页" data-options="iconCls:'icon-home'">
             <td class="cs-middle cs-bg"><!--中间div-->
-               <h2>欢迎</h2>
+                <h2>欢迎</h2>
             </td>
         </div>
     </div>
@@ -104,20 +105,28 @@
 <div region="west" style="width: 200px" title="导航菜单" split="true">
     <div class="easyui-accordion" data-options="fit:true,border:false">
         <!--<shiro:hasAnyRoles name= "管理员, 辅导员, 老师">-->
-        <div  title="系统管理" data-options="selected:true,iconCls:'icon-item'" style="padding: 10px">
-            <a shiro:hasPermission="/toCrew" href="javascript:openTab('船员管理','toCrew','icon-stu')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-stu'" style="width: 150px">船员管理</a>
-            <a shiro:hasPermission="/toTeacher" href="javascript:openTab('船舶信息管理','toTeacher','icon-tea')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-tea'" style="width: 150px">船舶信息管理</a>
-            <a shiro:hasPermission="/toMajor" href="javascript:openTab('材料设备管理','toMajor','icon-big')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-big'" style="width: 150px;">材料设备管理</a>
-            <a shiro:hasPermission="/toGrade" href="javascript:openTab('维修保养管理','toGrade','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-grade'" style="width: 150px;">维修保养管理</a>
-            <a shiro:hasPermission="/toDepartment" href="javascript:openTab('货物运营管理','toDepartment','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dept'" style="width: 150px;">货物运营管理</a>
-            <a shiro:hasRole ="管理员" href="javascript:openTab('角色管理','toRole','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bklb'" style="width: 150px;">角色管理</a>
+        <div title="系统管理" data-options="selected:true,iconCls:'icon-item'" style="padding: 10px">
+            <a shiro:hasPermission="/toCrew" href="javascript:openTab('船员管理','toCrew','icon-stu')"
+               class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-stu'" style="width: 150px">船员管理</a>
+            <a shiro:hasPermission="/toTeacher" href="javascript:openTab('船舶信息管理','toTeacher','icon-tea')"
+               class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-tea'" style="width: 150px">船舶信息管理</a>
+            <a shiro:hasPermission="/toMajor" href="javascript:openTab('材料设备管理','toMajor','icon-big')"
+               class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-big'" style="width: 150px;">材料设备管理</a>
+            <a shiro:hasPermission="/toGrade" href="javascript:openTab('维修保养管理','toGrade','icon-bklb')"
+               class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-grade'" style="width: 150px;">维修保养管理</a>
+            <a shiro:hasPermission="/toDepartment" href="javascript:openTab('货物运营管理','toDepartment','icon-bklb')"
+               class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dept'" style="width: 150px;">货物运营管理</a>
+            <a shiro:hasRole="管理员" href="javascript:openTab('角色管理','toRole','icon-bklb')" class="easyui-linkbutton"
+               data-options="plain:true,iconCls:'icon-bklb'" style="width: 150px;">角色管理</a>
 
         </div>
         <!--</shiro:hasAnyRoles>-->
 
-        <div title="信息查询"  data-options="iconCls:'icon-system'" style="padding:10px">
-            <a href="javascript:openPasswordModifyDialog()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 150px;">修改密码</a>
-            <a href="javascript:openTab('个人信息','person/toInfo','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-info'" style="width: 150px;">个人信息</a>
+        <div title="信息查询" data-options="iconCls:'icon-system'" style="padding:10px">
+            <a href="javascript:openPasswordModifyDialog()" class="easyui-linkbutton"
+               data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 150px;">修改密码</a>
+            <a href="javascript:openTab('个人信息','person/toInfo','icon-plgl')" class="easyui-linkbutton"
+               data-options="plain:true,iconCls:'icon-info'" style="width: 150px;">个人信息</a>
         </div>
     </div>
 </div>
@@ -135,11 +144,13 @@
             </tr>
             <tr>
                 <td>新密码：</td>
-                <td><input type="password" id="newPassword" name="newPassword" class="easyui-validatebox" required="true" style="width: 200px"/></td>
+                <td><input type="password" id="newPassword" name="newPassword" class="easyui-validatebox"
+                           required="true" style="width: 200px"/></td>
             </tr>
             <tr>
                 <td>确认新密码：</td>
-                <td><input type="password" id="newPassword2" name="newPassword2" class="easyui-validatebox" required="true" style="width: 200px"/></td>
+                <td><input type="password" id="newPassword2" name="newPassword2" class="easyui-validatebox"
+                           required="true" style="width: 200px"/></td>
             </tr>
         </table>
     </form>

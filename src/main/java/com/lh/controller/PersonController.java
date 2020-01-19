@@ -8,6 +8,9 @@ import com.lh.service.*;
 import com.lh.utils.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +34,10 @@ import static com.lh.utils.FileUploadUtil.*;
 @Controller
 @RequestMapping("/person")
 public class PersonController {
+    /**上传地址*/
+    @Value("${file.upload.path}")
+    private String filePath;
+
     @Autowired
     private CrewService crewService;
     @Autowired
@@ -47,12 +54,12 @@ public class PersonController {
 
         String personPhoto = null;
         if(image != null){
-            personPhoto = image.getPersonPhoto();
+            personPhoto =  image.getPersonPhoto();
         }
         ModelAndView mav = new ModelAndView();
 
         mav.addObject("person", crew);
-        mav.addObject("personPhoto",personPhoto );
+        mav.addObject("personPhoto", personPhoto);
         mav.setViewName("/person/crewInfo");
         return mav;
     }
@@ -63,15 +70,10 @@ public class PersonController {
     public String list(HttpServletRequest req,Crew crew,@RequestParam("personPhoto") MultipartFile file) throws Exception {
         if (!file.isEmpty()) {
 
-            String imageName = DateUtil.getCurrentDateStr() + "."
-                    + file.getOriginalFilename().split("\\.")[1];
 
             // 存放上传图片文件夹
-            File fileDir = getImgDirFile();
-            // 构建真实的文件路径的
-            File newFile = new File(fileDir.getAbsolutePath() + File.separator + imageName);
-            System.out.println(newFile.getAbsolutePath()+"**********************");
-            file.transferTo(newFile);
+            String imageName = getImgDirFile(file,filePath);
+
             Image image = new Image();
             image.setPersonId(crew.getLoginId());
             image.setPersonPhoto(imageName);
