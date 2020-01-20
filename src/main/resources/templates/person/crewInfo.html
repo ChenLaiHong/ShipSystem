@@ -5,16 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <!-- 加入移动布局 -->
-    <meta name="viewport"	content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
     <!-- 加入移动布局 -->
 
     <!--添加  vue.js 支持加载-->
     <script src="/js/vue.min.js"></script>
-    <script	src="/layui/layui/layui.js"></script>
+    <script src="/layui/layui/layui.js"></script>
     <link href="/layui/layui/css/layui.css" rel="stylesheet"/>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script src="/layui/city-picker/city-picker.data.js"></script>
-    <link href="/layui/city-picker/city-picker.css" rel="stylesheet" />
+    <link href="/layui/city-picker/city-picker.css" rel="stylesheet"/>
     <!--添加  vue.js 支持加载-->
 
     <style>
@@ -23,6 +23,8 @@
         .layui-form-item {
             margin-bottom: 3px;
         }
+
+
     </style>
 </head>
 <script>
@@ -40,11 +42,13 @@
         });
 
     });
+
+
 </script>
 <body id="app">
 <div style="padding: 10px;">
     <form class="layui-form layui-form-pane" action="/person/saveInfo" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="personId" th:value="${person.loginId}" >
+        <input type="hidden" id="personId" th:value="${person.loginId}">
 
         <div class="layui-form-item">
             <img id="pro_topPicShow" th:src="@{${personPhoto}}" alt=" " style="height: 120px;width: 120px">
@@ -59,24 +63,25 @@
             }
         </script>
 
-
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">工号</label>
             <div class="layui-input-block">
-                <input type="text" id="loginId" name="loginId" autocomplete="off" th:value="${person.loginId}" class="layui-input" readonly="readonly">
+                <input type="text" id="loginId" name="loginId" autocomplete="off" th:value="${person.loginId}"
+                       class="layui-input" readonly="readonly">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">姓名</label>
             <div class="layui-input-block">
-                <input type="text" id="name" name="name" autocomplete="off" th:value="${person.name}" v-model="name" readonly="readonly" class="layui-input">
+                <input type="text" id="name" name="name" autocomplete="off" th:value="${person.name}" v-model="name"
+                       readonly="readonly" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">性别</label>
             <div class="layui-input-block">
-                <select name="gender" id="gender"  disabled="disabled">
-                    <option value="0" th:field="*{person.gender}" >男</option>
+                <select name="gender" id="gender" disabled="disabled">
+                    <option value="0" th:field="*{person.gender}">男</option>
                     <option value="1" th:field="*{person.gender}">女</option>
                 </select>
             </div>
@@ -85,134 +90,99 @@
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">联系电话</label>
             <div class="layui-input-block">
-                <input type="text" id="phone" name="phone" autocomplete="off" th:value="${person.phone}" v-model="phone" class="layui-input" placeholder="请输入手机" lay-verify="phone">
+                <input type="text" id="phone" name="phone" autocomplete="off" th:value="${person.phone}" v-model="phone"
+                       class="layui-input" placeholder="请输入手机" lay-verify="phone">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">邮箱</label>
             <div class="layui-input-block">
-                <input type="text" id="email" name="email" autocomplete="off" th:value="${person.email}" v-model="email"  class="layui-input" placeholder="请输入邮箱" lay-verify="email">
+                <input type="text" id="email" name="email" autocomplete="off" th:value="${person.email}" v-model="email"
+                       class="layui-input" placeholder="请输入邮箱" lay-verify="email">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">角色</label>
             <div class="layui-input-block">
-                <input type="text"  autocomplete="off" th:value="${person.role.roleName}" class="layui-input" readonly="readonly">
+                <input type="text" autocomplete="off" th:value="${person.role.roleName}" class="layui-input"
+                       readonly="readonly">
             </div>
         </div>
 
 
         <div class="layui-form-item">
-
-            <div class="layui-form">
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">出生年月</label>
-                        <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="birth" name="birth" placeholder="yyyy-MM-dd">
-                        </div>
-                    </div>
-
-                </div>
+            <label class="layui-form-label" style="color: #00bbee">出生年月</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="birth" name="birth" th:value="${person.birth}"
+                       placeholder="yyyy-MM-dd">
             </div>
+        </div>
 
-            <div class="layui-inline">
-                <label class="layui-form-label width_auto text-r" style="margin-top:2px">省市县：</label>
-                <div class="layui-input-inline" style="width:400px">
-                    <input type="text" autocomplete="on" class="layui-input" id="householdRegister" name="householdRegister"  data-toggle="city-picker" placeholder="请选择">
-                </div>
+        <div class="layui-inline">
+            <label class="layui-form-label width_auto text-r" style="color: #00bbee">省市县：</label>
+
+            <div class="layui-input-inline" style="position:relative;width:500px">
+                <input id="area" class="layui-input" type='text' name="householdRegister"
+                       th:value="${person.householdRegister}">
             </div>
+        </div>
 
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="color: #00bbee">是否删除</label>
+            <div class="layui-input-block">
+                <select name="staticLive" id="staticLive" lay-filter="staticLive" disabled="disabled">
+                    <option value="0" th:field="*{person.staticLive}">是</option>
+                    <option value="1" th:field="*{person.staticLive}">否</option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+        <div class="layui-form-item">
             <div class="layui-form-item">
-                <label class="layui-form-label" style="color: #00bbee">是否删除</label>
                 <div class="layui-input-block">
-                    <select name="staticLive" id="staticLive" lay-filter="staticLive" disabled="disabled" >
-                        <option value="0" th:field="*{person.staticLive}" >是</option>
-                        <option value="1" th:field="*{person.staticLive}">否</option>
-                    </select>
-                </div>
-            </div>
-
-            <br>
-            <div class="layui-form-item">
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <input type="submit"  class="layui-btn" lay-filter="demo1" lay-submit="" value="立即提交" >
-                    </div>
+                    <input type="submit" id="setBtn" class="layui-btn" lay-filter="demo1" lay-submit="" value="立即提交">
                 </div>
             </div>
         </div>
+
     </form>
 
 </div>
 
 
 <script>
-    layui.use(['laypage', 'layer', 'table', 'carousel',
+    layui.use([ 'laydate', 'laypage', 'layer', 'table', 'carousel',
         'upload', 'element' ], function() {
-        var laypage = layui.laypage //分页
-            ,layer = layui.layer //弹层
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+        layer = layui.layer //弹层
             , table = layui.table //表格
             , carousel = layui.carousel //轮播
-            , element = layui.element //元素操作
-            , $ = layui.jquery
+            , element = layui.element; //元素操作
+        var $ = layui.jquery
             ,upload = layui.upload;
-        var id = $('#personId').val();
-        //普通图片上传
+          //常规用法
+          laydate.render({
+            elem: '#birth',
+            trigger:'click'
+          });
+});
 
 
-        var uploadInst = upload.render({
-            elem: '#test1',
-            url: '/person/updatePhoto?personId='+id
-            ,before: function st(input){
-                //返回的参数item，即为当前的input DOM对象
-                console.log('文件上传中');
-            }
-            ,success: function(data){
-                console.log(data+"////////////////////////")
-                person_upload.src ="/static/image/"+data.msg;
-                personPhoto.value = data.msg;
-                layer.msg('上传成功', {
-                    offset: '100px',
-                    anim: 4
-                });
-                console.log('上传完毕');
-            }
-        });
-
-    });
 </script>
-<script>
-    layui.use('laydate', function(){
-  var laydate = layui.laydate;
+<script type="text/javascript">
+            $(function(){
+                $("#area").citypicker();
 
-  //常规用法
-  laydate.render({
-    elem: '#birth'
-  });
-  });
+            })
+
+
 </script>
-<script>
-        layui.config({
-            base: '/layui/' //静态资源所在路径
-        }).extend({
-            citypicker: '{/}/layuiadmin/layui/layui_exts/city-picker/city-picker' // {/}的意思即代表采用自有路径，即不跟随 base 路径
-        }).use(['jquery', 'index', 'table', 'citypicker'], function () {
-            var $ = layui.$
-                , table = layui.table
-                , form = layui.form
-                , cityPicker = layui.citypicker;
-
-           var currentPicker = new cityPicker("#householdRegister", {
-                provincename:"provinceId",
-                cityname:"cityId",
-                districtname: "districtId",
-                level: 'districtId',// 级别
-            });
-            currentPicker.setValue("河南省/信阳市/新县");
-        });
-
- </script>
-
+<!--<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.js"></script>-->
+<!--<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>-->
+<script src="/js/city-picker.data.js"></script>
+<script src="/js/city-picker.js"></script>
+<!--<script src="/js/main.js"></script>-->
 </body>
 </html>

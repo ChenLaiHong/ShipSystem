@@ -27,6 +27,7 @@ public class FileUploadUtil  {
             String path = filePath+"rotPhoto/";
             // 新建文件
             File filepath = new File(path, imageName);
+
             // 判断路径是否存在，如果不存在就创建一个
             if (!filepath.getParentFile().exists()) {
                 filepath.getParentFile().mkdirs();
@@ -37,7 +38,7 @@ public class FileUploadUtil  {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return "/images/rotPhoto/"+imageName;
+            return "/image/rotPhoto/"+imageName;
         }
 
 

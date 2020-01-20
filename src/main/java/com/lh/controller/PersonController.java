@@ -68,6 +68,7 @@ public class PersonController {
 
     @RequestMapping("/saveInfo")
     public String list(HttpServletRequest req,Crew crew,@RequestParam("personPhoto") MultipartFile file) throws Exception {
+
         if (!file.isEmpty()) {
 
 
