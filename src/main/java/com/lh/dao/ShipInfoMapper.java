@@ -3,6 +3,8 @@ package com.lh.dao;
 import com.lh.pojo.ShipInfo;
 import com.lh.pojo.ShipInfoExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ShipInfoMapper {
@@ -27,4 +29,7 @@ public interface ShipInfoMapper {
     int updateByPrimaryKeySelective(ShipInfo record);
 
     int updateByPrimaryKey(ShipInfo record);
+    List<ShipInfo> list(Map<String, Object> map);
+
+    Integer getTotal(Map<String, Object> map);
 }

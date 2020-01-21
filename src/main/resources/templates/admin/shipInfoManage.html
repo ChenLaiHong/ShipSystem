@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title></title>
-
+    <title>船舶信息</title>
 
 
     <!-- 加入移动布局 -->
@@ -16,7 +16,6 @@
     <script	src="/js/manage_base.js"></script>
     <link href="/css/manage_base.css" rel="stylesheet"/>
     <!-- 引入manage 的基础css -->
-
 
 </head>
 <style>
@@ -55,8 +54,8 @@
 
     //打开添加窗口
     function add(){
-        w = 300;
-        h = 300;
+        w = 1100;
+        h = 600;
         checkWindow();
         layer.open({
             type: 2,
@@ -64,40 +63,20 @@
             shadeClose: true,
             shade: 0.8,
             area: [w+'px', h+'px'],
-            content: '/teacher/toAdd' //iframe的url
+            content: '/shipInfo/toAdd' //iframe的url
         });
     }
 
 
     //打开编辑窗口
     function edit(id){
-        w = 300;
-        h = 300;
-        checkWindow();
-        layer.open({
-            type: 2,
-            title: '修改',
-            shadeClose: true,
-            shade: 0.8,
-            area: [w+'px', h+'px'],
-            content: '/teacher/toEdit?loginId='+id //iframe的url
-        });
+//创建XMLHttpRequest
+      　　let xhr = new XMLHttpRequest();
+          //监听响应
+      　　xhr.open("GET","/shipInfo/toEdit?shipId="+id,true);
+      　　xhr.send();
     }
 
-    //打开上传文件窗口
-    function importFile(){
-        w = 350;
-        h = 350;
-        checkWindow();
-        layer.open({
-            type: 2,
-            title: '上传',
-            shadeClose: true,
-            shade: 0.8,
-            area: [w+'px', h+'px'],
-            content: '/teacher/toImport' //iframe的url
-        });
-    }
 //删除开始***********************
     function del(ids){
         console.log("主键："+ids)
@@ -125,7 +104,7 @@
         var ids = "";
         if(selected.data.length>0){
             $.each(selected.data,function(i,val){
-                ids = ids+val.loginId+",";
+                ids = ids+val.shipId+",";
             });
         }
         //去掉最后的逗号,
@@ -154,7 +133,7 @@
     //修改*******
     function table_edit_update(id,field,value){
         console.log("field是什么？"+field+"value是什么？"+value)
-        $.post('/teacher/update?'+field+'='+value,{loginId:id},function(result){
+        $.post('/shipInfo/update?'+field+'='+value,{shipId:id},function(result){
             if(result.success){
                 layer.msg('修改成功');
             }else{
@@ -168,8 +147,8 @@
         return o;
     }
     //修改状态
-    function setState(loginId){
-        $.post('/teacher/setState',{loginId:loginId},function(result){
+    function setState(shipId){
+        $.post('/shipInfo/setState',{shipId:shipId},function(result){
             if(result.success){
                 layer.closeAll();
                 layer.msg('修改成功');
@@ -180,9 +159,9 @@
             }
         },'json');
     }
-    function showAll(loginId){
-        w = 500;
-        h = 480;
+    function showAll(shipId){
+        w = 1100;
+        h = 600;
         checkWindow();
         layer.open({
             type: 2,
@@ -190,33 +169,26 @@
             shadeClose: true,
             shade: 0.8,
             area: [w+'px', h+'px'],
-            content: '/teacher/showAll?loginId='+loginId //iframe的url
+            content: '/shipInfo/showAll?shipId='+shipId //iframe的url
         });
     }
 </script>
-<script type="text/html" id="format_state">
-    {{#  if(d.gender =='0'){ }}
-    <dd>男</dd>
-    {{#  } else if(d.gender =='1') { }}
-    <dd>女</dd>
-    {{#  } }}
-</script>
+
 <script type="text/html" id="format_status">
-    {{#  if(d.studentStatus =='0'){ }}
-    <dd>离职</dd>
-    {{#  } else if(d.studentStatus =='1') { }}
-    <dd>在职</dd>
+    {{#  if(d.state =='0'){ }}
+    <dd>抛弃</dd>
+    {{#  } else if(d.state =='1') { }}
+    <dd>正常</dd>
     {{#  } }}
 </script>
 <div class="layui-form" style=" ">
 
     <div class="layui-table-toolbar" style="margin-bottom: 3px;">
         <div class="layui-btn-group">
-            <button shiro:hasPermission="/addTeacher" onclick="add()" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加</button>
-            <button shiro:hasPermission="/delTeacher" type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delSelected()"><i class="layui-icon"></i>删除</button>
-            <button shiro:hasPermission="/addTeacher" type="button" class="layui-btn layui-btn-normal layui-btn-sm" onclick="importFile()"><i class="layui-icon"></i>导入</button>
-            <button shiro:hasPermission="/exportTeacher" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/teacher/exportExcel">导出</a></button>
-            <button shiro:hasPermission="/addTeacher" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/teacher/exportExcelTel">导出模板</a></button>
+            <a shiro:hasPermission="/addShipInfo" href="/shipInfo/toAdd" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加</a>
+            <button shiro:hasPermission="/delShipInfo" type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delSelected()"><i class="layui-icon"></i>删除</button>
+            <button shiro:hasPermission="/exportShipInfo" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/shipInfo/exportExcel">导出</a></button>
+
         </div>
 
         <div class="layui-input-inline" style="  width: 150px; margin-right: -1px;">
@@ -231,8 +203,8 @@
     <table class="layui-hide"   id="table" lay-filter="table"></table>
     <script type="text/html" id="table_bar">
         <div class="layui-btn-group">
-            <a shiro:hasPermission="/editTeacher" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-            <a shiro:hasPermission="/editTeacher" class="layui-btn layui-btn-xs" lay-event="set_state">修改状态</a>
+            <a shiro:hasPermission="/editShipInfo" class="layui-btn layui-btn-xs" lay-event="edit" >修改</a>
+            <a shiro:hasPermission="/editShipInfo" class="layui-btn layui-btn-xs" lay-event="set_state">修改状态</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="showAll">查看全部</a>
         </div>
     </script>
@@ -250,19 +222,22 @@
                 , element = layui.element; //元素操作
             table.render({
                 elem: '#table'
-                ,url: '/teacher/list',
+                ,url: '/shipInfo/list',
                 height: 'full-60',
                 cols: [
                     [
                     {checkbox: true, fixed: true}
-                    ,{field:'loginId', title: '工号',width:20}
-                    ,{field:'name', title: '姓名', width:200,align:"center", edit: 'text'}
-                    ,{field:'gender', title: '性别', width:100,align:"center", templet: '#format_state'}
-                    ,{field:'phone', title: '电话', width:100,align:"center"}
-                    ,{field:'qqNumber', title: 'QQ号', width:100,align:"center"}
-                    ,{field:'email', title: '邮箱', width:160,align:"center"}
-                    ,{field:'studentStatus', title: '状态', width:100,align:"center", templet: '#format_status'}
-                    ,{title: '身份', width:200,align:"center",templet: '<div>{{format_role(d.role.roleName)}}</div>'}
+                    ,{field:'shipId', title: '船号',width:20}
+                    ,{field:'shipName', title: '名称', width:200,align:"center", edit: 'text'}
+                    ,{field:'totalLength', title: '总长', width:100,align:"center", edit: 'text'}
+                    ,{field:'typeWidth', title: '型宽', width:100,align:"center", edit: 'text'}
+                    ,{field:'typeDepth', title: '型深', width:100,align:"center", edit: 'text'}
+                    ,{field:'displacement', title: '排水量', width:100,align:"center", edit: 'text'}
+                    ,{field:'designDraft', title: '设计型吃水', width:100,align:"center", edit: 'text'}
+                    ,{field:'structuralDraft', title: '结构型吃水', width:100,align:"center", edit: 'text'}
+                    ,{field:'holdNumber', title: '设计货舱个数', width:100,align:"center", edit: 'text'}
+                    ,{field:'state', title: '状态', width:100,align:"center", templet: '#format_status'}
+                    ,{field:'updateTime', title: '创建时间', width:200,align:"center"}
                     ,{fixed:'right', width:180,title: '操作',align:"center",  toolbar: '#table_bar'}
                 ]
                 ]
@@ -280,15 +255,15 @@
                 console.log('获得当前行数据'+data);
                 if (layEvent === 'del') {
                     //layer.msg('查看操作' + data.id);
-                    console.log(data.loginId);
-                    del(data.loginId);
+                    console.log(data.shipId);
+                    del(data.shipId);
                 } else if (layEvent === 'edit') {
-//                    layer.msg('编辑操作' + data.noticeId);
-                    edit(data.loginId);
+//                    layer.msg('编辑操作' + data.shipId);
+                    edit(data.shipId);
                 }else if(layEvent === 'set_state'){
-                    setState(data.loginId);
+                    setState(data.shipId);
                 }else if(layEvent === 'showAll'){
-                    showAll(data.loginId);
+                    showAll(data.shipId);
                 }
             });
 
@@ -298,8 +273,8 @@
                 var value = obj.value //得到修改后的值
                     ,data = obj.data //得到所在行所有键值
                     ,field = obj.field; //得到字段
-                //layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-                table_edit_update(data.loginId,field,value);
+                //layer.msg('[ID: '+ data.shipId +'] ' + field + ' 字段更改为：'+ value);
+                table_edit_update(data.shipId,field,value);
             });
 
 

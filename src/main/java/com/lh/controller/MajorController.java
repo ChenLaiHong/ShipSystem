@@ -49,7 +49,8 @@ import static com.lh.utils.CommentUtils.res;
 @Controller
 @RequestMapping("/major")
 @Slf4j
-public class MajorController {
+public class
+MajorController {
     @Autowired
     MajorService majorService;
 

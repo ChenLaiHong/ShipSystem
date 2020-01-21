@@ -3,6 +3,7 @@
 <mapper namespace="com.lh.dao.ShipInfoMapper">
   <resultMap id="BaseResultMap" type="com.lh.pojo.ShipInfo">
     <id column="ship_id" jdbcType="INTEGER" property="shipId" />
+    <result column="ship_name" jdbcType="VARCHAR" property="shipName" />
     <result column="total_length" jdbcType="DECIMAL" property="totalLength" />
     <result column="type_width" jdbcType="DECIMAL" property="typeWidth" />
     <result column="type_depth" jdbcType="DECIMAL" property="typeDepth" />
@@ -77,9 +78,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ship_id, total_length, type_width, type_depth, displacement, design_draft, structural_draft, 
-    hold_number, temperature, cargo_proportion, steam_pressure, ship_image, other_file, 
-    state, update_time
+    ship_id, ship_name, total_length, type_width, type_depth, displacement, design_draft, 
+    structural_draft, hold_number, temperature, cargo_proportion, steam_pressure, ship_image, 
+    other_file, state, update_time
   </sql>
   <select id="selectByExample" parameterType="com.lh.pojo.ShipInfoExample" resultMap="BaseResultMap">
     select
@@ -112,24 +113,27 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.lh.pojo.ShipInfo">
-    insert into shipinfo (ship_id, total_length, type_width, 
-      type_depth, displacement, design_draft, 
-      structural_draft, hold_number, temperature, 
-      cargo_proportion, steam_pressure, ship_image, 
-      other_file, state, update_time
-      )
-    values (#{shipId,jdbcType=INTEGER}, #{totalLength,jdbcType=DECIMAL}, #{typeWidth,jdbcType=DECIMAL}, 
-      #{typeDepth,jdbcType=DECIMAL}, #{displacement,jdbcType=DECIMAL}, #{designDraft,jdbcType=DECIMAL}, 
-      #{structuralDraft,jdbcType=DECIMAL}, #{holdNumber,jdbcType=INTEGER}, #{temperature,jdbcType=VARCHAR}, 
-      #{cargoProportion,jdbcType=VARCHAR}, #{steamPressure,jdbcType=VARCHAR}, #{shipImage,jdbcType=VARCHAR}, 
-      #{otherFile,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+    insert into shipinfo (ship_id, ship_name, total_length, 
+      type_width, type_depth, displacement, 
+      design_draft, structural_draft, hold_number, 
+      temperature, cargo_proportion, steam_pressure, 
+      ship_image, other_file, state, 
+      update_time)
+    values (#{shipId,jdbcType=INTEGER}, #{shipName,jdbcType=VARCHAR}, #{totalLength,jdbcType=DECIMAL}, 
+      #{typeWidth,jdbcType=DECIMAL}, #{typeDepth,jdbcType=DECIMAL}, #{displacement,jdbcType=DECIMAL}, 
+      #{designDraft,jdbcType=DECIMAL}, #{structuralDraft,jdbcType=DECIMAL}, #{holdNumber,jdbcType=INTEGER}, 
+      #{temperature,jdbcType=VARCHAR}, #{cargoProportion,jdbcType=VARCHAR}, #{steamPressure,jdbcType=VARCHAR}, 
+      #{shipImage,jdbcType=VARCHAR}, #{otherFile,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.lh.pojo.ShipInfo">
     insert into shipinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="shipId != null">
         ship_id,
+      </if>
+      <if test="shipName != null">
+        ship_name,
       </if>
       <if test="totalLength != null">
         total_length,
@@ -177,6 +181,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="shipId != null">
         #{shipId,jdbcType=INTEGER},
+      </if>
+      <if test="shipName != null">
+        #{shipName,jdbcType=VARCHAR},
       </if>
       <if test="totalLength != null">
         #{totalLength,jdbcType=DECIMAL},
@@ -234,6 +241,9 @@
       <if test="record.shipId != null">
         ship_id = #{record.shipId,jdbcType=INTEGER},
       </if>
+      <if test="record.shipName != null">
+        ship_name = #{record.shipName,jdbcType=VARCHAR},
+      </if>
       <if test="record.totalLength != null">
         total_length = #{record.totalLength,jdbcType=DECIMAL},
       </if>
@@ -284,6 +294,7 @@
   <update id="updateByExample" parameterType="map">
     update shipinfo
     set ship_id = #{record.shipId,jdbcType=INTEGER},
+      ship_name = #{record.shipName,jdbcType=VARCHAR},
       total_length = #{record.totalLength,jdbcType=DECIMAL},
       type_width = #{record.typeWidth,jdbcType=DECIMAL},
       type_depth = #{record.typeDepth,jdbcType=DECIMAL},
@@ -305,6 +316,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.lh.pojo.ShipInfo">
     update shipinfo
     <set>
+      <if test="shipName != null">
+        ship_name = #{shipName,jdbcType=VARCHAR},
+      </if>
       <if test="totalLength != null">
         total_length = #{totalLength,jdbcType=DECIMAL},
       </if>
@@ -352,7 +366,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lh.pojo.ShipInfo">
     update shipinfo
-    set total_length = #{totalLength,jdbcType=DECIMAL},
+    set ship_name = #{shipName,jdbcType=VARCHAR},
+      total_length = #{totalLength,jdbcType=DECIMAL},
       type_width = #{typeWidth,jdbcType=DECIMAL},
       type_depth = #{typeDepth,jdbcType=DECIMAL},
       displacement = #{displacement,jdbcType=DECIMAL},
@@ -368,4 +383,26 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where ship_id = #{shipId,jdbcType=INTEGER}
   </update>
+
+  <select id="list" parameterType="Map" resultMap="BaseResultMap">
+    select * from shipinfo
+    <where>
+      <if test="q!=null and q!=''">
+        and (ship_name like #{q}  or total_length like #{q}  or type_width like #{q} or displacement like #{q})
+      </if>
+    </where>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="getTotal" parameterType="Map" resultType="Integer">
+    select
+    count(*) from shipinfo
+    <where>
+      <if test="q!=null and q!=''">
+        and (ship_name like #{q}  or total_length like #{q}  or type_width like #{q} or displacement like #{q})
+      </if>
+    </where>
+  </select>
 </mapper>

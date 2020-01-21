@@ -42,10 +42,6 @@ public class PersonController {
     private CrewService crewService;
     @Autowired
     private ImageService imageService;
-    @Autowired
-    private GradeService gradeService;
-    @Autowired
-    private MajorService majorService;
 
     @RequestMapping("/toInfo")
     public ModelAndView toInfo(HttpServletRequest request){
@@ -67,7 +63,7 @@ public class PersonController {
 //
 
     @RequestMapping("/saveInfo")
-    public String list(HttpServletRequest req,Crew crew,@RequestParam("personPhoto") MultipartFile file) throws Exception {
+    public String list(Crew crew,@RequestParam("personPhoto") MultipartFile file) throws Exception {
 
         if (!file.isEmpty()) {
 

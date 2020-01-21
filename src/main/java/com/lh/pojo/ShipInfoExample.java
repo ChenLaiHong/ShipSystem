@@ -166,6 +166,76 @@ public class ShipInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andShipNameIsNull() {
+            addCriterion("ship_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameIsNotNull() {
+            addCriterion("ship_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameEqualTo(String value) {
+            addCriterion("ship_name =", value, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameNotEqualTo(String value) {
+            addCriterion("ship_name <>", value, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameGreaterThan(String value) {
+            addCriterion("ship_name >", value, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameGreaterThanOrEqualTo(String value) {
+            addCriterion("ship_name >=", value, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameLessThan(String value) {
+            addCriterion("ship_name <", value, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameLessThanOrEqualTo(String value) {
+            addCriterion("ship_name <=", value, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameLike(String value) {
+            addCriterion("ship_name like", value, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameNotLike(String value) {
+            addCriterion("ship_name not like", value, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameIn(List<String> values) {
+            addCriterion("ship_name in", values, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameNotIn(List<String> values) {
+            addCriterion("ship_name not in", values, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameBetween(String value1, String value2) {
+            addCriterion("ship_name between", value1, value2, "shipName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipNameNotBetween(String value1, String value2) {
+            addCriterion("ship_name not between", value1, value2, "shipName");
+            return (Criteria) this;
+        }
+
         public Criteria andTotalLengthIsNull() {
             addCriterion("total_length is null");
             return (Criteria) this;

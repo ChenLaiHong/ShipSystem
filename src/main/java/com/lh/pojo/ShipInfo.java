@@ -1,35 +1,52 @@
 package com.lh.pojo;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Component
 public class ShipInfo {
     private Integer shipId;
 
+    @Excel(name = "名称")
+    private String shipName;
+
+    @Excel(name = "总长")
     private BigDecimal totalLength;
 
+    @Excel(name = "型宽")
     private BigDecimal typeWidth;
 
+    @Excel(name = "型深")
     private BigDecimal typeDepth;
 
+    @Excel(name = "排水量")
     private BigDecimal displacement;
 
+    @Excel(name = "设计型吃水")
     private BigDecimal designDraft;
 
+    @Excel(name = "结构型吃水")
     private BigDecimal structuralDraft;
 
+    @Excel(name = "设计货舱个数")
     private Integer holdNumber;
 
+    @Excel(name = "液货船设计温度")
     private String temperature;
 
+    @Excel(name = "设计液货比重")
     private String cargoProportion;
 
+    @Excel(name = "设计液货舱顶蒸汽压力")
     private String steamPressure;
 
     private String shipImage;
 
     private String otherFile;
 
+    @Excel(name = "状态",replace ={"抛弃_0","正常_1"})
     private Integer state;
 
     private Date updateTime;
@@ -40,6 +57,14 @@ public class ShipInfo {
 
     public void setShipId(Integer shipId) {
         this.shipId = shipId;
+    }
+
+    public String getShipName() {
+        return shipName;
+    }
+
+    public void setShipName(String shipName) {
+        this.shipName = shipName == null ? null : shipName.trim();
     }
 
     public BigDecimal getTotalLength() {

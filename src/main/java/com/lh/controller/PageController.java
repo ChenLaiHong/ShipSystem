@@ -82,9 +82,9 @@ public class PageController {
 //        return "/admin/roles";
     }
     //
-    @RequestMapping("/toTeacher")
-    public String toTeacher(){
-        return "/admin/teacherManage";
+    @RequestMapping("/toShipInfo")
+    public String toShipInfo(){
+        return "/admin/shipInfoManage";
     }
     //登陆操作
     @PostMapping("/login")

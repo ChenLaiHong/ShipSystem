@@ -16,9 +16,7 @@ import java.util.UUID;
  */
 public class FileUploadUtil  {
 
-
-        // 项目根路径下的目录  -- SpringBoot static 目录相当于是根路径下（SpringBoot 默认）
-        public final static String IMG_PATH_PREFIX = "static/upload";
+        public final static String IMG_PATH_PREFIX = "/image/rotPhoto/";
 
         public static String getImgDirFile(MultipartFile file,String filePath) throws Exception {
             String imageName = DateUtil.getCurrentDateStr() + "."
@@ -38,7 +36,7 @@ public class FileUploadUtil  {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return "/image/rotPhoto/"+imageName;
+            return IMG_PATH_PREFIX+imageName;
         }
 
 
