@@ -68,13 +68,19 @@
     }
 
 
-    //打开编辑窗口
+ //打开编辑窗口
     function edit(id){
-//创建XMLHttpRequest
-      　　let xhr = new XMLHttpRequest();
-          //监听响应
-      　　xhr.open("GET","/shipInfo/toEdit?shipId="+id,true);
-      　　xhr.send();
+        w = 1100;
+        h = 600;
+        checkWindow();
+        layer.open({
+            type: 2,
+            title: '修改',
+            shadeClose: true,
+            shade: 0.8,
+            area: [w+'px', h+'px'],
+            content: '/shipInfo/toEdit?shipId='+id //iframe的url
+        });
     }
 
 //删除开始***********************
@@ -185,7 +191,7 @@
 
     <div class="layui-table-toolbar" style="margin-bottom: 3px;">
         <div class="layui-btn-group">
-            <a shiro:hasPermission="/addShipInfo" href="/shipInfo/toAdd" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加</a>
+            <button shiro:hasPermission="/addShipInfo" onclick="add()" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加</button>
             <button shiro:hasPermission="/delShipInfo" type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delSelected()"><i class="layui-icon"></i>删除</button>
             <button shiro:hasPermission="/exportShipInfo" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/shipInfo/exportExcel">导出</a></button>
 

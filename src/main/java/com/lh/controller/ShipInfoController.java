@@ -8,10 +8,9 @@ import cn.afterturn.easypoi.excel.entity.result.ExcelImportResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lh.pojo.*;
+import com.lh.pojo.Result;
 import com.lh.service.*;
-import com.lh.utils.MdUtil;
-import com.lh.utils.ResponseUtil;
-import com.lh.utils.StringUtil;
+import com.lh.utils.*;
 import net.sf.json.JSONObject;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -20,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,16 +27,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.lh.utils.CommentUtils.res;
 import static com.lh.utils.FileUploadUtil.getImgDirFile;
 
 
 /**
- * Created by laiHom on 2019/8/20.
+ * Created by laiHom on 2020/1/22.
  */
 @Controller
 @RequestMapping("/shipInfo")
@@ -82,23 +80,19 @@ public class ShipInfoController {
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("shipId", "");
+        mav.addObject("btn_text", "添加");
+        mav.addObject("save_url", "/shipInfo/add");
         mav.setViewName("/admin/shipInfoAddOrUpdate");
         return mav;
     }
 
     @RequestMapping("/add")
-    public String add(ShipInfo shipInfo, HttpServletResponse response,@RequestParam("shipImageFile") MultipartFile file) throws Exception {
-        if (!file.isEmpty()) {
-            // 存放上传图片文件夹
-            String imageName = getImgDirFile(file,filePath);
-            shipInfo.setShipImage(imageName);
-        }
-        if(shipInfo.getShipId() == null){
-            shipInfoService.add(shipInfo);
-        }else {
-            shipInfoService.update(shipInfo);
-        }
-        return "/admin/shipInfoManage";
+    public String add(ShipInfo shipInfo, HttpServletResponse response) throws Exception {
+
+        int resultTotal = shipInfoService.add(shipInfo);
+        Gson gson = new Gson();
+        ResponseUtil.write(response, gson.toJson(res(resultTotal)));
+        return null;
     }
 
     @RequestMapping("/toEdit")
@@ -106,6 +100,8 @@ public class ShipInfoController {
 
         ModelAndView mav = selectInfo(shipId);
         mav.addObject("shipId", shipId);
+        mav.addObject("btn_text", "修改");
+        mav.addObject("save_url", "/shipInfo/update?shipId="+shipId);
         mav.setViewName("/admin/shipInfoAddOrUpdate");
         return mav;
     }
@@ -176,5 +172,37 @@ public class ShipInfoController {
         mav.addObject("shipInfo", shipInfo);
         return mav;
     }
+
+
+    //图片上传测试
+    @ResponseBody
+    @RequestMapping("upload")
+    public Map upload(MultipartFile file,@RequestParam("shipId")Integer shipId){
+        try{
+            if(file!=null){
+                String fileName = getImgDirFile(file,filePath);
+                Map<String,Object> map2=new HashMap<>();
+                Map<String,Object> map=new HashMap<>();
+                if (shipId != null){
+                    String photo_url = shipInfoService.findById(shipId).getShipImage();
+                    if(photo_url != null){
+                        FileUploadUtil.deleteFile(filePath+photo_url);
+                    }
+                }
+                map.put("code",0);
+                map.put("msg","");
+                map.put("data",map2);
+                map2.put("src",fileName);
+                return map;
+            }
+        }catch (Exception e){
+        }
+        Map<String,Object> map=new HashMap<>();
+        map.put("code",1);
+        map.put("msg","");
+        return map;
+
+    }
+
 
 }

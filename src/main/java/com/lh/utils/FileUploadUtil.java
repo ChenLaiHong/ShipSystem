@@ -39,5 +39,20 @@ public class FileUploadUtil  {
             return IMG_PATH_PREFIX+imageName;
         }
 
+    /**
+     * 删除服务器中的文件
+     * <p>
+     * 根路径
+     *
+     */
+    public static void deleteFile(String savePath) {
+
+        File file = new File(savePath);
+        if (file.exists()) {
+            file.delete();
+        }
+
+    }
+
 
 }

@@ -56,7 +56,7 @@ public class PageController {
 
     @RequestMapping("/toMajor")
     public String toMajor(){
-        return "/admin/majorManage";
+        return "/admin/major";
     }
     //
     @RequestMapping("/toGrade")
