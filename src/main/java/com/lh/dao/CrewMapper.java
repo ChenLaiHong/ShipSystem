@@ -35,4 +35,6 @@ public interface CrewMapper {
     Integer getTotal(Map<String, Object> map);
 
     int inputAll(Map<String, Object> map);
+
+    void updateList(List ints);
 }

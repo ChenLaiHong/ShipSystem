@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
+
 import static com.lh.utils.CommentUtils.res;
 import static com.lh.utils.FileUploadUtil.getImgDirFile;
 
@@ -202,6 +203,19 @@ public class ShipInfoController {
         map.put("msg","");
         return map;
 
+    }
+
+    //删除
+    @RequestMapping("/delete")
+    public String delete(@RequestParam(value = "ids", required = false) String ids, HttpServletResponse response)
+            throws Exception {
+
+        Gson gson = new Gson();
+        Result result = new Result();
+        shipInfoService.delete(ids);
+        result.setSuccess(true);
+        ResponseUtil.write(response, gson.toJson(result));
+        return null;
     }
 
 

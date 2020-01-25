@@ -3,7 +3,9 @@ package com.lh.utils;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.result.ExcelImportResult;
+import com.google.gson.Gson;
 import com.lh.pojo.*;
+import com.lh.pojo.Result;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -56,10 +58,12 @@ public class CommentUtils {
         return result;
     }
 
-    public static List StringIds(String[] ids){
+    //查找需要批量删除的id集合
+    public static List StringIds(String ids){
+        String[] idsStr = ids.split(",");
         List ints = new ArrayList();
-        for(int i =0;i<ids.length;i++){
-            ints.add(Integer.parseInt(ids[i]));
+        for(int i =0;i<idsStr.length;i++){
+            ints.add(idsStr[i]);
         }
         return ints;
     }

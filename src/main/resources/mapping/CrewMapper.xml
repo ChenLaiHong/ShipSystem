@@ -299,7 +299,7 @@
       <if test="q!=null and q!=''">
         and (name like #{q}  or household_register like #{q})
       </if>
-      and role_id != #{roleId}
+      and role_id != #{roleId} and static_live = 1
     </where>
     <if test="start!=null and size!=null">
       limit #{start},#{size}
@@ -313,7 +313,7 @@
       <if test="q!=null and q!=''">
         and (name like #{q}  or household_register like #{q})
       </if>
-      and role_id != #{roleId}
+      and role_id != #{roleId} and static_live = 1
     </where>
   </select>
 
@@ -333,4 +333,19 @@
       )
     </foreach>
   </insert>
+
+  <!--批量修改，逻辑删除
+   1、这里修改的是某个字段的值，参数是int类型的集合
+  2、如果你的是对象的集合，item.字段名 赋值就好了
+  -->
+
+
+  <update id="updateList" parameterType="java.util.List" >
+    UPDATE crew SET
+    static_live = 0
+    WHERE login_id in
+    <foreach collection="list" open="(" close=")" item="id" separator=",">
+      #{id}
+    </foreach>
+  </update>
 </mapper>

@@ -25,7 +25,7 @@ public interface CrewService {
 
     int update(Crew crew);
 
-    void delete(String[] idsStr);
+    void delete(String idsStr);
 
     int inputAll(Map<String, Object> map);
 

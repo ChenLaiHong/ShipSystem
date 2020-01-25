@@ -1,7 +1,5 @@
 package com.lh.controller;
 
-import com.lh.pojo.Notice;
-import com.lh.service.NoticeService;
 import com.lh.service.StudentService;
 import com.lh.utils.MdUtil;
 import org.apache.shiro.SecurityUtils;
@@ -9,15 +7,10 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,8 +21,7 @@ public class PageController {
 
     @Autowired
     private StudentService studentService;
-    @Autowired
-    private NoticeService noticeService;
+
 
 
     //访问登陆页面

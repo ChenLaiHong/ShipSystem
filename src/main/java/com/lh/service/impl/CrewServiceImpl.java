@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.lh.utils.CommentUtils.StringIds;
+
 /**
  * Created by laiHom on 2020/1/18.
  */
@@ -70,15 +72,10 @@ public class CrewServiceImpl implements CrewService {
     }
 
     @Override
-    public void delete(String[] idsStr) {
-        List ints = new ArrayList();
-        for(int i =0;i<idsStr.length;i++){
-            ints.add(idsStr[i]);
-        }
-        CrewExample crewExample = new CrewExample();
-        CrewExample.Criteria criteria = crewExample.createCriteria();
-        criteria.andLoginIdIn(ints);
-        crewMapper.deleteByExample(crewExample);
+    public void delete(String idsStr) {
+
+        crewMapper.updateList(StringIds(idsStr));
+
     }
 
     @Override

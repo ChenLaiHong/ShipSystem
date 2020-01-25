@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static com.lh.utils.CommentUtils.StringIds;
+
 /**
  * Created by lh on 2020/1/21.
  */
@@ -47,5 +49,10 @@ public class ShipInfoServiceImpl implements ShipInfoService {
     @Override
     public List<ShipInfo> getAll() {
         return shipInfoMapper.selectByExample(null);
+    }
+
+    @Override
+    public void delete(String ids) {
+        shipInfoMapper.updateList(StringIds(ids));
     }
 }

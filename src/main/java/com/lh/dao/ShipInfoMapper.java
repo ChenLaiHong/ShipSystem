@@ -32,4 +32,6 @@ public interface ShipInfoMapper {
     List<ShipInfo> list(Map<String, Object> map);
 
     Integer getTotal(Map<String, Object> map);
+
+    void updateList(List<String> ids);
 }

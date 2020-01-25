@@ -20,4 +20,6 @@ public interface ShipInfoService {
     ShipInfo findById(Integer shipId);
 
     List<ShipInfo> getAll();
+
+    void delete(String ids);
 }

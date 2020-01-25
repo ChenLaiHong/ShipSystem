@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import static com.lh.utils.CommentUtils.res;
 
 /**
@@ -104,17 +105,14 @@ public class RoleController {
     }
 
     //删除
-    @RequestMapping("/delete")
-    public String delete(@RequestParam(value = "ids", required = false) String ids, HttpServletResponse response)
-            throws Exception {
-        String[] idsStr = ids.split(",");
-        Gson gson = new Gson();
-        Result result = new Result();
-        roleService.delete(idsStr);
-        result.setSuccess(true);
-        ResponseUtil.write(response, gson.toJson(result));
-        return null;
-    }
+//    @RequestMapping("/delete")
+//    public String delete(@RequestParam(value = "ids", required = false) String ids, HttpServletResponse response)
+//            throws Exception {
+//
+//        roleService.delete(ids);
+//        ResponseUtil.write(response, deleteId());
+//        return null;
+//    }
 
     //分配角色
     @RequestMapping("/saveRoleResources")
