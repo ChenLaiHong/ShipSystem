@@ -23,32 +23,38 @@
                 shade: [0.1,'#fff'] //0.1透明度的白色背景
             });
 
-            if(app.majorName.length<1){
+            if(app.poissonRatio.length<1){
                 layer.closeAll();//关闭loading
-                layer.msg('请输入专业名称!!!!!!');
+                layer.msg('请输入泊松比!!!!!!');
                 return ;
             }
-            if(app.majorCode.length<1){
+            if(app.elasticModulus.length<1){
                 layer.closeAll();//关闭loading
-                layer.msg('请输入专业代码!!!!!!');
+                layer.msg('请输入弹性模型!!!!!!');
                 return ;
             }
 
-            if(app.majorDetails.length<1){
+            if(app.equipmentModel.length<1){
                 layer.closeAll();//关闭loading
-                layer.msg('请输入专业介绍!!!!!!');
+                layer.msg('请输入型号!!!!!!');
+                return ;
+            }
+
+            if(app.equipmentPrice.length<1){
+                layer.closeAll();//关闭loading
+                layer.msg('请输入价格!!!!!!');
                 return ;
             }
 
             var save_url = document.getElementById("save_url").value;
-            console.log(app.departmentName+"*******************************"+app.majorYear)
+
             $.post(save_url,{
-                majorName:app.majorName
-                ,majorCode:app.majorCode
-                ,majorYear:$("#majorYear").val()
-                ,majorMoney:app.majorMoney
-                ,departmentId:$("#departmentId").val()
-                ,majorDetails:app.majorDetails
+                poissonRatio:app.poissonRatio
+                ,elasticModulus:app.elasticModulus
+                ,equipmentModel:app.equipmentModel
+                ,equipmentPrice:app.equipmentPrice
+                ,shipId:$("#shipId").val()
+
 
             },function(result){
                 if(result.success){
@@ -75,68 +81,52 @@
     <form class="layui-form layui-form-pane">
         <input type="hidden" id="save_url" th:value="${save_url}" >
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业名称</label>
+            <label class="layui-form-label" style="color: #00bbee">泊松比</label>
             <div class="layui-input-block">
-                <input type="text" id="majorName" name="majorName" autocomplete="off" th:value="${major !=null? major.majorName:''}" v-model="majorName" placeholder="请输入专业名称" class="layui-input">
+                <input type="text" id="poissonRatio" name="poissonRatio" autocomplete="off" th:value="${equipment !=null? equipment.poissonRatio:''}" v-model="poissonRatio" placeholder="请输入泊松比" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业代码</label>
+            <label class="layui-form-label" style="color: #00bbee">弹性模量</label>
             <div class="layui-input-block">
-                <input type="text" id="majorCode" name="majorCode" autocomplete="off" th:value="${major !=null? major.majorCode:''}" v-model="majorCode" placeholder="请输入专业代码" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业学制</label>
-            <div class="layui-input-block">
-
-                    <select name="majorYear" id="majorYear" lay-filter="majorYear"  >
-                        <td th:if="${major == null}">
-                        <option value="4" selected="">4年</option>
-                        <option value="3">3年</option>
-                        </td>
-                        <td th:if="${major != null}">
-                            <option value="4" th:field="*{major.majorYear}" >4年</option>
-                            <option value="3" th:field="*{major.majorYear}">3年</option>
-                        </td>
-                    </select>
+                <input type="text" id="elasticModulus" name="elasticModulus" autocomplete="off" th:value="${equipment !=null? equipment.elasticModulus:''}" v-model="elasticModulus" placeholder="请输入弹性模量" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业学费</label>
+            <label class="layui-form-label" style="color: #00bbee">型号</label>
             <div class="layui-input-block">
-                <input type="text" id="majorMoney" name="majorMoney" autocomplete="off" th:value="${major !=null? major.majorMoney:''}" v-model="majorMoney" placeholder="请输入专业学费" class="layui-input">
+                <input type="text" id="equipmentModel" name="equipmentModel" autocomplete="off" th:value="${equipment !=null? equipment.equipmentModel:''}" v-model="equipmentModel" placeholder="请输入型号" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业院系</label>
+            <label class="layui-form-label" style="color: #00bbee">价格</label>
             <div class="layui-input-block">
-                <select  id="departmentId" name="departmentId" v-model="departmentId
+                <input type="text" id="equipmentPrice" name="equipmentPrice" autocomplete="off" th:value="${equipment !=null? equipment.equipmentPrice:''}" v-model="equipmentPrice" placeholder="请输入价格" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="color: #00bbee">所属船舶</label>
+            <div class="layui-input-block">
+                <select  id="shipId" name="shipId" v-model="shipId
 ">
-                    <td th:if="${major != null}">
-                        <option th:selected="${major.departmentId eq supplier.departmentId}"
-                                th:each="supplier:${departmentList}"
-                                th:value="${supplier.departmentId}"
-                                th:text="${supplier.departmentName}" >
+                    <td th:if="${equipment != null}">
+                        <option th:selected="${equipment.shipId eq supplier.shipId}"
+                                th:each="supplier:${shipInfoList}"
+                                th:value="${supplier.shipId}"
+                                th:text="${supplier.shipName}" >
                         </option>
                     </td>
 
-                    <td th:if="${major == null}">
-                        <option th:each="departmentList : ${departmentList}" th:text="${departmentList.departmentName}" th:value="${departmentList.departmentId}"></option>
+                    <td th:if="${equipment == null}">
+                        <option th:each="shipInfoList : ${shipInfoList}" th:text="${shipInfoList.shipName}" th:value="${shipInfoList.shipId}"></option>
                     </td>
                 </select>
 
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="color: #00bbee">专业介绍</label>
-            <div class="layui-input-block">
-                <textarea rows="10" cols="50" id="majorDetails" name="majorDetails" v-model="majorDetails"  th:text="${major !=null? major.majorDetails:''}" placeholder="请输入介绍">
-                </textarea>
-            </div>
-        </div>
     </form>
     <div class="site-demo-button" style="margin-top: 20px;">
         <button id="save" onclick="save()" class="layui-btn site-demo-layedit" data-type="content" th:text="${btn_text}"></button>

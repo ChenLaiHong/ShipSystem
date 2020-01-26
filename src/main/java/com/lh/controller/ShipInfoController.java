@@ -202,9 +202,36 @@ public class ShipInfoController {
         map.put("code",1);
         map.put("msg","");
         return map;
-
     }
 
+    //附件上传测试
+    @ResponseBody
+    @RequestMapping("uploadAnnex")
+    public Map uploadAnnex(MultipartFile file,@RequestParam("shipId")Integer shipId){
+        try{
+            if(file!=null){
+                String fileName = getImgDirFile(file,filePath);
+                Map<String,Object> map2=new HashMap<>();
+                Map<String,Object> map=new HashMap<>();
+                if (shipId != null){
+                    String file_url = shipInfoService.findById(shipId).getOtherFile();
+                    if(file_url != null){
+                        FileUploadUtil.deleteFile(filePath+file_url);
+                    }
+                }
+                map.put("code",0);
+                map.put("msg","");
+                map.put("data",map2);
+                map2.put("value",fileName);
+                return map;
+            }
+        }catch (Exception e){
+        }
+        Map<String,Object> map=new HashMap<>();
+        map.put("code",1);
+        map.put("msg","");
+        return map;
+    }
     //删除
     @RequestMapping("/delete")
     public String delete(@RequestParam(value = "ids", required = false) String ids, HttpServletResponse response)

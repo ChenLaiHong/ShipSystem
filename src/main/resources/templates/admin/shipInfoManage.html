@@ -187,6 +187,13 @@
     <dd>正常</dd>
     {{#  } }}
 </script>
+<script type="text/html" id="annex">
+    {{#  if(d.otherFile != null){ }}
+    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-normal" lay-event="detail" href="{{d.otherFile}}" >下载</a>
+    {{#  } else if(d.state ==null) { }}
+    <dd></dd>
+    {{#  } }}
+</script>
 <div class="layui-form" style=" ">
 
     <div class="layui-table-toolbar" style="margin-bottom: 3px;">
@@ -211,6 +218,7 @@
         <div class="layui-btn-group">
             <a shiro:hasPermission="/editShipInfo" class="layui-btn layui-btn-xs" lay-event="edit" >修改</a>
             <a shiro:hasPermission="/editShipInfo" class="layui-btn layui-btn-xs" lay-event="set_state">修改状态</a>
+
             <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="showAll">查看全部</a>
         </div>
     </script>
@@ -239,10 +247,8 @@
                     ,{field:'typeWidth', title: '型宽', width:100,align:"center", edit: 'text'}
                     ,{field:'typeDepth', title: '型深', width:100,align:"center", edit: 'text'}
                     ,{field:'displacement', title: '排水量', width:100,align:"center", edit: 'text'}
-                    ,{field:'designDraft', title: '设计型吃水', width:100,align:"center", edit: 'text'}
-                    ,{field:'structuralDraft', title: '结构型吃水', width:100,align:"center", edit: 'text'}
-                    ,{field:'holdNumber', title: '设计货舱个数', width:100,align:"center", edit: 'text'}
                     ,{field:'state', title: '状态', width:100,align:"center", templet: '#format_status'}
+                    ,{field:'otherFile', title: '附件', width:100,align:"center", templet: '#annex'}
                     ,{field:'updateTime', title: '创建时间', width:200,align:"center"}
                     ,{fixed:'right', width:180,title: '操作',align:"center",  toolbar: '#table_bar'}
                 ]

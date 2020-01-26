@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 @Component
 public class ShipInfo {
     private Integer shipId;
@@ -50,6 +52,10 @@ public class ShipInfo {
     private Integer state;
 
     private Date updateTime;
+
+    private List<Equipment> equipmentList;
+
+    private List<GoodsOperate> goodsOperateList;
 
     public Integer getShipId() {
         return shipId;
@@ -177,5 +183,45 @@ public class ShipInfo {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Equipment> getEquipmentList() {
+        return equipmentList;
+    }
+
+    public void setEquipmentList(List<Equipment> equipmentList) {
+        this.equipmentList = equipmentList;
+    }
+
+    public List<GoodsOperate> getGoodsOperateList() {
+        return goodsOperateList;
+    }
+
+    public void setGoodsOperateList(List<GoodsOperate> goodsOperateList) {
+        this.goodsOperateList = goodsOperateList;
+    }
+
+    public ShipInfo() {
+    }
+
+    public ShipInfo(Integer shipId, String shipName, BigDecimal totalLength, BigDecimal typeWidth, BigDecimal typeDepth, BigDecimal displacement, BigDecimal designDraft, BigDecimal structuralDraft, Integer holdNumber, String temperature, String cargoProportion, String steamPressure, String shipImage, String otherFile, Integer state, Date updateTime, List<Equipment> equipmentList, List<GoodsOperate> goodsOperateList) {
+        this.shipId = shipId;
+        this.shipName = shipName;
+        this.totalLength = totalLength;
+        this.typeWidth = typeWidth;
+        this.typeDepth = typeDepth;
+        this.displacement = displacement;
+        this.designDraft = designDraft;
+        this.structuralDraft = structuralDraft;
+        this.holdNumber = holdNumber;
+        this.temperature = temperature;
+        this.cargoProportion = cargoProportion;
+        this.steamPressure = steamPressure;
+        this.shipImage = shipImage;
+        this.otherFile = otherFile;
+        this.state = state;
+        this.updateTime = updateTime;
+        this.equipmentList = equipmentList;
+        this.goodsOperateList = goodsOperateList;
     }
 }

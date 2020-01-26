@@ -9,6 +9,8 @@
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="ship_id" jdbcType="INTEGER" property="shipId" />
+    <association property="shipInfo" column="ship_id" select="com.lh.dao.ShipInfoMapper.selectByPrimaryKey" javaType="com.lh.pojo.ShipInfo">
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -239,5 +241,64 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       ship_id = #{shipId,jdbcType=INTEGER}
     where operate_id = #{operateId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="list" parameterType="Map" resultMap="BaseResultMap">
+    select * from goodsoperate
+    <where>
+      <if test="q!=null and q!=''">
+        and (bearing_weight like #{q}  or operate_price like #{q})
+      </if>
+      and  state = 1
+    </where>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="getTotal" parameterType="Map" resultType="Integer">
+    select
+    count(*) from goodsoperate
+    <where>
+      <if test="q!=null and q!=''">
+        and (bearing_weight like #{q}  or operate_price like #{q})
+      </if>
+      and state = 1
+    </where>
+  </select>
+
+  <!-- 批量插入
+
+  <insert id="inputAll" parameterType="java.util.Map">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into goodsoperate
+    (eid, poisson_ratio, elastic_modulus,
+    equipment_model, equipment_price, ship_id, update_time)
+    values
+    <foreach collection="equipmentList" item="item" index="index" separator=",">
+      (
+      #{item.eid},#{item.poissonRatio},#{item.elasticModulus},#{item.equipmentModel},#{item.equipmentPrice},
+      #{shipId},now()
+      )
+    </foreach>
+  </insert>
+-->
+
+  <!--批量修改，逻辑删除
+   1、这里修改的是某个字段的值，参数是int类型的集合
+  2、如果你的是对象的集合，item.字段名 赋值就好了
+  -->
+
+
+  <update id="updateList" parameterType="java.util.List" >
+    UPDATE goodsoperate SET
+    state = 0
+    WHERE operate_id in
+    <foreach collection="list" open="(" close=")" item="id" separator=",">
+      #{id}
+    </foreach>
   </update>
 </mapper>

@@ -1,8 +1,10 @@
 package com.lh.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.lh.pojo.GoodsOperate;
 import com.lh.pojo.GoodsOperateExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface GoodsOperateMapper {
@@ -27,4 +29,10 @@ public interface GoodsOperateMapper {
     int updateByPrimaryKeySelective(GoodsOperate record);
 
     int updateByPrimaryKey(GoodsOperate record);
+
+    List<GoodsOperate> list(Map<String, Object> map);
+
+    Integer getTotal(Map<String, Object> map);
+
+    void updateList(List list);
 }

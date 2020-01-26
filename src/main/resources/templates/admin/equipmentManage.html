@@ -56,7 +56,7 @@
     //打开添加窗口
     function add(){
         w = 500;
-        h = 400;
+        h = 500;
         checkWindow();
         layer.open({
             type: 2,
@@ -64,7 +64,7 @@
             shadeClose: true,
             shade: 0.8,
             area: [w+'px', h+'px'],
-            content: '/grade/toAdd' //iframe的url
+            content: '/equipment/toAdd' //iframe的url
         });
     }
 
@@ -72,7 +72,7 @@
     //打开编辑窗口
     function edit(id){
         w = 500;
-        h = 400;
+        h = 500;
         checkWindow();
         layer.open({
             type: 2,
@@ -80,17 +80,31 @@
             shadeClose: true,
             shade: 0.8,
             area: [w+'px', h+'px'],
-            content: '/grade/toEdit?gradeId='+id //iframe的url
+            content: '/equipment/toEdit?eid='+id //iframe的url
         });
     }
 
-
+    //打开上传文件窗口
+    function importFile(){
+        w = 350;
+        h = 350;
+        checkWindow();
+        layer.open({
+            type: 2,
+            title: '上传',
+            shadeClose: true,
+            shade: 0.8,
+            area: [w+'px', h+'px'],
+            content: '/equipment/toImport' //iframe的url
+        });
+    }
+//删除开始***********************
     function del(ids){
         console.log("主键："+ids)
         var index = layer.load(1, {
             shade: [0.1,'#fff'] //0.1透明度的白色背景
         });
-        $.post('/grade/delete',{ids:ids},function(result){
+        $.post('/equipment/delete',{ids:ids},function(result){
             if(result.success){
                 layer.closeAll();
                 layer.msg('删除成功');
@@ -111,17 +125,15 @@
         var ids = "";
         if(selected.data.length>0){
             $.each(selected.data,function(i,val){
-                ids = ids+val.gradeId+",";
+                ids = ids+val.eid+",";
             });
         }
         //去掉最后的逗号,
         ids = ids.substring(0,ids.length-1);
         global_ids = ids;
-
         global_ids_len = selected.data.length;
     }
 
-    //删除
     function delSelected(){
         global_ids="";
         global_ids_len=0;
@@ -137,10 +149,12 @@
             });
         }
     }
+    //删除完成***********************
 
+    //修改*******
     function table_edit_update(id,field,value){
         console.log("field是什么？"+field+"value是什么？"+value)
-        $.post('/grade/update?'+field+'='+value,{gradeId:id},function(result){
+        $.post('/equipment/update?'+field+'='+value,{eid:id},function(result){
             if(result.success){
                 layer.msg('修改成功');
             }else{
@@ -150,37 +164,22 @@
         },'json');
     }
 
-    //修改状态
-    function setState(gradeId){
-        $.post('/grade/setState',{gradeId:gradeId},function(result){
-            if(result.success){
-                layer.closeAll();
-                layer.msg('修改成功');
-                reload_data();
-            }else{
-                layer.closeAll();
-                layer.msg(result.msg);
-            }
-        },'json');
+    function format_department(o) {
+        return o;
     }
 
 
 </script>
 
-<script type="text/html" id="format_state">
-    {{#  if(d.gradeState =='1'){ }}
-    <dd>公示</dd>
-    {{#  } else if(d.gradeState =='0') { }}
-    <dd>下架</dd>
-    {{#  } }}
-</script>
 
 <div class="layui-form" style=" ">
 
     <div class="layui-table-toolbar" style="margin-bottom: 3px;">
         <div class="layui-btn-group">
-            <button shiro:hasPermission="/addGrade" onclick="add()" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加</button>
-            <!--<button shiro:hasPermission="/delGrade" type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delSelected()"><i class="layui-icon"></i>删除</button>-->
+            <button shiro:hasPermission="/addEquipment" onclick="add()" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加</button>
+            <button shiro:hasPermission="/delEquipment" type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delSelected()"><i class="layui-icon"></i>删除</button>
+            <button shiro:hasPermission="/exportEquipment" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/equipment/exportExcel">导出</a></button>
+            <button shiro:hasPermission="/addEquipment" type="button" class="layui-btn layui-btn-normal layui-btn-sm" ><i class="layui-icon"></i><a href="/equipment/exportExcelTel">导出模板</a></button>
         </div>
 
         <div class="layui-input-inline" style="  width: 150px; margin-right: -1px;">
@@ -192,18 +191,12 @@
         </div>
     </div>
 
-
-
     <table class="layui-hide"   id="table" lay-filter="table"></table>
     <script type="text/html" id="table_bar">
-        <div shiro:hasPermission="/editGrade" class="layui-btn-group">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="set_state">修改状态</a>
+        <div class="layui-btn-group">
+            <a shiro:hasPermission="/editEquipment" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
         </div>
     </script>
-
-
-
 
     <script>
         layui.use([ 'laydate', 'laypage', 'layer', 'table', 'carousel',
@@ -218,14 +211,18 @@
                 , element = layui.element; //元素操作
             table.render({
                 elem: '#table'
-                ,url: '/grade/list',
+                ,url: '/equipment/list',
                 height: 'full-60',
                 cols: [
                     [
                     {checkbox: true, fixed: true}
-                    ,{field:'gradeId', title: 'ID',width:20}
-                    ,{field:'gradeName', title: '年级名称', width:220,align:"center", edit: 'text'}
-                    ,{field:'gradeState', title: '状态', width:80,align:"center", templet: '#format_state'}
+                    ,{field:'eid', title: 'ID',width:20}
+                    ,{field:'poissonRatio', title: '泊松比', width:200,align:"center", edit: 'text'}
+                    ,{field:'elasticModulus', title: '弹性模量', width:100,align:"center", edit: 'text'}
+                    ,{field:'equipmentModel', title: '型号', width:100,align:"center", edit: 'text'}
+                    ,{field:'equipmentPrice', title: '价格', width:100,align:"center", edit: 'text'}
+                    ,{title: '所属船舶', width:200,align:"center",templet: '<div>{{format_department(d.shipInfo.shipName)}}</div>'}
+                    ,{field:'updateTime', title: '更新时间', width:160,align:"center"}
                     ,{fixed:'right', width:180,title: '操作',align:"center",  toolbar: '#table_bar'}
                 ]
                 ]
@@ -243,16 +240,15 @@
                 console.log('获得当前行数据'+data);
                 if (layEvent === 'del') {
                     //layer.msg('查看操作' + data.id);
-                    console.log(data.gradeId);
-                    del(data.gradeId);
+                    console.log(data.eid);
+                    del(data.eid);
                 } else if (layEvent === 'edit') {
 //                    layer.msg('编辑操作' + data.noticeId);
-                    edit(data.gradeId);
-                }else if(layEvent === 'set_state'){
-                    setState(data.gradeId);
+                    edit(data.eid);
+                }else if(layEvent === 'showDetail'){
+                    showDetail(data.eid);
                 }
             });
-
 
             //监听单元格编辑
             table.on('edit(table)', function(obj){
@@ -260,7 +256,7 @@
                     ,data = obj.data //得到所在行所有键值
                     ,field = obj.field; //得到字段
                 //layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-                table_edit_update(data.gradeId,field,value);
+                table_edit_update(data.eid,field,value);
             });
 
 

@@ -1,13 +1,10 @@
 package com.lh.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.lh.pojo.Person;
-import com.lh.service.StudentService;
 import com.lh.utils.RedisKey;
 import com.lh.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;

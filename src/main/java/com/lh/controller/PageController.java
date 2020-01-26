@@ -1,6 +1,5 @@
 package com.lh.controller;
 
-import com.lh.service.StudentService;
 import com.lh.utils.MdUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * Created by laiHom on 2019/8/20.
+ * Created by laiHom on 2020/1/20.
  */
 @Controller
 public class PageController {
@@ -30,11 +29,6 @@ public class PageController {
         return "index";
     }
 
-    //登陆成功后访问的首页
-    @RequestMapping("/major")
-    public String major(){
-        return "major";
-    }
 
     @RequestMapping("/main")
     public String main(){
@@ -46,9 +40,9 @@ public class PageController {
         return "/admin/crewManage";
     }
 
-    @RequestMapping("/toMajor")
-    public String toMajor(){
-        return "/admin/major";
+    @RequestMapping("/toEquipment")
+    public String toEquipment(){
+        return "/admin/equipmentManage";
     }
     //
     @RequestMapping("/toGrade")

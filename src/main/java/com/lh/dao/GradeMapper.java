@@ -1,7 +1,5 @@
 package com.lh.dao;
 
-import com.lh.pojo.Grade;
-import com.lh.pojo.GradeExample;
 import java.util.List;
 import java.util.Map;
 

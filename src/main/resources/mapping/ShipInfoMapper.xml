@@ -18,6 +18,28 @@
     <result column="other_file" jdbcType="VARCHAR" property="otherFile" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+
+    <collection ofType="com.lh.pojo.Equipment" property="equipmentList">
+      <id column="eid" jdbcType="INTEGER" property="eid" />
+      <result column="poisson_ratio" jdbcType="DECIMAL" property="poissonRatio" />
+      <result column="elastic_modulus" jdbcType="VARCHAR" property="elasticModulus" />
+      <result column="equipment_model" jdbcType="VARCHAR" property="equipmentModel" />
+      <result column="equipment_price" jdbcType="DECIMAL" property="equipmentPrice" />
+      <result column="ship_id" jdbcType="INTEGER" property="shipId" />
+      <result column="state" jdbcType="INTEGER" property="state" />
+      <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </collection>
+
+    <collection ofType="com.lh.pojo.GoodsOperate" property="goodsOperateList">
+      <id column="operate_id" jdbcType="INTEGER" property="operateId" />
+      <result column="operate_type" jdbcType="INTEGER" property="operateType" />
+      <result column="bearing_weight" jdbcType="DECIMAL" property="bearingWeight" />
+      <result column="operate_price" jdbcType="DECIMAL" property="operatePrice" />
+      <result column="state" jdbcType="INTEGER" property="state" />
+      <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+      <result column="ship_id" jdbcType="INTEGER" property="shipId" />
+    </collection>
+
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

@@ -18,6 +18,8 @@ public class GoodsOperate {
 
     private Integer shipId;
 
+    private ShipInfo shipInfo;
+
     public Integer getOperateId() {
         return operateId;
     }
@@ -72,5 +74,27 @@ public class GoodsOperate {
 
     public void setShipId(Integer shipId) {
         this.shipId = shipId;
+    }
+
+    public ShipInfo getShipInfo() {
+        return shipInfo;
+    }
+
+    public void setShipInfo(ShipInfo shipInfo) {
+        this.shipInfo = shipInfo;
+    }
+
+    public GoodsOperate() {
+    }
+
+    public GoodsOperate(Integer operateId, Integer operateType, BigDecimal bearingWeight, BigDecimal operatePrice, Integer state, Date updateTime, Integer shipId, ShipInfo shipInfo) {
+        this.operateId = operateId;
+        this.operateType = operateType;
+        this.bearingWeight = bearingWeight;
+        this.operatePrice = operatePrice;
+        this.state = state;
+        this.updateTime = updateTime;
+        this.shipId = shipId;
+        this.shipInfo = shipInfo;
     }
 }

@@ -1,6 +1,5 @@
 package com.lh.interceptor;
 
-import com.lh.pojo.Person;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

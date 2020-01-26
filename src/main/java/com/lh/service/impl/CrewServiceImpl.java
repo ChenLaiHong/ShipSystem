@@ -3,8 +3,6 @@ package com.lh.service.impl;
 import com.lh.dao.CrewMapper;
 import com.lh.pojo.Crew;
 import com.lh.pojo.CrewExample;
-import com.lh.pojo.Person;
-import com.lh.pojo.PersonExample;
 import com.lh.service.CrewService;
 import com.lh.utils.MdUtil;
 import org.springframework.beans.factory.annotation.Autowired;

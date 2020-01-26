@@ -1,11 +1,8 @@
 package com.lh.dao;
 
-import com.lh.pojo.Person;
-import com.lh.pojo.PersonExample;
 import java.util.List;
 import java.util.Map;
 
-import com.lh.pojo.Teacher;
 import org.apache.ibatis.annotations.Param;
 
 public interface PersonMapper {
