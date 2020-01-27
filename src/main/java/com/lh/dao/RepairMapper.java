@@ -3,6 +3,8 @@ package com.lh.dao;
 import com.lh.pojo.Repair;
 import com.lh.pojo.RepairExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RepairMapper {
@@ -33,4 +35,10 @@ public interface RepairMapper {
     int updateByPrimaryKeyWithBLOBs(Repair record);
 
     int updateByPrimaryKey(Repair record);
+
+    List<Repair> list(Map<String, Object> map);
+
+    Integer getTotal(Map<String, Object> map);
+
+    void updateList(List list);
 }

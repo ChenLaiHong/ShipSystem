@@ -1,27 +1,39 @@
 package com.lh.pojo;
 
-import java.util.Date;
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
+@Component
 public class Repair {
+
     private Integer repairId;
 
+    @Excel(name = "使用年限")
     private String useYear;
 
+    @Excel(name = "管理")
     private String manage;
 
+    @Excel(name = "船舶维修")
     private String shipMaintenance;
 
     private String shipReport;
 
+    @Excel(name = "消费记录")
     private String consumption;
 
+    @Excel(name = "状态",replace ={"丢弃_0","正常_1"})
     private Integer state;
 
+    @Excel(name = "更新时间",exportFormat ="yyyy-MM-dd")
     private Date updateTime;
 
     private Integer shipId;
 
     private String equipmentUsage;
+
+    private ShipInfo shipInfo;
 
     public Integer getRepairId() {
         return repairId;
@@ -101,5 +113,30 @@ public class Repair {
 
     public void setEquipmentUsage(String equipmentUsage) {
         this.equipmentUsage = equipmentUsage == null ? null : equipmentUsage.trim();
+    }
+
+    public ShipInfo getShipInfo() {
+        return shipInfo;
+    }
+
+    public void setShipInfo(ShipInfo shipInfo) {
+        this.shipInfo = shipInfo;
+    }
+
+    public Repair() {
+    }
+
+    public Repair(Integer repairId, String useYear, String manage, String shipMaintenance, String shipReport, String consumption, Integer state, Date updateTime, Integer shipId, String equipmentUsage, ShipInfo shipInfo) {
+        this.repairId = repairId;
+        this.useYear = useYear;
+        this.manage = manage;
+        this.shipMaintenance = shipMaintenance;
+        this.shipReport = shipReport;
+        this.consumption = consumption;
+        this.state = state;
+        this.updateTime = updateTime;
+        this.shipId = shipId;
+        this.equipmentUsage = equipmentUsage;
+        this.shipInfo = shipInfo;
     }
 }
