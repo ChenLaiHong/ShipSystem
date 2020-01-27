@@ -47,26 +47,7 @@ public class CommentUtils {
         result.put("total", total);
         return result;
     }
-    public static JSONObject findListSecond(List<Notice> list, Long total,String s){
 
-        JSONObject result = new JSONObject();
-        JsonConfig jsonConfig = new JsonConfig();
-        jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor());
-        JSONArray jsonArray = JSONArray.fromObject(list,jsonConfig);
-        result.put("rows", jsonArray);
-        result.put("total", total);
-        return result;
-    }
-
-    //查找需要批量删除的id集合
-    public static List StringIds(String ids){
-        String[] idsStr = ids.split(",");
-        List ints = new ArrayList();
-        for(int i =0;i<idsStr.length;i++){
-            ints.add(idsStr[i]);
-        }
-        return ints;
-    }
 
     public static List<Object> importExcel(MultipartFile file,Object object) throws Exception {
 
@@ -97,4 +78,13 @@ public class CommentUtils {
         return result;
     }
 
+    //查找需要批量删除的id集合
+    public static List StringIds(String ids){
+        String[] idsStr = ids.split(",");
+        List ints = new ArrayList();
+        for(int i =0;i<idsStr.length;i++){
+            ints.add(Integer.parseInt(idsStr[i]));
+        }
+        return ints;
+    }
 }

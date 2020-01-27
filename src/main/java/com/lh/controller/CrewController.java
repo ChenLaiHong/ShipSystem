@@ -40,8 +40,7 @@ import static com.lh.utils.CommentUtils.res;
 @Controller
 @RequestMapping("/crew")
 public class CrewController {
-    @Autowired
-    private StudentService studentService;
+
 
     @Autowired
     private CrewService crewService;

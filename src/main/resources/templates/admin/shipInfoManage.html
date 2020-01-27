@@ -188,9 +188,9 @@
     {{#  } }}
 </script>
 <script type="text/html" id="annex">
-    {{#  if(d.otherFile != null){ }}
+    {{#  if(typeof d.otherFile != "undefined" && d.otherFile != null && d.otherFile != ""){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-normal" lay-event="detail" href="{{d.otherFile}}" >下载</a>
-    {{#  } else if(d.state ==null) { }}
+    {{#  } else if(d.otherFile !=null ) { }}
     <dd></dd>
     {{#  } }}
 </script>

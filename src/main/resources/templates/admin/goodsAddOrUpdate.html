@@ -43,7 +43,6 @@
                 ,shipId:$("#shipId").val()
                 ,operateType:$("#operateType").val()
 
-
             },function(result){
                 if(result.success){
                     //调用 父窗口的  关闭所有窗口 并且刷新 页面
@@ -86,7 +85,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">货物类型</label>
             <div class="layui-input-block">
-                <select name="state" id="state" lay-filter="state">
+                <select name="operateType" id="operateType" lay-filter="operateType">
                     <td th:if="${goodsOperate == null}">
                         <option value="1" selected="">客船</option>
                         <option value="2" >干货船</option>
@@ -107,15 +106,15 @@
             <label class="layui-form-label" style="color: #00bbee">所属船舶</label>
             <div class="layui-input-block">
                 <select  id="shipId" name="shipId" v-model="shipId">
-                    <td th:if="${repair != null}">
-                        <option th:selected="${repair.shipId eq supplier.shipId}"
+                    <td th:if="${goodsOperate != null}">
+                        <option th:selected="${goodsOperate.shipId eq supplier.shipId}"
                                 th:each="supplier:${shipInfoList}"
                                 th:value="${supplier.shipId}"
                                 th:text="${supplier.shipName}" >
                         </option>
                     </td>
 
-                    <td th:if="${repair == null}">
+                    <td th:if="${goodsOperate == null}">
                         <option th:each="shipInfoList : ${shipInfoList}" th:text="${shipInfoList.shipName}" th:value="${shipInfoList.shipId}"></option>
                     </td>
                 </select>

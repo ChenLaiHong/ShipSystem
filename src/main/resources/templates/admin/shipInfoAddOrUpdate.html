@@ -206,7 +206,7 @@
 
         <div class="layui-form-item">
             <div class="layui-upload">
-                <img class="layui-upload-img" id="demo1" th:src="@{${shipInfo.shipImage}}" style="height: 220px;width: 220px">
+                <img class="layui-upload-img" id="demo1" th:src="${shipInfo !=null? shipInfo.shipImage:''}" style="height: 220px;width: 220px">
                 <button type="button" class="layui-btn" id="test1">上传图纸</button>
                 <p id="demoText"></p>
             </div>

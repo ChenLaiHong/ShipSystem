@@ -18,8 +18,6 @@ import java.util.Map;
 @Controller
 public class PageController {
 
-    @Autowired
-    private StudentService studentService;
 
 
 
@@ -45,21 +43,18 @@ public class PageController {
         return "/admin/equipmentManage";
     }
     //
-    @RequestMapping("/toGrade")
-    public String toGrade(){
-        return "/admin/gradeManage";
+    @RequestMapping("/toRepair")
+    public String toRepair(){
+        return "/admin/repairManage";
     }
 
     //
-    @RequestMapping("/toDepartment")
-    public String toDepartment(){
-        return "/admin/departmentManage";
+    @RequestMapping("/toGoods")
+    public String toGoods(){
+        return "/admin/goodsManage";
     }
 
-    @RequestMapping("/toNotice")
-    public String toNotice(){
-        return "/admin/noticeManage";
-    }
+
 
     //
     @RequestMapping("/toRole")

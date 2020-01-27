@@ -169,10 +169,11 @@
     }
 
 </script>
+
 <script type="text/html" id="annex">
-    {{#  if(d.shipReport.length > 0){ }}
+    {{#  if(typeof d.shipReport != "undefined" && d.shipReport != null && d.shipReport != ""){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-normal" lay-event="detail" href="{{d.shipReport}}" >下载</a>
-    {{#  } else if(d.shipReport ==null) { }}
+    {{#  } else if(d.shipReport !=null ) { }}
     <dd></dd>
     {{#  } }}
 </script>

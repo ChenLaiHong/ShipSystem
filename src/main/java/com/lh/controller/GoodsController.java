@@ -78,7 +78,7 @@ public class GoodsController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("shipInfoList", shipInfoList);
         mav.addObject("btn_text", "添加");
-        mav.addObject("save_url", "/equipment/add");
+        mav.addObject("save_url", "/goods/add");
         mav.setViewName("/admin/goodsAddOrUpdate");
         return mav;
     }
@@ -100,7 +100,7 @@ public class GoodsController {
         mav.addObject("goodsOperate", goodsOperate);
         mav.addObject("shipInfoList", shipInfoList);
         mav.addObject("btn_text", "修改");
-        mav.addObject("save_url", "/goods/update?operateId="+goodsOperate);
+        mav.addObject("save_url", "/goods/update?operateId="+operateId);
 
         mav.setViewName("/admin/goodsAddOrUpdate");
         return mav;
