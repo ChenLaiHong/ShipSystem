@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50627
 File Encoding         : 65001
 
-Date: 2020-01-25 10:48:37
+Date: 2020-01-27 11:55:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,12 +37,14 @@ CREATE TABLE `crew` (
 -- Records of crew
 -- ----------------------------
 INSERT INTO `crew` VALUES ('111', '11222', 'e10adc3949ba59abbe56e057f20f883e', '0', null, null, null, '', '0', '1');
-INSERT INTO `crew` VALUES ('12345632', '22', 'e10adc3949ba59abbe56e057f20f883e', '1', null, null, null, '', '1', '2');
+INSERT INTO `crew` VALUES ('12345632', '22', 'e10adc3949ba59abbe56e057f20f883e', '0', null, null, null, '', '0', '2');
+INSERT INTO `crew` VALUES ('123456789', '张三', 'e10adc3949ba59abbe56e057f20f883e', '0', null, null, null, '', '1', '2');
 INSERT INTO `crew` VALUES ('16210120721', 'test1', 'e10adc3949ba59abbe56e057f20f883e', '0', null, null, null, '', '1', '2');
 INSERT INTO `crew` VALUES ('16210120722', 'test', 'e10adc3949ba59abbe56e057f20f883e', '0', null, null, null, '', '1', '1');
 INSERT INTO `crew` VALUES ('16210120723', '赖红', 'e10adc3949ba59abbe56e057f20f883e', '1', '17765602540', '1998-01-22', '1185630400@qq.com', '广东省/广州市/海珠区', '1', '1');
 INSERT INTO `crew` VALUES ('16210120745', '111', 'e10adc3949ba59abbe56e057f20f883e', '1', null, null, null, '', '0', '1');
 INSERT INTO `crew` VALUES ('201613240323', '湛颖鸿', 'e10adc3949ba59abbe56e057f20f883e', '0', '18718934520', '2020-01-24', '1185630455@qq.com', '北京市/北京市/朝阳区', '1', '4');
+INSERT INTO `crew` VALUES ('987456321', '张三', 'e10adc3949ba59abbe56e057f20f883e', '1', null, null, null, '', '1', '1');
 
 -- ----------------------------
 -- Table structure for equipment
@@ -55,16 +57,30 @@ CREATE TABLE `equipment` (
   `equipment_model` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '型号',
   `equipment_price` decimal(22,4) DEFAULT NULL COMMENT '价格',
   `ship_id` int(11) DEFAULT NULL COMMENT '外键，船舶主键',
-  `state` int(11) DEFAULT NULL COMMENT '状态（1：正常；0：抛弃）',
+  `state` int(11) DEFAULT '1' COMMENT '状态（1：正常；0：抛弃）',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`eid`) USING BTREE,
   KEY `ship_id` (`ship_id`) USING BTREE,
   CONSTRAINT `equipment_ibfk_1` FOREIGN KEY (`ship_id`) REFERENCES `shipinfo` (`ship_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of equipment
 -- ----------------------------
+INSERT INTO `equipment` VALUES ('1', '4.0000', '2', '222', '2.3000', '1', '1', '2020-01-25 23:00:32');
+INSERT INTO `equipment` VALUES ('2', '2.3000', 'test', 'test', '5.6000', '1', '1', '2020-01-25 23:09:32');
+INSERT INTO `equipment` VALUES ('3', '5.6000', 'ss', 'ss', '4.5000', '1', '1', '2020-01-25 23:09:32');
+INSERT INTO `equipment` VALUES ('4', '2.3000', 'test', 'test', '5.6000', '1', '0', '2020-01-25 23:09:32');
+INSERT INTO `equipment` VALUES ('5', '5.6000', 'ss', 'ss', '4.5000', '1', '0', '2020-01-25 23:09:32');
+INSERT INTO `equipment` VALUES ('6', '2.3200', 'testaa', 'test', '15.6000', '3', '0', '2020-01-25 23:15:49');
+INSERT INTO `equipment` VALUES ('7', '15.6000', 'ssaa', 'ss', '14.5000', '3', '0', '2020-01-25 23:15:49');
+INSERT INTO `equipment` VALUES ('8', '2.3200', 'testaa', 'test', '15.6000', '3', '1', '2020-01-25 23:15:49');
+INSERT INTO `equipment` VALUES ('9', '15.6000', 'ssaa', 'ss', '14.5000', '1', '1', '2020-01-25 23:22:40');
+INSERT INTO `equipment` VALUES ('10', '4.0000', '44', '4444', '44.2000', '5', '1', '2020-01-26 17:44:54');
+INSERT INTO `equipment` VALUES ('11', '5.0000', '55', '6699', '55.2000', '5', '1', '2020-01-27 11:27:00');
+INSERT INTO `equipment` VALUES ('12', '4.0000', '44', '4444', '44.2000', '5', '0', '2020-01-26 17:44:54');
+INSERT INTO `equipment` VALUES ('13', '5.0000', '55', '5555', '55.2000', '5', '0', '2020-01-26 17:44:54');
+INSERT INTO `equipment` VALUES ('14', null, null, null, null, '2', '1', '2020-01-27 11:36:07');
 
 -- ----------------------------
 -- Table structure for goodsoperate
@@ -75,15 +91,18 @@ CREATE TABLE `goodsoperate` (
   `operate_type` int(11) DEFAULT NULL COMMENT '运输货物类型（1：客船，2：干货船，3：液货船，4：滚装船）',
   `bearing_weight` decimal(22,4) DEFAULT NULL COMMENT '承载重量',
   `operate_price` decimal(10,2) DEFAULT NULL COMMENT '货物价格',
-  `state` int(11) DEFAULT NULL COMMENT '状态（1：正常；0：抛弃）',
+  `state` int(11) DEFAULT '1' COMMENT '状态（1：正常；0：抛弃）',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `ship_id` int(11) DEFAULT NULL COMMENT '外键，船舶主键',
   PRIMARY KEY (`operate_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of goodsoperate
 -- ----------------------------
+INSERT INTO `goodsoperate` VALUES ('1', '1', '45.3000', '55.30', '1', '2020-01-27 11:38:48', '2');
+INSERT INTO `goodsoperate` VALUES ('2', '2', '236.0000', '365.00', '1', '2020-01-27 11:43:40', '1');
+INSERT INTO `goodsoperate` VALUES ('3', '3', '63.5000', '548.60', '0', '2020-01-27 11:48:04', '4');
 
 -- ----------------------------
 -- Table structure for image
@@ -113,15 +132,18 @@ CREATE TABLE `repair` (
   `ship_maintenance` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '船舶维修',
   `ship_report` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '船检报告',
   `consumption` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '消费记录',
-  `state` int(11) DEFAULT NULL COMMENT '状态（1：正常；0：抛弃）',
+  `state` int(11) DEFAULT '1' COMMENT '状态（1：正常；0：抛弃）',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `ship_id` int(11) DEFAULT NULL COMMENT '外键（船舶主键）',
   PRIMARY KEY (`repair_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of repair
 -- ----------------------------
+INSERT INTO `repair` VALUES ('1', null, '5年', '测试流量', '222啊啊', '', '是是是', '1', '2020-01-26 22:05:40', '1');
+INSERT INTO `repair` VALUES ('2', null, '4年', '是是是', '对对对', '/image/rotPhoto/20200126105155.xls', '额鹅鹅鹅', '1', '2020-01-26 22:51:56', '2');
+INSERT INTO `repair` VALUES ('3', '是的发送到发电风扇', '8年', '是的发生', '水电费', '/image/rotPhoto/20200127113004.xls', '是的', '1', '2020-01-27 11:30:06', '1');
 
 -- ----------------------------
 -- Table structure for resource
@@ -150,33 +172,23 @@ INSERT INTO `resource` VALUES ('7', '船舶添加', '/addShipInfo', '2', '6', '7
 INSERT INTO `resource` VALUES ('8', '船舶修改', '/editShipInfo', '2', '6', '8');
 INSERT INTO `resource` VALUES ('9', '船舶删除', '/delShipInfo', '2', '6', '9');
 INSERT INTO `resource` VALUES ('10', '船舶导出', '/exportShipInfo', '2', '6', '10');
-INSERT INTO `resource` VALUES ('11', '专业管理', '/toMajor', '1', '31', '11');
-INSERT INTO `resource` VALUES ('12', '专业添加', '/addMajor', '2', '11', '12');
-INSERT INTO `resource` VALUES ('13', '专业修改', '/editMajor', '2', '11', '13');
-INSERT INTO `resource` VALUES ('14', '专业删除', '/delMajor', '2', '11', '14');
-INSERT INTO `resource` VALUES ('15', '专业导出', '/exportMajor', '2', '11', '15');
-INSERT INTO `resource` VALUES ('16', '年级管理', '/toGrade', '1', '31', '16');
-INSERT INTO `resource` VALUES ('17', '年级添加', '/addGrade', '2', '16', '17');
-INSERT INTO `resource` VALUES ('18', '年级修改', '/editGrade', '2', '16', '18');
-INSERT INTO `resource` VALUES ('20', '院系管理', '/toDepartment', '1', '31', '20');
-INSERT INTO `resource` VALUES ('21', '院系添加', '/addDepartment', '2', '20', '21');
-INSERT INTO `resource` VALUES ('22', '院系编辑', '/editDepartment', '2', '20', '22');
+INSERT INTO `resource` VALUES ('11', '设备管理', '/toEquipment', '1', '31', '11');
+INSERT INTO `resource` VALUES ('12', '设备添加', '/addEquipment', '2', '11', '12');
+INSERT INTO `resource` VALUES ('13', '设备修改', '/editEquipment', '2', '11', '13');
+INSERT INTO `resource` VALUES ('14', '设备删除', '/delEquipment', '2', '11', '14');
+INSERT INTO `resource` VALUES ('15', '设备导出', '/exportEquipment', '2', '11', '15');
+INSERT INTO `resource` VALUES ('20', '货物管理', '/toGoods', '1', '31', '20');
+INSERT INTO `resource` VALUES ('21', '货物添加', '/addGoods', '2', '20', '21');
+INSERT INTO `resource` VALUES ('22', '货物编辑', '/editGoods', '2', '20', '22');
+INSERT INTO `resource` VALUES ('23', '货物删除', '/delGoods', '2', '20', '23');
 INSERT INTO `resource` VALUES ('24', '角色管理', '/toRole', '1', '31', '24');
 INSERT INTO `resource` VALUES ('25', '角色添加', '/addRole', '2', '24', '25');
 INSERT INTO `resource` VALUES ('26', '角色修改', '/editRole', '2', '24', '26');
-INSERT INTO `resource` VALUES ('27', '通知管理', '/toNotice', '1', '31', '27');
-INSERT INTO `resource` VALUES ('28', '通知添加', '/addNotice', '2', '27', '28');
-INSERT INTO `resource` VALUES ('29', '通知编辑', '/editNotice', '2', '27', '29');
-INSERT INTO `resource` VALUES ('30', '通知删除', '/delNotice', '2', '27', '30');
+INSERT INTO `resource` VALUES ('27', '维修管理', '/toRepair', '1', '31', '27');
+INSERT INTO `resource` VALUES ('28', '维修添加', '/addRepair', '2', '27', '28');
+INSERT INTO `resource` VALUES ('29', '维修编辑', '/editRepair', '2', '27', '29');
+INSERT INTO `resource` VALUES ('30', '维修删除', '/delRepair', '2', '27', '30');
 INSERT INTO `resource` VALUES ('31', '系统', '/sys', '1', '0', '31');
-INSERT INTO `resource` VALUES ('32', '方向选报任务管理', '/choiceTask/page', '1', '31', '32');
-INSERT INTO `resource` VALUES ('33', '专业方向管理', '/directionManager', '2', '11', '33');
-INSERT INTO `resource` VALUES ('34', '添加方向选报任务', '/addTask', '2', '32', '34');
-INSERT INTO `resource` VALUES ('35', '删除方向选报任务', '/delTask', '2', '32', '35');
-INSERT INTO `resource` VALUES ('36', '选报方向', '/chooceDirection', '1', '31', '36');
-INSERT INTO `resource` VALUES ('37', '添加专业方向', '/addDirection', '2', '11', '37');
-INSERT INTO `resource` VALUES ('38', '删除专业方向', '/delDirection', '2', '11', '38');
-INSERT INTO `resource` VALUES ('39', '更新专业方向', '/updateDirection', '2', '11', '39');
 
 -- ----------------------------
 -- Table structure for role
@@ -210,8 +222,6 @@ CREATE TABLE `role_resource` (
 -- Records of role_resource
 -- ----------------------------
 INSERT INTO `role_resource` VALUES ('1', '11');
-INSERT INTO `role_resource` VALUES ('1', '33');
-INSERT INTO `role_resource` VALUES ('1', '36');
 INSERT INTO `role_resource` VALUES ('2', '1');
 INSERT INTO `role_resource` VALUES ('2', '2');
 INSERT INTO `role_resource` VALUES ('2', '3');
@@ -266,11 +276,6 @@ INSERT INTO `role_resource` VALUES ('4', '27');
 INSERT INTO `role_resource` VALUES ('4', '28');
 INSERT INTO `role_resource` VALUES ('4', '29');
 INSERT INTO `role_resource` VALUES ('4', '30');
-INSERT INTO `role_resource` VALUES ('4', '32');
-INSERT INTO `role_resource` VALUES ('4', '33');
-INSERT INTO `role_resource` VALUES ('4', '37');
-INSERT INTO `role_resource` VALUES ('4', '38');
-INSERT INTO `role_resource` VALUES ('4', '39');
 
 -- ----------------------------
 -- Table structure for shipinfo
@@ -294,13 +299,14 @@ CREATE TABLE `shipinfo` (
   `state` int(11) DEFAULT '1' COMMENT '状态（1：正常；0：抛弃）',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`ship_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of shipinfo
 -- ----------------------------
-INSERT INTO `shipinfo` VALUES ('1', '11', '11.0000', '11.0000', '11.0000', '11.0000', '1.0000', '11.0000', '1', '11', '11', '11', '/image/rotPhoto/20200122051525.png', null, '0', '2020-01-22 17:15:27');
+INSERT INTO `shipinfo` VALUES ('1', '啊啊啊', '11.0000', '11.0000', '11.0000', '11.0000', '1.0000', '11.0000', '1', '11', '11', '11', '/image/rotPhoto/20200122051525.png', null, '0', '2020-01-22 17:15:27');
 INSERT INTO `shipinfo` VALUES ('2', '112', '1122.0000', '1124.0000', '15.0000', '225.0000', '225.0000', '2.0000', '2', '2', '2', '22', '/image/rotPhoto/20200122051507.png', null, '0', '2020-01-22 17:15:09');
-INSERT INTO `shipinfo` VALUES ('3', '4', '4.0000', '4.0000', '5.0000', '5.0000', '5.0000', '5.0000', '5', '5', '5', '5', '/image/rotPhoto/20200121033350.png', null, '1', '2020-01-22 17:05:39');
+INSERT INTO `shipinfo` VALUES ('3', '4', '4.0000', '4.0000', '5.0000', '5.0000', '5.0000', '5.0000', '5', '5', '5', '5', '/image/rotPhoto/20200121033350.png', null, '0', '2020-01-22 17:05:39');
 INSERT INTO `shipinfo` VALUES ('4', 'test', '44.0000', '11.0000', '44.0000', '22.0000', '22.0000', '5.0000', '4', '44', '55', '4', '/image/rotPhoto/20200122050331.png', null, '1', '2020-01-22 17:03:44');
-INSERT INTO `shipinfo` VALUES ('5', '112', '1122.0000', '1124.0000', '15.0000', '225.0000', '225.0000', '2.0000', '2', '2', '2', '22', '/image/rotPhoto/20200125104513.jpg', null, '1', '2020-01-25 10:45:16');
+INSERT INTO `shipinfo` VALUES ('5', '11222', '1122.0000', '1124.0000', '15.0000', '225.0000', '225.0000', '2.0000', '2', '2', '2', '22', '/image/rotPhoto/20200125020044.png', '/image/rotPhoto/20200125020057.xlsx', '1', '2020-01-26 22:29:56');
+INSERT INTO `shipinfo` VALUES ('6', '123456789', '3.0000', '3.0000', '3.0000', '3.0000', '3.0000', '3.0000', '3', '3', '3', '3', '/image/rotPhoto/20200126102706.png', '', '1', '2020-01-26 22:28:09');
