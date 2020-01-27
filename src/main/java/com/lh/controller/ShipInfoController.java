@@ -99,8 +99,14 @@ public class ShipInfoController {
     @RequestMapping("/toEdit")
     public ModelAndView toEdit(@RequestParam(value="shipId",required=false)Integer shipId) throws Exception {
 
+        ShipInfo shipInfo = shipInfoService.findById(shipId);
+        String image = shipInfo.getShipImage();
+        String otherFile = shipInfo.getOtherFile();
+
         ModelAndView mav = selectInfo(shipId);
         mav.addObject("shipId", shipId);
+        mav.addObject("image", image);
+        mav.addObject("otherFile", otherFile);
         mav.addObject("btn_text", "修改");
         mav.addObject("save_url", "/shipInfo/update?shipId="+shipId);
         mav.setViewName("/admin/shipInfoAddOrUpdate");

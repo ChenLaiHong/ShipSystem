@@ -57,6 +57,8 @@ public class ShipInfo {
 
     private List<GoodsOperate> goodsOperateList;
 
+    private List<Repair> repairList;
+
     public Integer getShipId() {
         return shipId;
     }
@@ -201,10 +203,18 @@ public class ShipInfo {
         this.goodsOperateList = goodsOperateList;
     }
 
+    public List<Repair> getRepairList() {
+        return repairList;
+    }
+
+    public void setRepairList(List<Repair> repairList) {
+        this.repairList = repairList;
+    }
+
     public ShipInfo() {
     }
 
-    public ShipInfo(Integer shipId, String shipName, BigDecimal totalLength, BigDecimal typeWidth, BigDecimal typeDepth, BigDecimal displacement, BigDecimal designDraft, BigDecimal structuralDraft, Integer holdNumber, String temperature, String cargoProportion, String steamPressure, String shipImage, String otherFile, Integer state, Date updateTime, List<Equipment> equipmentList, List<GoodsOperate> goodsOperateList) {
+    public ShipInfo(Integer shipId, String shipName, BigDecimal totalLength, BigDecimal typeWidth, BigDecimal typeDepth, BigDecimal displacement, BigDecimal designDraft, BigDecimal structuralDraft, Integer holdNumber, String temperature, String cargoProportion, String steamPressure, String shipImage, String otherFile, Integer state, Date updateTime, List<Equipment> equipmentList, List<GoodsOperate> goodsOperateList, List<Repair> repairList) {
         this.shipId = shipId;
         this.shipName = shipName;
         this.totalLength = totalLength;
@@ -223,5 +233,6 @@ public class ShipInfo {
         this.updateTime = updateTime;
         this.equipmentList = equipmentList;
         this.goodsOperateList = goodsOperateList;
+        this.repairList = repairList;
     }
 }

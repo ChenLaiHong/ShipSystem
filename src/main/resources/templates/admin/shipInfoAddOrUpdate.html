@@ -79,8 +79,8 @@
     <form class="layui-form layui-form-pane" action="/shipInfo/add" method="post" enctype="multipart/form-data">
         <input type="hidden" id="shipId" th:value="${shipId}">
         <input type="hidden" id="save_url" th:value="${save_url}">
-        <input type="hidden" id="images" name="images" class="image">
-        <input type="hidden" id="otherFile" name="otherFile" class="otherFile">
+        <input type="hidden" id="images" name="image" class="image" th:value="${image}">
+        <input type="hidden" id="otherFile" name="otherFile" class="otherFile" th:value="${otherFile}">
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">名称</label>
             <div class="layui-input-block">

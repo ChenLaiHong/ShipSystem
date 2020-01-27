@@ -1,19 +1,26 @@
 package com.lh.pojo;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Component
 public class GoodsOperate {
     private Integer operateId;
 
+    @Excel(name = "类型",replace ={"客船_1","干货船_2","液货船_3","滚装船_4"})
     private Integer operateType;
 
+    @Excel(name = "承载重量")
     private BigDecimal bearingWeight;
 
+    @Excel(name = "货物价格")
     private BigDecimal operatePrice;
 
     private Integer state;
 
+    @Excel(name = "更新时间",exportFormat ="yyyy-MM-dd")
     private Date updateTime;
 
     private Integer shipId;

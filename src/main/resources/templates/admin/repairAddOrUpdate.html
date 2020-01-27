@@ -55,6 +55,7 @@
                 ,consumption:app.consumption
                 ,shipId:$("#shipId").val()
                 ,shipReport:$("#shipReport").val()
+                ,equipmentUsage:app.equipmentUsage
 
 
             },function(result){
@@ -125,7 +126,14 @@
                         <option th:each="shipInfoList : ${shipInfoList}" th:text="${shipInfoList.shipName}" th:value="${shipInfoList.shipId}"></option>
                     </td>
                 </select>
+            </div>
+        </div>
 
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="color: #00bbee">设备使用情况</label>
+            <div class="layui-input-block">
+                <textarea rows="10" cols="50" id="equipmentUsage" name="equipmentUsage" v-model="equipmentUsage"  th:text="${repair !=null? repair.equipmentUsage:''}" placeholder="请输入设备使用情况">
+                </textarea>
             </div>
         </div>
 
