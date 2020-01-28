@@ -2,7 +2,9 @@ package com.lh.utils;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.lh.pojo.Resource;
+import com.lh.pojo.Role;
 import com.lh.service.ResourceService;
+import com.lh.service.RoleService;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -13,18 +15,22 @@ import org.springframework.cache.ehcache.EhCacheCache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by laiHom on 2019/8/21.
+ * Created by laiHom on 2020/1/21.
  */
 @Configuration
 public class ShiroConfig {
     @Autowired
     private ResourceService resourceService;
+
     /**
      *创建ShiroFilterFactoryBean
      *
@@ -71,6 +77,7 @@ public class ShiroConfig {
         filterMap.put("/logout", "logout");
 
         filterMap.put("/*","authc");
+
 
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);

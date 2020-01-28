@@ -55,7 +55,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> getAll() {
-        return roleMapper.getAllT();
+        return roleMapper.selectByExample(null);
     }
 
     @Override

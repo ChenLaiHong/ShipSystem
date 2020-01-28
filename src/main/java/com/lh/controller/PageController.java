@@ -1,5 +1,7 @@
 package com.lh.controller;
 
+import com.lh.pojo.Role;
+import com.lh.service.RoleService;
 import com.lh.utils.MdUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,12 +21,16 @@ import java.util.Map;
 @Controller
 public class PageController {
 
-
+    @Autowired
+    private RoleService roleService;
 
 
     //访问登陆页面
     @RequestMapping("/index")
-    public String index(){
+    public String index(HttpServletRequest request){
+        List<Role> roleList = roleService.getAll();
+        System.out.println(roleList.size()+"================daxiao");
+        request.getSession().setAttribute("roleList",roleList);
         return "index";
     }
 

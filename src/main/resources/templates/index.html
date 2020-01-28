@@ -92,10 +92,16 @@
 				</P>
 				<br>
 				<div class="divcss">
-				<input type="radio" name="state" value="1" checked>普通船员
-				<input type="radio" name="state" value="2">中级船员
-				<input type="radio" name="state" value="3">高级船员
-				<input type="radio" name="state" value="4">船长
+					<!--<option th:each="roleList : ${roleList}" th:text="${roleList.roleName}" th:value="${roleList.roleId}"></option>-->
+				<!--<input type="radio" name="state" value="1" checked>普通船员-->
+				<!--<input type="radio" name="state" value="2">中级船员-->
+				<!--<input type="radio" name="state" value="3">高级船员-->
+				<!--<input type="radio" name="state" value="4">船长-->
+
+					<input type ="radio" name="state"
+						   th:each ="state:${session.roleList}"
+						   th:value="${state.roleId}"
+						   th:text ="${state.roleName}"/>
 				</div>
 				<DIV style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
 					<SPAN style="float: left;">
