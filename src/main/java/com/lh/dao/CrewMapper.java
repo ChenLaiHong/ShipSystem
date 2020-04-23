@@ -5,6 +5,7 @@ import com.lh.pojo.CrewExample;
 import java.util.List;
 import java.util.Map;
 
+import com.lh.pojo.NotePad;
 import org.apache.ibatis.annotations.Param;
 
 public interface CrewMapper {
@@ -37,4 +38,6 @@ public interface CrewMapper {
     int inputAll(Map<String, Object> map);
 
     void updateList(List ints);
+
+
 }

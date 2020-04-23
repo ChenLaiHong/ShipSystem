@@ -33,7 +33,15 @@ public class StringUtil {
 		}
 	}
 
-	
+	//截取字符串
+	//str={"time":"2020-04-08","value":"大锅饭"}
+	public static String[] noteStr(String str){
+		String[] result = new String[2];
+		String[] idsStr = str.split("\"");
+		result[0] = idsStr[3];
+		result[1] = idsStr[7];
+		return result;
+	}
 
 	
 }

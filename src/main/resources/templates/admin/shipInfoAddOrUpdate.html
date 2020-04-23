@@ -278,7 +278,6 @@
             elem: '#test2'
             ,url: '/shipInfo/uploadAnnex?shipId='+id
             ,accept:'file'
-            ,size:50000
             ,before: function(obj){
                 obj.preview(function(index, file, result){
                     $('#demo2').attr('value', result);

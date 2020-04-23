@@ -61,13 +61,31 @@ public class PageController {
         return "/admin/goodsManage";
     }
 
+    //
+    @RequestMapping("/toGrate")
+    public String toGrate(){
+        return "/admin/grateManage";
+    }
 
+    @RequestMapping("/toTain")
+    public String toTain(){
+        return "/admin/tainManage";
+    }
 
+    @RequestMapping("/toShipItems")
+    public String toShipItems(){
+        return "/admin/itemsManage";
+    }
     //
     @RequestMapping("/toRole")
     public String toRole(){
         return "/admin/roleManage";
-//        return "/admin/roles";
+    }
+
+    //notePad
+    @RequestMapping("/person/toNotePad")
+    public String notePad(){
+        return "/admin/notePad";
     }
     //
     @RequestMapping("/toShipInfo")

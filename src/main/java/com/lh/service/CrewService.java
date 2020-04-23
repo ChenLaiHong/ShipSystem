@@ -1,6 +1,7 @@
 package com.lh.service;
 
 import com.lh.pojo.Crew;
+import com.lh.pojo.NotePad;
 
 import java.util.List;
 import java.util.Map;
@@ -32,4 +33,6 @@ public interface CrewService {
     List<Crew> getTel();
 
     List<Crew> getAll();
+
+
 }

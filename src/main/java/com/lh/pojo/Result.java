@@ -2,8 +2,6 @@ package com.lh.pojo;
 
 public class Result {
 
-
-	
 	private boolean success;
 	private  Integer errorcode ; 
 	private String msg ;

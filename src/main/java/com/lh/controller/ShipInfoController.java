@@ -185,6 +185,7 @@ public class ShipInfoController {
     @ResponseBody
     @RequestMapping("upload")
     public Map upload(MultipartFile file,@RequestParam("shipId")Integer shipId){
+
         try{
             if(file!=null){
                 String fileName = getImgDirFile(file,filePath);

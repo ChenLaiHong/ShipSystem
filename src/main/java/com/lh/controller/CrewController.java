@@ -6,6 +6,8 @@ import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import cn.afterturn.easypoi.excel.entity.result.ExcelImportResult;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lh.pojo.*;
@@ -18,6 +20,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,8 +33,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import static com.lh.utils.CommentUtils.res;
+import static com.lh.utils.StringUtil.noteStr;
 
 
 /**
@@ -51,6 +57,8 @@ public class CrewController {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private NoteService noteService;
 
     @RequestMapping("/list")
     public String list(@RequestParam(value = "page", required = false) String page,
@@ -257,6 +265,36 @@ public class CrewController {
         return mav;
     }
 
+    //查找记事本
+    @RequestMapping("/toNote")
+    @ResponseBody
+    public NoteResult toNote(HttpServletRequest request) throws Exception {
+        String userId = (String) request.getSession().getAttribute("id");
+        List<NotePadT> notePadList = noteService.getNote(userId);
+
+        NoteResult noteResult = new NoteResult();
+        noteResult.setCode(0);
+        noteResult.setMsg("请求成功");
+        noteResult.setData(notePadList);
+        return noteResult;
+    }
+
+    //添加记事本
+    @RequestMapping("/addNote")
+    @ResponseBody
+    public String addNote(@RequestBody String str, HttpServletRequest request) throws Exception {
+        String userId = (String) request.getSession().getAttribute("id");
+        str= URLDecoder.decode(str, "utf-8");
+        System.out.println(str);
+        String[] idsStr = noteStr(str);
+        NotePad notePad = new NotePad();
+        notePad.setUserId(userId);
+        notePad.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(idsStr[0]));
+        notePad.setValue(idsStr[1]);
+       int result = noteService.add(notePad);
+
+        return "";
+    }
 
 
 }

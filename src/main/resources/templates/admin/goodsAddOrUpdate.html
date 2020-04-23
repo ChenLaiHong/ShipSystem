@@ -39,6 +39,7 @@
 
             $.post(save_url,{
                 bearingWeight:app.bearingWeight
+                ,operateName:app.operateName
                 ,operatePrice:app.operatePrice
                 ,shipId:$("#shipId").val()
                 ,operateType:$("#operateType").val()
@@ -69,6 +70,12 @@
         <input type="hidden" id="save_url" th:value="${save_url}">
 
         <input type="hidden" id="repairId" th:value="${operateId}">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="color: #00bbee">货物名称</label>
+            <div class="layui-input-block">
+                <input type="text" id="operateName" name="operateName" autocomplete="off" th:value="${goodsOperate !=null? goodsOperate.operateName:''}" v-model="operateName" placeholder="请输入货物名称" class="layui-input">
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">承载重量</label>
             <div class="layui-input-block">

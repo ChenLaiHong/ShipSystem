@@ -3,6 +3,7 @@ package com.lh.service.impl;
 import com.lh.dao.CrewMapper;
 import com.lh.pojo.Crew;
 import com.lh.pojo.CrewExample;
+import com.lh.pojo.NotePad;
 import com.lh.service.CrewService;
 import com.lh.utils.MdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,4 +99,6 @@ public class CrewServiceImpl implements CrewService {
     public List<Crew> getAll() {
         return crewMapper.selectByExample(null);
     }
+
+
 }
