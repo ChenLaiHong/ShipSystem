@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lh.dao.MainTainMapper">
+  <resultMap id="BaseResultMap" type="com.lh.pojo.MainTain">
+    <id column="main_tain_id" jdbcType="INTEGER" property="mainTainId" />
+    <result column="main_tain_name" jdbcType="VARCHAR" property="mainTainName" />
+    <result column="main_tain_remark" jdbcType="VARCHAR" property="mainTainRemark" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+
+    <collection  property="itemsList" column="main_tain_id" select="com.lh.dao.TainItemsMapper.selectItems">
+      <id column="item_id" jdbcType="INTEGER" property="itemId" />
+      <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+      <result column="item_demand" jdbcType="VARCHAR" property="itemDemand" />
+      <result column="item_cycle" jdbcType="VARCHAR" property="itemCycle" />
+      <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+      <result column="state" jdbcType="INTEGER" property="state" />
+      <result column="main_tain_id" jdbcType="INTEGER" property="mainTainId" />
+    </collection>
+
+  </resultMap>
+
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    main_tain_id, main_tain_name, main_tain_remark, update_time, state
+  </sql>
+  <select id="selectByExample" parameterType="com.lh.pojo.MainTainExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from main_tain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from main_tain
+    where main_tain_id = #{mainTainId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from main_tain
+    where main_tain_id = #{mainTainId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lh.pojo.MainTainExample">
+    delete from main_tain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lh.pojo.MainTain">
+    insert into main_tain (main_tain_id, main_tain_name, main_tain_remark, 
+      update_time, state)
+    values (#{mainTainId,jdbcType=INTEGER}, #{mainTainName,jdbcType=VARCHAR}, #{mainTainRemark,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lh.pojo.MainTain">
+    insert into main_tain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mainTainId != null">
+        main_tain_id,
+      </if>
+      <if test="mainTainName != null">
+        main_tain_name,
+      </if>
+      <if test="mainTainRemark != null">
+        main_tain_remark,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mainTainId != null">
+        #{mainTainId,jdbcType=INTEGER},
+      </if>
+      <if test="mainTainName != null">
+        #{mainTainName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainTainRemark != null">
+        #{mainTainRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lh.pojo.MainTainExample" resultType="java.lang.Long">
+    select count(*) from main_tain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update main_tain
+    <set>
+      <if test="record.mainTainId != null">
+        main_tain_id = #{record.mainTainId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mainTainName != null">
+        main_tain_name = #{record.mainTainName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainTainRemark != null">
+        main_tain_remark = #{record.mainTainRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update main_tain
+    set main_tain_id = #{record.mainTainId,jdbcType=INTEGER},
+      main_tain_name = #{record.mainTainName,jdbcType=VARCHAR},
+      main_tain_remark = #{record.mainTainRemark,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lh.pojo.MainTain">
+    update main_tain
+    <set>
+      <if test="mainTainName != null">
+        main_tain_name = #{mainTainName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainTainRemark != null">
+        main_tain_remark = #{mainTainRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where main_tain_id = #{mainTainId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lh.pojo.MainTain">
+    update main_tain
+    set main_tain_name = #{mainTainName,jdbcType=VARCHAR},
+      main_tain_remark = #{mainTainRemark,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
+    where main_tain_id = #{mainTainId,jdbcType=INTEGER}
+  </update>
+
+  <select id="list" parameterType="Map" resultMap="BaseResultMap">
+    select * from main_tain
+    <where>
+      <if test="q!=null and q!=''">
+        and main_tain_name like #{q}
+      </if>
+    </where>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="getTotal" parameterType="Map" resultType="Integer">
+    select
+    count(*) from main_tain
+    <where>
+      <if test="q!=null and q!=''">
+        and main_tain_name like #{q}
+      </if>
+    </where>
+  </select>
+
+  <!--批量修改，逻辑删除
+ 1、这里修改的是某个字段的值，参数是int类型的集合
+2、如果你的是对象的集合，item.字段名 赋值就好了
+-->
+
+
+  <update id="updateList" parameterType="java.util.List" >
+    UPDATE main_tain SET
+    state = 0
+    WHERE main_tain_id in
+    <foreach collection="list" open="(" close=")" item="id" separator=",">
+      #{id}
+    </foreach>
+  </update>
+</mapper>

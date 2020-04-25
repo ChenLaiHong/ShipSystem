@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lh.dao.BluePrintMapper">
+  <resultMap id="BaseResultMap" type="com.lh.pojo.BluePrint">
+    <id column="print_id" jdbcType="INTEGER" property="printId" />
+    <result column="print_name" jdbcType="VARCHAR" property="printName" />
+    <result column="print_url" jdbcType="VARCHAR" property="printUrl" />
+    <result column="print_alias_name" jdbcType="VARCHAR" property="printAliasName" />
+    <result column="print_type" jdbcType="VARCHAR" property="printType" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    print_id, print_name, print_url, print_alias_name, print_type, update_time, state
+  </sql>
+  <select id="selectByExample" parameterType="com.lh.pojo.BluePrintExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blue_print
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blue_print
+    where print_id = #{printId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blue_print
+    where print_id = #{printId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lh.pojo.BluePrintExample">
+    delete from blue_print
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lh.pojo.BluePrint">
+    insert into blue_print (print_id, print_name, print_url, 
+      print_alias_name, print_type, update_time, 
+      state)
+    values (#{printId,jdbcType=INTEGER}, #{printName,jdbcType=VARCHAR}, #{printUrl,jdbcType=VARCHAR}, 
+      #{printAliasName,jdbcType=VARCHAR}, #{printType,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lh.pojo.BluePrint">
+    insert into blue_print
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="printId != null">
+        print_id,
+      </if>
+      <if test="printName != null">
+        print_name,
+      </if>
+      <if test="printUrl != null">
+        print_url,
+      </if>
+      <if test="printAliasName != null">
+        print_alias_name,
+      </if>
+      <if test="printType != null">
+        print_type,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="printId != null">
+        #{printId,jdbcType=INTEGER},
+      </if>
+      <if test="printName != null">
+        #{printName,jdbcType=VARCHAR},
+      </if>
+      <if test="printUrl != null">
+        #{printUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="printAliasName != null">
+        #{printAliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="printType != null">
+        #{printType,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lh.pojo.BluePrintExample" resultType="java.lang.Long">
+    select count(*) from blue_print
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update blue_print
+    <set>
+      <if test="record.printId != null">
+        print_id = #{record.printId,jdbcType=INTEGER},
+      </if>
+      <if test="record.printName != null">
+        print_name = #{record.printName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.printUrl != null">
+        print_url = #{record.printUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.printAliasName != null">
+        print_alias_name = #{record.printAliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.printType != null">
+        print_type = #{record.printType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update blue_print
+    set print_id = #{record.printId,jdbcType=INTEGER},
+      print_name = #{record.printName,jdbcType=VARCHAR},
+      print_url = #{record.printUrl,jdbcType=VARCHAR},
+      print_alias_name = #{record.printAliasName,jdbcType=VARCHAR},
+      print_type = #{record.printType,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lh.pojo.BluePrint">
+    update blue_print
+    <set>
+      <if test="printName != null">
+        print_name = #{printName,jdbcType=VARCHAR},
+      </if>
+      <if test="printUrl != null">
+        print_url = #{printUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="printAliasName != null">
+        print_alias_name = #{printAliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="printType != null">
+        print_type = #{printType,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where print_id = #{printId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lh.pojo.BluePrint">
+    update blue_print
+    set print_name = #{printName,jdbcType=VARCHAR},
+      print_url = #{printUrl,jdbcType=VARCHAR},
+      print_alias_name = #{printAliasName,jdbcType=VARCHAR},
+      print_type = #{printType,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
+    where print_id = #{printId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="list" parameterType="Map" resultMap="BaseResultMap">
+    select * from blue_print
+    <where>
+      <if test="q!=null and q!=''">
+        and (print_name like #{q}  or print_alias_name like #{q} )
+      </if>
+      and  state = 1
+    </where>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="getTotal" parameterType="Map" resultType="Integer">
+    select
+    count(*) from blue_print
+    <where>
+      <if test="q!=null and q!=''">
+        and (print_name like #{q}  or print_alias_name like #{q} )
+      </if>
+      and state = 1
+    </where>
+  </select>
+
+
+
+  <!--批量修改，逻辑删除
+   1、这里修改的是某个字段的值，参数是int类型的集合
+  2、如果你的是对象的集合，item.字段名 赋值就好了
+  -->
+
+
+  <update id="updateList" parameterType="java.util.List" >
+    UPDATE blue_print SET
+    state = 0
+    WHERE print_id in
+    <foreach collection="list" open="(" close=")" item="id" separator=",">
+      #{id}
+    </foreach>
+  </update>
+</mapper>

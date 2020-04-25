@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lh.dao.TainItemsMapper">
+  <resultMap id="BaseResultMap" type="com.lh.pojo.TainItems">
+    <id column="item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="item_demand" jdbcType="VARCHAR" property="itemDemand" />
+    <result column="item_cycle" jdbcType="VARCHAR" property="itemCycle" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="main_tain_id" jdbcType="INTEGER" property="mainTainId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    item_id, item_name, item_demand, item_cycle, update_time, state, main_tain_id
+  </sql>
+  <select id="selectByExample" parameterType="com.lh.pojo.TainItemsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tain_items
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tain_items
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tain_items
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lh.pojo.TainItemsExample">
+    delete from tain_items
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lh.pojo.TainItems">
+    insert into tain_items (item_id, item_name, item_demand, 
+      item_cycle, update_time, state, 
+      main_tain_id)
+    values (#{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, #{itemDemand,jdbcType=VARCHAR}, 
+      #{itemCycle,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
+      #{mainTainId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lh.pojo.TainItems">
+    insert into tain_items
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
+      <if test="itemDemand != null">
+        item_demand,
+      </if>
+      <if test="itemCycle != null">
+        item_cycle,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="mainTainId != null">
+        main_tain_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDemand != null">
+        #{itemDemand,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCycle != null">
+        #{itemCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="mainTainId != null">
+        #{mainTainId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lh.pojo.TainItemsExample" resultType="java.lang.Long">
+    select count(*) from tain_items
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tain_items
+    <set>
+      <if test="record.itemId != null">
+        item_id = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemName != null">
+        item_name = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemDemand != null">
+        item_demand = #{record.itemDemand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemCycle != null">
+        item_cycle = #{record.itemCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.mainTainId != null">
+        main_tain_id = #{record.mainTainId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tain_items
+    set item_id = #{record.itemId,jdbcType=INTEGER},
+      item_name = #{record.itemName,jdbcType=VARCHAR},
+      item_demand = #{record.itemDemand,jdbcType=VARCHAR},
+      item_cycle = #{record.itemCycle,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=INTEGER},
+      main_tain_id = #{record.mainTainId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lh.pojo.TainItems">
+    update tain_items
+    <set>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDemand != null">
+        item_demand = #{itemDemand,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCycle != null">
+        item_cycle = #{itemCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="mainTainId != null">
+        main_tain_id = #{mainTainId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lh.pojo.TainItems">
+    update tain_items
+    set item_name = #{itemName,jdbcType=VARCHAR},
+      item_demand = #{itemDemand,jdbcType=VARCHAR},
+      item_cycle = #{itemCycle,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER},
+      main_tain_id = #{mainTainId,jdbcType=INTEGER}
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectItems" resultMap="BaseResultMap">
+    SELECT * FROM tain_items
+    WHERE main_tain_id = #{main_tain_id}
+  </select>
+  <select id="pageList" parameterType="Map" resultMap="BaseResultMap">
+    select * from tain_items
+    <where>
+      <if test="q!=null and q!=''">
+        and (item_name like #{q} )
+      </if>
+      and  main_tain_id = #{mainTainId}
+    </where>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="getTotal" parameterType="Map" resultType="Integer">
+    select
+    count(*) from tain_items
+    <where>
+      <if test="q!=null and q!=''">
+        and (item_name like #{q} )
+      </if>
+      and  main_tain_id = #{mainTainId}
+    </where>
+  </select>
+
+  <!--批量修改，逻辑删除
+ 1、这里修改的是某个字段的值，参数是int类型的集合
+2、如果你的是对象的集合，item.字段名 赋值就好了
+-->
+
+
+  <update id="updateList" parameterType="java.util.List" >
+    UPDATE tain_items SET
+    state = 0
+    WHERE item_id in
+    <foreach collection="list" open="(" close=")" item="id" separator=",">
+      #{id}
+    </foreach>
+  </update>
+</mapper>
