@@ -10,10 +10,31 @@ Target Server Type    : MYSQL
 Target Server Version : 50627
 File Encoding         : 65001
 
-Date: 2020-01-27 11:55:10
+Date: 2020-04-25 14:15:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for blue_print
+-- ----------------------------
+DROP TABLE IF EXISTS `blue_print`;
+CREATE TABLE `blue_print` (
+  `print_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图纸主键',
+  `print_name` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '图纸名称',
+  `print_url` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '图纸存放地址',
+  `print_alias_name` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '图纸别名',
+  `print_type` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '文件类型',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `state` int(11) DEFAULT NULL COMMENT '状态（1：正常，0：停用）',
+  PRIMARY KEY (`print_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+-- ----------------------------
+-- Records of blue_print
+-- ----------------------------
+INSERT INTO `blue_print` VALUES ('1', 'group', '/image/rotPhoto/20200425021410.wxml', '嗯嗯', 'wxml', '2020-04-25 14:14:11', '0');
+INSERT INTO `blue_print` VALUES ('2', '时间', '/image/rotPhoto/20200425021419.rar', '测试', 'rar', '2020-04-25 14:14:20', '0');
 
 -- ----------------------------
 -- Table structure for crew
@@ -88,21 +109,41 @@ INSERT INTO `equipment` VALUES ('14', null, null, null, null, '2', '1', '2020-01
 DROP TABLE IF EXISTS `goodsoperate`;
 CREATE TABLE `goodsoperate` (
   `operate_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '货物运营主键',
-  `operate_type` int(11) DEFAULT NULL COMMENT '运输货物类型（1：客船，2：干货船，3：液货船，4：滚装船）',
+  `operate_name` varchar(30) COLLATE utf8_general_mysql500_ci NOT NULL COMMENT '货物名称',
   `bearing_weight` decimal(22,4) DEFAULT NULL COMMENT '承载重量',
+  `things_type` int(11) DEFAULT NULL COMMENT '货物类型\r\n(\r\n0：Traveler 旅客,\r\n1：Dangerous Cargo 危险货物，\r\n2：Awkward & Length Cargo 重大长件货物，\r\n3：Bulk Cargo 散装货物，\r\n4：Liquid Cargo 液体货物，\r\n5：Smelled Cargo 气味货物，\r\n6：Food Cargo 食品货物，\r\n7：Dusty and Dirty Cargo 扬尘污染货物，\r\n8：Clean Cargo 清洁货物，\r\n9：Refrigerated Cargo 冷藏货物，\r\n10：Fragile Cargo 易碎货答物，\r\n11：Valuable Cargo 贵重货物，\r\n12：Livestock Cargo 活牲畜货物，\r\n13：Liquefied Cargo 液化货物，\r\n14：Hygroscopic Cargo 易潮货物，\r\n15：General Cargo 普通货物\r\n)',
+  `operate_type` int(11) DEFAULT NULL COMMENT '船舶类型（1：客船，2：干货船，3：液货船，4：滚装船）',
   `operate_price` decimal(10,2) DEFAULT NULL COMMENT '货物价格',
   `state` int(11) DEFAULT '1' COMMENT '状态（1：正常；0：抛弃）',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `ship_id` int(11) DEFAULT NULL COMMENT '外键，船舶主键',
   PRIMARY KEY (`operate_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of goodsoperate
 -- ----------------------------
-INSERT INTO `goodsoperate` VALUES ('1', '1', '45.3000', '55.30', '1', '2020-01-27 11:38:48', '2');
-INSERT INTO `goodsoperate` VALUES ('2', '2', '236.0000', '365.00', '1', '2020-01-27 11:43:40', '1');
-INSERT INTO `goodsoperate` VALUES ('3', '3', '63.5000', '548.60', '0', '2020-01-27 11:48:04', '4');
+INSERT INTO `goodsoperate` VALUES ('4', 'ces', '154.0000', '1', '2', '263.00', '1', '2020-04-23 23:38:16', '4');
+
+-- ----------------------------
+-- Table structure for grate
+-- ----------------------------
+DROP TABLE IF EXISTS `grate`;
+CREATE TABLE `grate` (
+  `grade_id` int(11) NOT NULL AUTO_INCREMENT,
+  `grade_name` varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '等级名',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `state` int(2) DEFAULT '1' COMMENT '状态（1：正常，0：非正常）',
+  PRIMARY KEY (`grade_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+-- ----------------------------
+-- Records of grate
+-- ----------------------------
+INSERT INTO `grate` VALUES ('1', '驾驶部', '2020-04-18 22:22:40', '1');
+INSERT INTO `grate` VALUES ('2', '轮机部', '2020-04-18 22:16:31', '1');
+INSERT INTO `grate` VALUES ('3', '管事部', '2020-04-18 22:16:44', '1');
+INSERT INTO `grate` VALUES ('4', '普通船员', '2020-04-18 22:16:51', '0');
 
 -- ----------------------------
 -- Table structure for image
@@ -119,6 +160,49 @@ CREATE TABLE `image` (
 -- ----------------------------
 INSERT INTO `image` VALUES ('16210120723', '/image/rotPhoto/20200123111542.jpg');
 INSERT INTO `image` VALUES ('201613240323', '/image/rotPhoto/20200120122946.jpg');
+
+-- ----------------------------
+-- Table structure for main_tain
+-- ----------------------------
+DROP TABLE IF EXISTS `main_tain`;
+CREATE TABLE `main_tain` (
+  `main_tain_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '养护主键',
+  `main_tain_name` varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '保养名称',
+  `main_tain_remark` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '备注',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `state` int(11) DEFAULT NULL COMMENT '状态（1：正常，0：非正常）',
+  PRIMARY KEY (`main_tain_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci COMMENT='保修\r\n';
+
+-- ----------------------------
+-- Records of main_tain
+-- ----------------------------
+INSERT INTO `main_tain` VALUES ('1', '装卸载设备', '检修负责人：大副；养护负责人：水手长、木匠', '2020-04-18 23:37:57', '0');
+INSERT INTO `main_tain` VALUES ('2', '系泊系统设备', '检修负责人：大副；养护负责人水手长、木匠', '2020-04-18 23:38:23', '1');
+
+-- ----------------------------
+-- Table structure for note_pad
+-- ----------------------------
+DROP TABLE IF EXISTS `note_pad`;
+CREATE TABLE `note_pad` (
+  `note_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '记事本主键',
+  `time` date DEFAULT NULL COMMENT '时间',
+  `value` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '事件',
+  `user_id` varchar(200) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '用户id',
+  `update_time` date DEFAULT NULL COMMENT '更新时间',
+  `state` int(2) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`note_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+-- ----------------------------
+-- Records of note_pad
+-- ----------------------------
+INSERT INTO `note_pad` VALUES ('1', '2020-04-21', '嗯嗯', '201613240323', '2020-04-20', '1');
+INSERT INTO `note_pad` VALUES ('2', '2020-04-15', '去哪', '201613240323', '2020-04-21', '1');
+INSERT INTO `note_pad` VALUES ('3', '2020-04-23', '开会', '201613240323', '2020-04-21', '1');
+INSERT INTO `note_pad` VALUES ('4', '2020-04-22', '咔咔', '16210120723', '2020-04-21', '1');
+INSERT INTO `note_pad` VALUES ('5', '2020-04-01', '做事', '201613240323', '2020-04-21', '1');
+INSERT INTO `note_pad` VALUES ('6', '2020-04-09', '哈哈', '16210120723', '2020-04-21', '1');
 
 -- ----------------------------
 -- Table structure for repair
@@ -157,7 +241,7 @@ CREATE TABLE `resource` (
   `resource_parent_id` int(11) DEFAULT NULL COMMENT '属于哪个资源的子资源',
   `resource_sort` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`resoure_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of resource
@@ -189,16 +273,32 @@ INSERT INTO `resource` VALUES ('28', '维修添加', '/addRepair', '2', '27', '2
 INSERT INTO `resource` VALUES ('29', '维修编辑', '/editRepair', '2', '27', '29');
 INSERT INTO `resource` VALUES ('30', '维修删除', '/delRepair', '2', '27', '30');
 INSERT INTO `resource` VALUES ('31', '系统', '/sys', '1', '0', '31');
+INSERT INTO `resource` VALUES ('32', '等级管理', '/toGrate', '1', '31', '32');
+INSERT INTO `resource` VALUES ('33', '等级添加', '/addGrate', '2', '32', '33');
+INSERT INTO `resource` VALUES ('34', '等级删除', '/delGrate', '2', '32', '34');
+INSERT INTO `resource` VALUES ('35', '等级修改', '/editGrate', '2', '32', '35');
+INSERT INTO `resource` VALUES ('36', '保修管理', '/toTain', '1', '31', '36');
+INSERT INTO `resource` VALUES ('37', '保修添加', '/addTain', '2', '36', '37');
+INSERT INTO `resource` VALUES ('38', '保修修改', '/editTain', '2', '36', '38');
+INSERT INTO `resource` VALUES ('39', '保修删除', '/delTain', '2', '36', '39');
+INSERT INTO `resource` VALUES ('40', '保修项目管理', '/toShipItems', '1', '31', '40');
+INSERT INTO `resource` VALUES ('41', '保修项目添加', '/addItems', '2', '40', '41');
+INSERT INTO `resource` VALUES ('42', '保修项目修改', '/editItems', '2', '40', '42');
+INSERT INTO `resource` VALUES ('43', '保修项目删除', '/delItems', '2', '40', '43');
+INSERT INTO `resource` VALUES ('44', '图纸管理', '/toPrint', '1', '31', '44');
+INSERT INTO `resource` VALUES ('45', '图纸添加', '/addPrint', '2', '44', '45');
+INSERT INTO `resource` VALUES ('46', '图纸修改', '/editPrint', '2', '44', '46');
+INSERT INTO `resource` VALUES ('47', '图纸删除', '/delPrint', '2', '44', '47');
 
 -- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-  `role_id` int(11) NOT NULL COMMENT '角色主键',
+  `role_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色主键',
   `role_name` varchar(50) DEFAULT NULL COMMENT '角色名称',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of role
@@ -207,6 +307,7 @@ INSERT INTO `role` VALUES ('1', '普通船员');
 INSERT INTO `role` VALUES ('2', '中级船员');
 INSERT INTO `role` VALUES ('3', '高级船员');
 INSERT INTO `role` VALUES ('4', '船长');
+INSERT INTO `role` VALUES ('5', '测试');
 
 -- ----------------------------
 -- Table structure for role_resource
@@ -276,6 +377,41 @@ INSERT INTO `role_resource` VALUES ('4', '27');
 INSERT INTO `role_resource` VALUES ('4', '28');
 INSERT INTO `role_resource` VALUES ('4', '29');
 INSERT INTO `role_resource` VALUES ('4', '30');
+INSERT INTO `role_resource` VALUES ('4', '32');
+INSERT INTO `role_resource` VALUES ('4', '33');
+INSERT INTO `role_resource` VALUES ('4', '34');
+INSERT INTO `role_resource` VALUES ('4', '35');
+INSERT INTO `role_resource` VALUES ('4', '36');
+INSERT INTO `role_resource` VALUES ('4', '37');
+INSERT INTO `role_resource` VALUES ('4', '38');
+INSERT INTO `role_resource` VALUES ('4', '39');
+INSERT INTO `role_resource` VALUES ('4', '40');
+INSERT INTO `role_resource` VALUES ('4', '41');
+INSERT INTO `role_resource` VALUES ('4', '42');
+INSERT INTO `role_resource` VALUES ('4', '43');
+INSERT INTO `role_resource` VALUES ('4', '44');
+INSERT INTO `role_resource` VALUES ('4', '45');
+INSERT INTO `role_resource` VALUES ('4', '46');
+INSERT INTO `role_resource` VALUES ('4', '47');
+
+-- ----------------------------
+-- Table structure for second_grade
+-- ----------------------------
+DROP TABLE IF EXISTS `second_grade`;
+CREATE TABLE `second_grade` (
+  `second_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '二级主键',
+  `second_name` varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '二级名称',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `state` int(2) DEFAULT NULL COMMENT '状态',
+  `grade_id` int(11) DEFAULT NULL COMMENT '一级外键',
+  PRIMARY KEY (`second_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+-- ----------------------------
+-- Records of second_grade
+-- ----------------------------
+INSERT INTO `second_grade` VALUES ('1', '大副', '2020-04-18 23:04:22', '0', '1');
+INSERT INTO `second_grade` VALUES ('2', '二副', '2020-04-18 23:04:13', '1', '1');
 
 -- ----------------------------
 -- Table structure for shipinfo
@@ -307,6 +443,44 @@ CREATE TABLE `shipinfo` (
 INSERT INTO `shipinfo` VALUES ('1', '啊啊啊', '11.0000', '11.0000', '11.0000', '11.0000', '1.0000', '11.0000', '1', '11', '11', '11', '/image/rotPhoto/20200122051525.png', null, '0', '2020-01-22 17:15:27');
 INSERT INTO `shipinfo` VALUES ('2', '112', '1122.0000', '1124.0000', '15.0000', '225.0000', '225.0000', '2.0000', '2', '2', '2', '22', '/image/rotPhoto/20200122051507.png', null, '0', '2020-01-22 17:15:09');
 INSERT INTO `shipinfo` VALUES ('3', '4', '4.0000', '4.0000', '5.0000', '5.0000', '5.0000', '5.0000', '5', '5', '5', '5', '/image/rotPhoto/20200121033350.png', null, '0', '2020-01-22 17:05:39');
-INSERT INTO `shipinfo` VALUES ('4', 'test', '44.0000', '11.0000', '44.0000', '22.0000', '22.0000', '5.0000', '4', '44', '55', '4', '/image/rotPhoto/20200122050331.png', null, '1', '2020-01-22 17:03:44');
+INSERT INTO `shipinfo` VALUES ('4', 'test', '44.0000', '11.0000', '44.0000', '22.0000', '22.0000', '5.0000', '4', '44', '55', '4', '/image/rotPhoto/20200217102826.png', '/image/rotPhoto/20200217102834.rvt', '1', '2020-02-17 22:28:36');
 INSERT INTO `shipinfo` VALUES ('5', '11222', '1122.0000', '1124.0000', '15.0000', '225.0000', '225.0000', '2.0000', '2', '2', '2', '22', '/image/rotPhoto/20200125020044.png', '/image/rotPhoto/20200125020057.xlsx', '1', '2020-01-26 22:29:56');
-INSERT INTO `shipinfo` VALUES ('6', '123456789', '3.0000', '3.0000', '3.0000', '3.0000', '3.0000', '3.0000', '3', '3', '3', '3', '/image/rotPhoto/20200126102706.png', '', '1', '2020-01-26 22:28:09');
+INSERT INTO `shipinfo` VALUES ('6', '123456789', '3.0000', '3.0000', '3.0000', '3.0000', '3.0000', '3.0000', '3', '3', '3', '3', '/image/rotPhoto/20200126102706.png', '/image/rotPhoto/20200217102942.rvt', '1', '2020-02-17 22:29:45');
+
+-- ----------------------------
+-- Table structure for tain_items
+-- ----------------------------
+DROP TABLE IF EXISTS `tain_items`;
+CREATE TABLE `tain_items` (
+  `item_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '项目主键',
+  `item_name` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '项目名称',
+  `item_demand` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '项目要求',
+  `item_cycle` varchar(100) COLLATE utf8_general_mysql500_ci DEFAULT NULL COMMENT '项目周期',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `state` int(2) DEFAULT '1' COMMENT '状态（1：正常，0：非正常）',
+  `main_tain_id` int(11) DEFAULT NULL COMMENT '保修外键',
+  PRIMARY KEY (`item_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci COMMENT='保修项\r\n';
+
+-- ----------------------------
+-- Records of tain_items
+-- ----------------------------
+INSERT INTO `tain_items` VALUES ('1', '各层甲板、船壳外板', '检查腐蚀、损伤、变形、水密情况，除锈、油漆，每年统油一度', '每季度', '2020-04-19 01:13:03', '1', '1');
+INSERT INTO `tain_items` VALUES ('2', '肋骨、桁梁、支柱、龙骨板', '检查腐蚀、损伤、变形、水密情况', '每季度', '2020-04-19 01:13:31', '1', '1');
+INSERT INTO `tain_items` VALUES ('3', '磁罗经', '检查液体有无气泡，罗经刻度盘转动是否灵活，误差有误异常变化。', '每季度', '2020-04-19 01:14:06', '1', '2');
+
+-- ----------------------------
+-- Table structure for test
+-- ----------------------------
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test` (
+  `id` int(11) DEFAULT NULL,
+  `name` varchar(11) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `owner` varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+-- ----------------------------
+-- Records of test
+-- ----------------------------
+INSERT INTO `test` VALUES ('1', '李四a', '2', '张三');

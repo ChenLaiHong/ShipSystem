@@ -87,6 +87,11 @@ public class PageController {
     public String notePad(){
         return "/admin/notePad";
     }
+
+    @RequestMapping("/toPrint")
+    public String toPrint(){
+        return "/admin/printManage";
+    }
     //
     @RequestMapping("/toShipInfo")
     public String toShipInfo(){

@@ -236,66 +236,6 @@ public class GoodsOperateExample {
             return (Criteria) this;
         }
 
-        public Criteria andOperateTypeIsNull() {
-            addCriterion("operate_type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeIsNotNull() {
-            addCriterion("operate_type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeEqualTo(Integer value) {
-            addCriterion("operate_type =", value, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeNotEqualTo(Integer value) {
-            addCriterion("operate_type <>", value, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeGreaterThan(Integer value) {
-            addCriterion("operate_type >", value, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("operate_type >=", value, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeLessThan(Integer value) {
-            addCriterion("operate_type <", value, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("operate_type <=", value, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeIn(List<Integer> values) {
-            addCriterion("operate_type in", values, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeNotIn(List<Integer> values) {
-            addCriterion("operate_type not in", values, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeBetween(Integer value1, Integer value2) {
-            addCriterion("operate_type between", value1, value2, "operateType");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperateTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("operate_type not between", value1, value2, "operateType");
-            return (Criteria) this;
-        }
-
         public Criteria andBearingWeightIsNull() {
             addCriterion("bearing_weight is null");
             return (Criteria) this;
@@ -353,6 +293,126 @@ public class GoodsOperateExample {
 
         public Criteria andBearingWeightNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("bearing_weight not between", value1, value2, "bearingWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeIsNull() {
+            addCriterion("things_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeIsNotNull() {
+            addCriterion("things_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeEqualTo(Integer value) {
+            addCriterion("things_type =", value, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeNotEqualTo(Integer value) {
+            addCriterion("things_type <>", value, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeGreaterThan(Integer value) {
+            addCriterion("things_type >", value, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("things_type >=", value, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeLessThan(Integer value) {
+            addCriterion("things_type <", value, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("things_type <=", value, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeIn(List<Integer> values) {
+            addCriterion("things_type in", values, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeNotIn(List<Integer> values) {
+            addCriterion("things_type not in", values, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeBetween(Integer value1, Integer value2) {
+            addCriterion("things_type between", value1, value2, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andThingsTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("things_type not between", value1, value2, "thingsType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeIsNull() {
+            addCriterion("operate_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeIsNotNull() {
+            addCriterion("operate_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeEqualTo(Integer value) {
+            addCriterion("operate_type =", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotEqualTo(Integer value) {
+            addCriterion("operate_type <>", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeGreaterThan(Integer value) {
+            addCriterion("operate_type >", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("operate_type >=", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLessThan(Integer value) {
+            addCriterion("operate_type <", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("operate_type <=", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeIn(List<Integer> values) {
+            addCriterion("operate_type in", values, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotIn(List<Integer> values) {
+            addCriterion("operate_type not in", values, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeBetween(Integer value1, Integer value2) {
+            addCriterion("operate_type between", value1, value2, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("operate_type not between", value1, value2, "operateType");
             return (Criteria) this;
         }
 

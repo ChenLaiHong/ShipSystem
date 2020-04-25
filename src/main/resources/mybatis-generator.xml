@@ -46,7 +46,7 @@
 
         <!--<table tableName="crew" domainObjectName="Crew"> </table>-->
         <!--<table tableName="equipment" domainObjectName="Equipment"> </table>-->
-        <table tableName="goodsoperate" domainObjectName="GoodsOperate"> </table>
+        <table tableName="blue_print" domainObjectName="BluePrint"> </table>
         <!--<table tableName="prole" domainObjectName="PRole"> </table>-->
         <!--<table tableName="repair" domainObjectName="Repair"> </table>-->
 

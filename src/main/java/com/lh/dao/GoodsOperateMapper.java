@@ -30,7 +30,6 @@ public interface GoodsOperateMapper {
 
     int updateByPrimaryKey(GoodsOperate record);
 
-
     List<GoodsOperate> list(Map<String, Object> map);
 
     Integer getTotal(Map<String, Object> map);

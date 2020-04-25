@@ -43,7 +43,7 @@
                 ,operatePrice:app.operatePrice
                 ,shipId:$("#shipId").val()
                 ,operateType:$("#operateType").val()
-
+                ,thingsType:$("#thingsType").val()
             },function(result){
                 if(result.success){
                     //调用 父窗口的  关闭所有窗口 并且刷新 页面
@@ -91,6 +91,49 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label" style="color: #00bbee">货物类型</label>
+            <div class="layui-input-block">
+                <select name="thingsType" id="thingsType" lay-filter="thingsType">
+                    <td th:if="${goodsOperate == null}">
+                        <option value="0" selected="">旅客</option>
+                        <option value="1" >危险货物</option>
+                        <option value="2" >重大长件货物</option>
+                        <option value="3" >散装货物</option>
+                        <option value="4" >液体货物</option>
+                        <option value="5" >气味货物</option>
+                        <option value="6" >食品货物</option>
+                        <option value="7" >扬尘污染货物</option>
+                        <option value="8" >清洁货物</option>
+                        <option value="9" >冷藏货物</option>
+                        <option value="10" >易碎货答物</option>
+                        <option value="11" >贵重货物</option>
+                        <option value="12" >活牲畜货物</option>
+                        <option value="13" >液化货物</option>
+                        <option value="14" >易潮货物</option>
+                        <option value="15" >普通货物</option>
+                    </td>
+                    <td th:if="${goodsOperate != null}">
+                        <option value="0" th:field="*{goodsOperate.thingsType}">旅客</option>
+                        <option value="1" th:field="*{goodsOperate.thingsType}">危险货物</option>
+                        <option value="2" th:field="*{goodsOperate.thingsType}">重大长件货物</option>
+                        <option value="3" th:field="*{goodsOperate.thingsType}">散装货物</option>
+                        <option value="4" th:field="*{goodsOperate.thingsType}">液体货物</option>
+                        <option value="5" th:field="*{goodsOperate.thingsType}">气味货物</option>
+                        <option value="6" th:field="*{goodsOperate.thingsType}">食品货物</option>
+                        <option value="7" th:field="*{goodsOperate.thingsType}">扬尘污染货物</option>
+                        <option value="8" th:field="*{goodsOperate.thingsType}">清洁货物</option>
+                        <option value="9" th:field="*{goodsOperate.thingsType}">冷藏货物</option>
+                        <option value="10" th:field="*{goodsOperate.thingsType}">易碎货答物</option>
+                        <option value="11" th:field="*{goodsOperate.thingsType}">贵重货物</option>
+                        <option value="12" th:field="*{goodsOperate.thingsType}">活牲畜货物</option>
+                        <option value="13" th:field="*{goodsOperate.thingsType}">液化货物</option>
+                        <option value="14" th:field="*{goodsOperate.thingsType}">易潮货物</option>
+                        <option value="15" th:field="*{goodsOperate.thingsType}">普通货物</option>
+                    </td>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="color: #00bbee">船舶类型</label>
             <div class="layui-input-block">
                 <select name="operateType" id="operateType" lay-filter="operateType">
                     <td th:if="${goodsOperate == null}">

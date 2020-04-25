@@ -126,10 +126,13 @@
         <div title="维修管理" data-options="selected:true,iconCls:'icon-item'" style="padding: 10px">
             <a shiro:hasPermission="/toTain" href="javascript:openTab('保修管理','toTain','icon-stu')"
                class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-stu'" style="width: 150px">保修管理</a>
-            <a shiro:hasPermission="/toShipItems" href="javascript:openTab('保修项目管理','toShipItems','icon-tea')"
-               class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-tea'" style="width: 150px">保修项目管理</a>
-        </div>
 
+        </div>
+        <div title="图纸管理" data-options="selected:true,iconCls:'icon-item'" style="padding: 10px">
+            <a shiro:hasPermission="/toPrint" href="javascript:openTab('图纸管理','toPrint','icon-stu')"
+               class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-stu'" style="width: 150px">图纸管理</a>
+
+        </div>
         <div title="信息查询" data-options="iconCls:'icon-system'" style="padding:10px">
             <a href="javascript:openPasswordModifyDialog()" class="easyui-linkbutton"
                data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 150px;">修改密码</a>
